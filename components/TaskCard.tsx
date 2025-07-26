@@ -25,21 +25,37 @@ const TaskCard: React.FC<TaskCardProps> = ({ title, subtitle, imageUrl, onStart 
 
 const styles = StyleSheet.create({
     container: {
-        backgroundColor: '#f8fbfa',
-        paddingVertical: 12,
-        paddingHorizontal: 16,
-        flexDirection: 'row',
-        justifyContent: 'space-between',
-        alignItems: 'center',
-        gap: 16,
+        backgroundColor: '#ffffff',
+        padding: 16,
+        borderRadius: 12,
+        shadowColor: '#000',
+        shadowOpacity: 0.05,
+        shadowOffset: { width: 0, height: 2 },
+        shadowRadius: 4,
+        elevation: 2, // Android shadow
+        flexDirection: 'column',
+        gap: 12,
     },
-    row: { flexDirection: 'row', alignItems: 'center', gap: 12 },
+    row: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        gap: 12,
+    },
     image: { width: 56, height: 56 },
     imageStyle: { borderRadius: 12 },
-    textContainer: { justifyContent: 'center' },
-    title: { color: '#0e1a13', fontWeight: '500' },
-    subtitle: { color: '#51946c', fontSize: 13 },
+    textContainer: { flex: 1, justifyContent: 'center' },
+    title: {
+        color: '#0e1a13',
+        fontWeight: '600',
+        fontSize: 16,
+    },
+    subtitle: {
+        color: '#51946c',
+        fontSize: 13,
+        marginTop: 2,
+    },
     button: {
+        alignSelf: 'flex-start',
         backgroundColor: '#e8f2ec',
         paddingHorizontal: 16,
         paddingVertical: 6,
