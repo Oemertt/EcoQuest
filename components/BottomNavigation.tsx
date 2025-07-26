@@ -1,30 +1,41 @@
 import React from 'react';
 import { View, Text, Pressable, StyleSheet } from 'react-native';
+import { SafeAreaView, useSafeAreaInsets } from 'react-native-safe-area-context';
 import { Feather } from '@expo/vector-icons';
 
-type NavItem = {
+export type NavItem = {
     label: string;
     icon: keyof typeof Feather.glyphMap;
     isActive?: boolean;
     onPress?: () => void;
+    onSettingsPress?: () => void;
 };
 
 type BottomNavigationProps = {
     items: NavItem[];
 };
 
-const BottomNavigation: React.FC<BottomNavigationProps> = ({ items }) => (
-    <View style={styles.container}>
-        {items.map((item, index) => (
-            <Pressable key={index} onPress={item.onPress} style={styles.item}>
-                <Feather name={item.icon} size={24} color={item.isActive ? '#0e1a13' : '#51946c'} />
-                <Text style={[styles.label, { color: item.isActive ? '#0e1a13' : '#51946c' }]}>{item.label}</Text>
-            </Pressable>
-        ))}
-    </View>
-);
+const BottomNavigation: React.FC<BottomNavigationProps> = ({ items }) => {
+    const insets = useSafeAreaInsets();
+
+    return (
+        <SafeAreaView style={[styles.safeArea, { paddingBottom: Math.max(insets.bottom) }]}>
+            <View style={styles.container}>
+                {items.map((item, index) => (
+                    <Pressable key={index} onPress={item.onPress} style={styles.item}>
+                        <Feather name={item.icon} size={24} color={item.isActive ? '#0e1a13' : '#51946c'} />
+                        <Text style={[styles.label, { color: item.isActive ? '#0e1a13' : '#51946c' }]}>{item.label}</Text>
+                    </Pressable>
+                ))}
+            </View>
+        </SafeAreaView>
+    );
+};
 
 const styles = StyleSheet.create({
+    safeArea: {
+        backgroundColor: '#f8fbfa',
+    },
     container: {
         flexDirection: 'row',
         borderTopWidth: 1,

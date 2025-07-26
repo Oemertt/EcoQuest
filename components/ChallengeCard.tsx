@@ -22,16 +22,43 @@ const ChallengeCard: React.FC<ChallengeCardProps> = ({ title, subtitle, expires,
 const styles = StyleSheet.create({
     card: {
         flexDirection: 'row',
-        gap: 16,
+        backgroundColor: '#ffffff',
         borderRadius: 16,
-        overflow: 'hidden',
+        padding: 16,
+        gap: 16,
+        alignItems: 'center',
+        shadowColor: '#000',
+        shadowOpacity: 0.05,
+        shadowOffset: { width: 0, height: 2 },
+        shadowRadius: 4,
+        elevation: 2, // Android
     },
-    textBlock: { flex: 2 },
-    expires: { color: '#51946c', fontSize: 13 },
-    title: { fontWeight: 'bold', fontSize: 16, color: '#0e1a13' },
-    subtitle: { color: '#51946c', fontSize: 13 },
-    image: { flex: 1, aspectRatio: 1.7 },
-    imageStyle: { borderRadius: 16 },
+    textBlock: {
+        flex: 1,
+        justifyContent: 'center',
+        gap: 4,
+    },
+    expires: {
+        color: '#51946c',
+        fontSize: 13,
+    },
+    title: {
+        fontWeight: '600',
+        fontSize: 16,
+        color: '#0e1a13',
+    },
+    subtitle: {
+        color: '#51946c',
+        fontSize: 13,
+    },
+    image: {
+        width: 72,
+        height: 72,
+    },
+    imageStyle: {
+        borderRadius: 12,
+    },
 });
+
 
 export default ChallengeCard;
