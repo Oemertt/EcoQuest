@@ -1,11 +1,13 @@
 import React from 'react';
 import { View, Text, ImageBackground, Pressable, StyleSheet } from 'react-native';
+import { router } from "expo-router";
+
 
 type TaskCardProps = {
     title: string;
     subtitle: string;
     imageUrl: string;
-    onStart: () => void;
+    onStart?: () => void;
 };
 
 const TaskCard: React.FC<TaskCardProps> = ({ title, subtitle, imageUrl, onStart }) => (

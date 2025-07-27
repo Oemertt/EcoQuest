@@ -7,7 +7,7 @@ type HeaderProps = {
 
 const Header: React.FC<HeaderProps> = ({ title }) => (
     <View style={{ padding: 16, alignItems: 'center', backgroundColor: '#f9fbfa' }}>
-        <Text style={{ fontSize: 22, fontWeight: '900', color: '#5a8c6e' }}>{title}</Text>
+        <Text style={{ fontSize: 25, fontWeight: '900', color: '#5a8c6e' }}>{title}</Text>
     </View>
 );
 
