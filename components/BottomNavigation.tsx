@@ -19,7 +19,7 @@ const BottomNavigation: React.FC<BottomNavigationProps> = ({ items }) => {
     const insets = useSafeAreaInsets();
 
     return (
-        <SafeAreaView style={[styles.safeArea, { paddingBottom: Math.max(insets.bottom) }]}>
+        <SafeAreaView edges={["bottom"]} style={styles.safeArea}>
             <View style={styles.container}>
                 {items.map((item, index) => (
                     <Pressable key={index} onPress={item.onPress} style={styles.item}>

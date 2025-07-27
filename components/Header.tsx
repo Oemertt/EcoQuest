@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, Pressable } from 'react-native';
+import { View, Text } from 'react-native';
 
 type HeaderProps = {
     title: string;
@@ -7,9 +7,8 @@ type HeaderProps = {
 
 const Header: React.FC<HeaderProps> = ({ title }) => (
     <View style={{ padding: 16, alignItems: 'center', backgroundColor: '#f9fbfa' }}>
-        <Text style={{ fontSize: 20, fontWeight: '900', color: '#0e1a13' }}>{title}</Text>
+        <Text style={{ fontSize: 22, fontWeight: '900', color: '#5a8c6e' }}>{title}</Text>
     </View>
 );
-
 
 export default Header;

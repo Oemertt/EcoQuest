@@ -1,11 +1,12 @@
 import React from "react";
-import { View, TextInput, StyleSheet } from "react-native";
+import { View, TextInput, StyleSheet, KeyboardTypeOptions } from "react-native";
 
 interface InputFieldProps {
     placeholder: string;
     value: string;
     onChangeText: (text: string) => void;
     secureTextEntry?: boolean;
+    keyboardType?: KeyboardTypeOptions; // <--- HIER HINZUGEFÜGT
 }
 
 const InputField: React.FC<InputFieldProps> = ({
@@ -13,6 +14,7 @@ const InputField: React.FC<InputFieldProps> = ({
                                                    value,
                                                    onChangeText,
                                                    secureTextEntry = false,
+                                                   keyboardType = "default", // <--- fallback setzen
                                                }) => {
     return (
         <View style={styles.wrapper}>
@@ -23,6 +25,7 @@ const InputField: React.FC<InputFieldProps> = ({
                 value={value}
                 onChangeText={onChangeText}
                 secureTextEntry={secureTextEntry}
+                keyboardType={keyboardType}
                 autoCapitalize="none"
             />
         </View>
@@ -31,7 +34,6 @@ const InputField: React.FC<InputFieldProps> = ({
 
 const styles = StyleSheet.create({
     wrapper: {
-        flex: 1,
         minWidth: 160,
         marginVertical: 8,
     },

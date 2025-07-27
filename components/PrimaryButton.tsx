@@ -9,11 +9,16 @@ import {
 interface PrimaryButtonProps {
     title: string;
     onPress: (event: GestureResponderEvent) => void;
+    color?: string;  // optionales Farb-Prop
 }
 
-const PrimaryButton: React.FC<PrimaryButtonProps> = ({ title, onPress }) => {
+const PrimaryButton: React.FC<PrimaryButtonProps> = ({ title, onPress, color }) => {
     return (
-        <TouchableOpacity style={styles.button} onPress={onPress} activeOpacity={0.8}>
+        <TouchableOpacity
+            style={[styles.button, color ? { backgroundColor: color } : null]} // Farbe hier dynamisch setzen
+            onPress={onPress}
+            activeOpacity={0.8}
+        >
             <Text style={styles.text} numberOfLines={1}>
                 {title}
             </Text>
@@ -23,7 +28,7 @@ const PrimaryButton: React.FC<PrimaryButtonProps> = ({ title, onPress }) => {
 
 const styles = StyleSheet.create({
     button: {
-        backgroundColor: "#94e0b2",
+        backgroundColor: "#94e0b2",  // Standardfarbe
         borderRadius: 24,
         height: 48,
         justifyContent: "center",
