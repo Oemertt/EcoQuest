@@ -1,47 +1,66 @@
-import React, { useState } from "react";
-import TaskHeader from "./TaskHeader";
-import TaskTitleAndDescription from "./TaskTitleAndDescription";
-import TaskSteps from "./TaskSteps";
-import Reward from "./Reward";
-import TaskFooter from "./TaskFooter";
+import React from "react";
+import { View, Text, StyleSheet } from "react-native";
+import TaskCard from "./TaskCard";
 
-const stepsInitial = [
-    { id: "1", text: "Informiere dich über die Recyclingrichtlinien in deiner Gemeinde.", checked: false },
-    { id: "2", text: "Sortiere deinen Müll korrekt in die entsprechenden Behälter.", checked: false },
-    { id: "3", text: "Bringe deinen Müll regelmäßig zum Recyclinghof.", checked: false },
-];
+interface Task {
+    id: string;
+    title: string;
+    subtitle: string;
+    imageUrl: string;
+    onPress?: () => void;   // onPress ist optional, falls gewünscht
+}
 
-const TaskContainer: React.FC = () => {
-    const [steps, setSteps] = useState(stepsInitial);
+interface TaskContainerProps {
+    title: string;
+    description: string;
+    tasks: Task[];
+}
 
-    const toggleStep = (id: string) => {
-        setSteps((prev) =>
-            prev.map((step) => (step.id === id ? { ...step, checked: !step.checked } : step))
-        );
-    };
-
-    const handleStart = () => {
-        alert("Aufgabe gestartet!");
-    };
-
+const TaskContainer: React.FC<TaskContainerProps> = ({
+                                                         title,
+                                                         description,
+                                                         tasks,
+                                                     }) => {
     return (
-        <div
-            className="relative flex size-full min-h-screen flex-col bg-[#f9fbfa] justify-between group/design-root overflow-x-hidden"
-            style={{
-                fontFamily: "'Be Vietnam Pro', 'Noto Sans', sans-serif",
-                // checkbox-tick-svg as CSS variable: falls benötigt, im Tailwind.config eintragen oder inline
-            }}
-        >
-            <TaskHeader title="Aufgabe" onBack={() => alert("Zurück")} />
-            <TaskTitleAndDescription
-                title="Recycling-Meister"
-                description="Lerne, wie du verschiedene Materialien richtig recycelst und deinen Beitrag zum Umweltschutz leistest."
-            />
-            <TaskSteps steps={steps} onToggleStep={toggleStep} />
-            <Reward points={100} />
-            <TaskFooter onStart={handleStart} />
-        </div>
+        <View style={styles.container}>
+            <Text style={styles.title}>{title}</Text>
+            <Text style={styles.description}>{description}</Text>
+
+            {/* Task cards */}
+            {tasks.map((task) => (
+                <View key={task.id} style={styles.cardWrapper}>
+                    <TaskCard
+                        title={task.title}
+                        subtitle={task.subtitle}
+                        imageUrl={task.imageUrl}
+                        onStart={task.onPress}
+                    />
+                </View>
+            ))}
+        </View>
     );
 };
+
+const styles = StyleSheet.create({
+    container: {
+        marginBottom: 32,
+        paddingHorizontal: 16,
+        backgroundColor: "#f9fbfa",
+    },
+    title: {
+        fontSize: 20,
+        fontWeight: "bold",
+        color: "#101914",
+        marginBottom: 8,
+    },
+    description: {
+        fontSize: 16,
+        color: "#101914",
+        marginBottom: 16,
+    },
+    cardWrapper: {
+        marginBottom: 16,
+    },
+});
 
 export default TaskContainer;

@@ -1,21 +1,21 @@
 import React from "react";
 import { ScrollView, StyleSheet, Text } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
-
 import BottomNavigation from "@/components/BottomNavigation";
 import ChallengeCard from "@/components/ChallengeCard";
 import Header from "@/components/Header";
 import ProfileCard from "@/components/ProfileCard";
 import TaskCard from "@/components/TaskCard";
 import { NavItem } from "@/components/BottomNavigation";
+import { router } from "expo-router";
 
 const HomeScreen: React.FC = () => {
 
     const navItems: NavItem[] = [
-        { label: "Home", icon: "home", isActive: true, onPress: () => alert("Profil") },
-        { label: "Aufgaben", icon: "list", onPress: () => alert("Fortschritt") },
-        { label: "Fortschritt", icon: "bar-chart", onPress: () => alert("Rangliste") },
-        { label: "Einstellung", icon: "settings", onPress: () => alert("Einstellung") },
+        { label: "Home", icon: "home", isActive: true},
+        { label: "Aufgaben", icon: "list", onPress: () => router.push("./tasks")},
+        { label: "Fortschritt", icon: "bar-chart", onPress: () => router.push("./progress") },
+        { label: "Einstellung", icon: "settings", onPress: () =>router.push("./settings")  },
     ];
 
     return (
@@ -34,43 +34,43 @@ const HomeScreen: React.FC = () => {
                     title="Einkaufen gehen"
                     subtitle="Besorge frische Lebensmittel"
                     imageUrl="https://images.unsplash.com/photo-1567306226416-28f0efdc88ce"
-                    onStart={() => alert("Aufgabe gestartet")}
+                    onStart={() => router.push("/taskdetail")}
                 />
                 <TaskCard
                     title="Kurzer Spaziergang"
                     subtitle="Geh für 15 Minuten raus"
                     imageUrl="https://images.unsplash.com/photo-1503341455253-b2e723bb3dbb"
-                    onStart={() => alert("Aufgabe gestartet")}
+                    onStart={() => router.push("/taskdetail")}
                 />
                 <TaskCard
                     title="Kurzer Spaziergang"
                     subtitle="Geh für 15 Minuten raus"
                     imageUrl="https://images.unsplash.com/photo-1503341455253-b2e723bb3dbb"
-                    onStart={() => alert("Aufgabe gestartet")}
+                    onStart={() => router.push("/taskdetail")}
                 />
                 <TaskCard
                     title="Kurzer Spaziergang"
                     subtitle="Geh für 15 Minuten raus"
                     imageUrl="https://images.unsplash.com/photo-1503341455253-b2e723bb3dbb"
-                    onStart={() => alert("Aufgabe gestartet")}
+                    onStart={() => router.push("/taskdetail")}
                 />
                 <TaskCard
                     title="Kurzer Spaziergang"
                     subtitle="Geh für 15 Minuten raus"
                     imageUrl="https://images.unsplash.com/photo-1503341455253-b2e723bb3dbb"
-                    onStart={() => alert("Aufgabe gestartet")}
+                    onStart={() => router.push("/taskdetail")}
                 />
                 <TaskCard
                     title="Kurzer Spaziergang"
                     subtitle="Geh für 15 Minuten raus"
                     imageUrl="https://images.unsplash.com/photo-1503341455253-b2e723bb3dbb"
-                    onStart={() => alert("Aufgabe gestartet")}
+                    onStart={() => router.push("/taskdetail")}
                 />
                 <TaskCard
                     title="Kurzer Spaziergang"
                     subtitle="Geh für 15 Minuten raus"
                     imageUrl="https://images.unsplash.com/photo-1503341455253-b2e723bb3dbb"
-                    onStart={() => alert("Aufgabe gestartet")}
+                    onStart={() => router.push("/taskdetail")}
                 />
 
                 <Text style={[styles.sectionTitle, { fontWeight: "bold" }]}>Aktuelle Challenges</Text>
