@@ -1,20 +1,34 @@
 import React from "react";
-import { View, Text, StyleSheet } from "react-native";
+import { View, Text, StyleSheet, TextStyle, ViewStyle } from "react-native";
+import { Ionicons } from "@expo/vector-icons";
 
 interface RewardProps {
     points: number | string;
+    textStyle?: TextStyle;
+    containerStyle?: ViewStyle;
+    showTitle?: boolean;
 }
 
-const Reward: React.FC<RewardProps> = ({ points }) => (
-    <View style={styles.container}>
-        <Text style={styles.title}>Belohnung</Text>
-        <Text style={styles.points}>{points} Punkte</Text>
+const Reward: React.FC<RewardProps> = ({
+                                           points,
+                                           textStyle,
+                                           containerStyle,
+                                           showTitle = true,
+                                       }) => (
+    <View style={[styles.container, containerStyle]}>
+        {showTitle && <Text style={styles.title}>Belohnung</Text>}
+        <View style={styles.row}>
+            <Ionicons name="trophy" size={36} color="#f5c518" style={styles.icon} />
+            <Text style={[styles.points, textStyle]}>{points}</Text>
+        </View>
     </View>
 );
 
 const styles = StyleSheet.create({
     container: {
-        paddingHorizontal: 16,
+        alignItems: "center",
+        justifyContent: "center",
+        paddingVertical: 8,
     },
     title: {
         color: "#101914",
@@ -22,18 +36,20 @@ const styles = StyleSheet.create({
         fontWeight: "bold",
         lineHeight: 24,
         letterSpacing: -0.25,
-        paddingHorizontal: 16,
-        paddingBottom: 8,
-        paddingTop: 16,
+        paddingBottom: 6,
+    },
+    row: {
+        flexDirection: "row",
+        alignItems: "center",
+        gap: 10,
+    },
+    icon: {
+        marginRight: 4,
     },
     points: {
         color: "#101914",
-        fontSize: 16,
-        fontWeight: "normal",
-        lineHeight: 20,
-        paddingBottom: 12,
-        paddingTop: 4,
-        paddingHorizontal: 16,
+        fontSize: 32,
+        fontWeight: "700",
     },
 });
 

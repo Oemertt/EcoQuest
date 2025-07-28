@@ -23,6 +23,8 @@ export default function RootLayout() {
                 <Stack.Screen name="login" options={{ headerShown: false }} />
                 <Stack.Screen name="tasks" options={{ headerShown: false }} />
                 <Stack.Screen name="taskdetail" options={{ headerShown: false }} />
+                <Stack.Screen name="challengedetail" options={{ headerShown: false }} />
+                <Stack.Screen name="progress" options={{ headerShown: false }} />
                 <Stack.Screen name="+not-found" />
             </Stack>
             <StatusBar style="auto" />

@@ -15,7 +15,6 @@ const HomeScreen: React.FC = () => {
         { label: "Home", icon: "home", isActive: true},
         { label: "Aufgaben", icon: "list", onPress: () => router.push("./tasks")},
         { label: "Fortschritt", icon: "bar-chart", onPress: () => router.push("./progress") },
-        { label: "Einstellung", icon: "settings", onPress: () =>router.push("./settings")  },
     ];
 
     return (
@@ -60,18 +59,6 @@ const HomeScreen: React.FC = () => {
                     imageUrl="https://images.unsplash.com/photo-1503341455253-b2e723bb3dbb"
                     onStart={() => router.push("/taskdetail")}
                 />
-                <TaskCard
-                    title="Kurzer Spaziergang"
-                    subtitle="Geh für 15 Minuten raus"
-                    imageUrl="https://images.unsplash.com/photo-1503341455253-b2e723bb3dbb"
-                    onStart={() => router.push("/taskdetail")}
-                />
-                <TaskCard
-                    title="Kurzer Spaziergang"
-                    subtitle="Geh für 15 Minuten raus"
-                    imageUrl="https://images.unsplash.com/photo-1503341455253-b2e723bb3dbb"
-                    onStart={() => router.push("/taskdetail")}
-                />
 
                 <Text style={[styles.sectionTitle, { fontWeight: "bold" }]}>Aktuelle Challenges</Text>
                 <ChallengeCard
@@ -79,30 +66,21 @@ const HomeScreen: React.FC = () => {
                     subtitle="Bleibe heute aktiv!"
                     expires="läuft noch 5 Stunden"
                     imageUrl="https://images.unsplash.com/photo-1506744038136-46273834b3fb"
+                    onStart={() => router.push("/challengedetail")}
                 />
                 <ChallengeCard
                     title="Wasser trinken"
                     subtitle="Trinke 2 Liter heute"
                     expires="läuft noch 12 Stunden"
                     imageUrl="https://images.unsplash.com/photo-1510626176961-4b57d4fbad03"
+                    onStart={() => router.push("/challengedetail")}
                 />
                 <ChallengeCard
                     title="Wasser trinken"
                     subtitle="Trinke 2 Liter heute"
                     expires="läuft noch 12 Stunden"
                     imageUrl="https://images.unsplash.com/photo-1510626176961-4b57d4fbad03"
-                />
-                <ChallengeCard
-                    title="Wasser trinken"
-                    subtitle="Trinke 2 Liter heute"
-                    expires="läuft noch 12 Stunden"
-                    imageUrl="https://images.unsplash.com/photo-1510626176961-4b57d4fbad03"
-                />
-                <ChallengeCard
-                    title="Wasser trinken"
-                    subtitle="Trinke 2 Liter heute"
-                    expires="läuft noch 12 Stunden"
-                    imageUrl="https://images.unsplash.com/photo-1510626176961-4b57d4fbad03"
+                    onStart={() => router.push("/challengedetail")}
                 />
             </ScrollView>
 

@@ -36,9 +36,8 @@ const tasksGruppe2 = [
 const TasksScreen: React.FC = () => {
     const navItems: NavItem[] = [
         { label: "Home", icon: "home", onPress: () => router.push("/home") },
-        { label: "Aufgaben", icon: "list", isActive: true, onPress: () => router.push("/tasks") },
-        { label: "Fortschritt", icon: "bar-chart", onPress: () => console.log("Detailansicht!") },
-        { label: "Einstellung", icon: "settings", onPress: () => console.log("Detailansicht!") },
+        { label: "Aufgaben", icon: "list", isActive: true },
+        { label: "Fortschritt", icon: "bar-chart", onPress: () => router.push("./progress")  },
     ];
 
     return (
