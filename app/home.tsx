@@ -1,19 +1,36 @@
 import React from "react";
-import { ScrollView, StyleSheet, Text } from "react-native";
+import { ScrollView, StyleSheet, Text, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import BottomNavigation from "@/components/BottomNavigation";
 import ChallengeCard from "@/components/ChallengeCard";
 import Header from "@/components/Header";
 import ProfileCard from "@/components/ProfileCard";
-import TaskCard from "@/components/TaskCard";
+import RecommendedTaskCard from "@/components/RecommendedTaskCard"; // Ersetzt TaskCard
 import { NavItem } from "@/components/BottomNavigation";
 import { router } from "expo-router";
 
-const HomeScreen: React.FC = () => {
+const recommendedTasks = [
+    {
+        id: "1",
+        title: "Einkaufen gehen",
+        imageUrl: "https://images.unsplash.com/photo-1567306226416-28f0efdc88ce",
+    },
+    {
+        id: "2",
+        title: "Kurzer Spaziergang",
+        imageUrl: "https://images.unsplash.com/photo-1503341455253-b2e723bb3dbb",
+    },
+    {
+        id: "3",
+        title: "Licht ausschalten",
+        imageUrl: "https://images.unsplash.com/photo-1510626176961-4b57d4fbad03",
+    },
+];
 
+const HomeScreen: React.FC = () => {
     const navItems: NavItem[] = [
-        { label: "Home", icon: "home", isActive: true},
-        { label: "Aufgaben", icon: "list", onPress: () => router.push("./tasks")},
+        { label: "Home", icon: "home", isActive: true },
+        { label: "Aufgaben", icon: "list", onPress: () => router.push("./tasks") },
         { label: "Fortschritt", icon: "bar-chart", onPress: () => router.push("./progress") },
     ];
 
@@ -25,42 +42,23 @@ const HomeScreen: React.FC = () => {
                 <ProfileCard
                     name="Max Mustermann"
                     points={3450}
+                    badges={7}
                     imageUrl="https://randomuser.me/api/portraits/men/32.jpg"
                 />
 
-                <Text style={[styles.sectionTitle, { fontWeight: "bold" }]}>Empfohlene Aufgaben</Text>
-                <TaskCard
-                    title="Einkaufen gehen"
-                    subtitle="Besorge frische Lebensmittel"
-                    imageUrl="https://images.unsplash.com/photo-1567306226416-28f0efdc88ce"
-                    onStart={() => router.push("/taskdetail")}
-                />
-                <TaskCard
-                    title="Kurzer Spaziergang"
-                    subtitle="Geh für 15 Minuten raus"
-                    imageUrl="https://images.unsplash.com/photo-1503341455253-b2e723bb3dbb"
-                    onStart={() => router.push("/taskdetail")}
-                />
-                <TaskCard
-                    title="Kurzer Spaziergang"
-                    subtitle="Geh für 15 Minuten raus"
-                    imageUrl="https://images.unsplash.com/photo-1503341455253-b2e723bb3dbb"
-                    onStart={() => router.push("/taskdetail")}
-                />
-                <TaskCard
-                    title="Kurzer Spaziergang"
-                    subtitle="Geh für 15 Minuten raus"
-                    imageUrl="https://images.unsplash.com/photo-1503341455253-b2e723bb3dbb"
-                    onStart={() => router.push("/taskdetail")}
-                />
-                <TaskCard
-                    title="Kurzer Spaziergang"
-                    subtitle="Geh für 15 Minuten raus"
-                    imageUrl="https://images.unsplash.com/photo-1503341455253-b2e723bb3dbb"
-                    onStart={() => router.push("/taskdetail")}
-                />
+                <Text style={styles.sectionTitle}>Empfohlene Aufgaben</Text>
+                <ScrollView horizontal showsHorizontalScrollIndicator={false} style={styles.horizontalList}>
+                    {recommendedTasks.map((task) => (
+                        <RecommendedTaskCard
+                            key={task.id}
+                            title={task.title}
+                            imageUrl={task.imageUrl}
+                            taskId={task.id}
+                        />
+                    ))}
+                </ScrollView>
 
-                <Text style={[styles.sectionTitle, { fontWeight: "bold" }]}>Aktuelle Challenges</Text>
+                <Text style={styles.sectionTitle}>Aktuelle Challenges</Text>
                 <ChallengeCard
                     title="10.000 Schritte schaffen"
                     subtitle="Bleibe heute aktiv!"
@@ -75,18 +73,10 @@ const HomeScreen: React.FC = () => {
                     imageUrl="https://images.unsplash.com/photo-1510626176961-4b57d4fbad03"
                     onStart={() => router.push("/challengedetail")}
                 />
-                <ChallengeCard
-                    title="Wasser trinken"
-                    subtitle="Trinke 2 Liter heute"
-                    expires="läuft noch 12 Stunden"
-                    imageUrl="https://images.unsplash.com/photo-1510626176961-4b57d4fbad03"
-                    onStart={() => router.push("/challengedetail")}
-                />
             </ScrollView>
 
             <BottomNavigation items={navItems} />
         </SafeAreaView>
-
     );
 };
 
@@ -100,6 +90,9 @@ const styles = StyleSheet.create({
         paddingTop: 16,
         paddingBottom: 4,
         paddingHorizontal: 4,
+    },
+    horizontalList: {
+        paddingLeft: 4,
     },
 });
 

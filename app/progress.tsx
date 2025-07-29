@@ -1,28 +1,57 @@
 import React from "react";
-import {View, StyleSheet, Text} from "react-native";
+import { View, StyleSheet, Text } from "react-native";
 import Header from "@/components/Header";
 import LeaderboardContainer from "@/components/LeaderboardContainer";
-import ProfileCard from "@/components/ProfileCard"; // Stelle sicher, dass der Pfad korrekt ist
+import ProgressHeader from "@/components/ProgressHeader";
 import { SafeAreaView } from "react-native-safe-area-context";
-import BottomNavigation, {NavItem} from "@/components/BottomNavigation";
+import BottomNavigation, { NavItem } from "@/components/BottomNavigation";
 import { router } from "expo-router";
 
 const users = [
-    { id: "1", name: "Anna", points: 150, imageUrl: "https://i.pravatar.cc/150?img=1" },
-    { id: "2", name: "Ben", points: 230, imageUrl: "https://i.pravatar.cc/150?img=2" },
-    { id: "3", name: "Clara", points: 180, imageUrl: "https://i.pravatar.cc/150?img=3" },
+    {
+        id: "1",
+        name: "Anna",
+        points: 150,
+        imageUrl: "https://randomuser.me/api/portraits/women/65.jpg",
+    },
+    {
+        id: "2",
+        name: "Ben",
+        points: 230,
+        imageUrl: "https://randomuser.me/api/portraits/men/45.jpg",
+    },
+    {
+        id: "3",
+        name: "Clara",
+        points: 180,
+        imageUrl: "https://randomuser.me/api/portraits/women/32.jpg",
+    },
+    {
+        id: "4",
+        name: "Markus",
+        points: 120,
+        imageUrl: "https://randomuser.me/api/portraits/men/38.jpg",
+    },
+    {
+        id: "5",
+        name: "Julia",
+        points: 170,
+        imageUrl: "https://randomuser.me/api/portraits/women/41.jpg",
+    },
 ];
+
 
 const ProgressScreen: React.FC = () => {
     const currentUser = {
         name: "Du",
         points: 200,
         imageUrl: "https://randomuser.me/api/portraits/men/32.jpg",
+        badges: 5,
     };
 
     const navItems: NavItem[] = [
-        { label: "Home", icon: "home", onPress: () => router.push("./home")},
-        { label: "Aufgaben", icon: "list", onPress: () => router.push("./tasks")},
+        { label: "Home", icon: "home", onPress: () => router.push("./home") },
+        { label: "Aufgaben", icon: "list", onPress: () => router.push("./tasks") },
         { label: "Fortschritt", icon: "bar-chart", isActive: true },
     ];
 
@@ -31,10 +60,12 @@ const ProgressScreen: React.FC = () => {
             <Header title="Dein Fortschritt" />
 
             <View style={styles.profileContainer}>
-                <ProfileCard name={currentUser.name} points={currentUser.points} imageUrl={currentUser.imageUrl} />
+                <ProgressHeader points={currentUser.points} badges={currentUser.badges} />
             </View>
+
             <Text style={[styles.sectionTitle, { fontWeight: "bold" }]}>Rangliste</Text>
             <LeaderboardContainer users={users} />
+
             <BottomNavigation items={navItems} />
         </SafeAreaView>
     );

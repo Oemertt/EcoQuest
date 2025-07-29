@@ -1,6 +1,5 @@
 import React from 'react';
 import { View, Text, ImageBackground, Pressable, StyleSheet } from 'react-native';
-import { router } from 'expo-router';
 
 type TaskCardProps = {
     title: string;
@@ -12,22 +11,21 @@ type TaskCardProps = {
 const TaskCard: React.FC<TaskCardProps> = ({ title, subtitle, imageUrl, onStart }) => (
     <View style={styles.container}>
         <View style={styles.row}>
+            <View style={styles.textButtonContainer}>
+                <View style={styles.textContainer}>
+                    <Text style={styles.title}>{title}</Text>
+                    <Text style={styles.subtitle}>{subtitle}</Text>
+                    <Pressable style={styles.button} onPress={onStart}>
+                        <Text style={styles.buttonText}>Details</Text>
+                    </Pressable>
+                </View>
+            </View>
+
             <ImageBackground
                 source={{ uri: imageUrl }}
                 style={styles.image}
                 imageStyle={styles.imageStyle}
             />
-
-            <View style={styles.textButtonContainer}>
-                <View style={styles.textContainer}>
-                    <Text style={styles.title}>{title}</Text>
-                    <Text style={styles.subtitle}>{subtitle}</Text>
-                </View>
-
-                <Pressable style={styles.button} onPress={onStart}>
-                    <Text style={styles.buttonText}>Start</Text>
-                </Pressable>
-            </View>
         </View>
     </View>
 );
@@ -48,17 +46,21 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         gap: 12,
     },
-    image: { width: 56, height: 56 },
-    imageStyle: { borderRadius: 12 },
+    image: {
+        width: 80,
+        height: 80,
+        borderRadius: 12,
+    },
+    imageStyle: {
+        borderRadius: 12,
+    },
     textButtonContainer: {
         flex: 1,
-        flexDirection: 'row',
-        justifyContent: 'space-between',
-        alignItems: 'center',
+        // flexDirection: 'row', // rausgenommen, da Button jetzt unter Text
+        justifyContent: 'center',
     },
     textContainer: {
         flex: 1,
-        justifyContent: 'center',
     },
     title: {
         color: '#0e1a13',
@@ -69,13 +71,14 @@ const styles = StyleSheet.create({
         color: '#51946c',
         fontSize: 13,
         marginTop: 2,
+        marginBottom: 8,
     },
     button: {
-        backgroundColor: '#e8f2ec',
+        backgroundColor: '#e9f1ec',
         paddingHorizontal: 16,
         paddingVertical: 6,
         borderRadius: 999,
-        marginLeft: 8,
+        alignSelf: 'flex-start', // Button linksbündig unter dem Text
     },
     buttonText: {
         color: '#0e1a13',

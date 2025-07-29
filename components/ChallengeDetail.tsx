@@ -6,9 +6,8 @@ import {
     ScrollView,
     Animated,
 } from "react-native";
-import Reward from "./Reward";
 import PrimaryButton from "./PrimaryButton";
-import { Ionicons } from "@expo/vector-icons";
+import RewardBadge from "@/components/RewardBadge";
 
 interface ChallengeDetailProps {
     title: string;
@@ -60,40 +59,43 @@ const ChallengeDetail: React.FC<ChallengeDetailProps> = ({
     };
 
     return (
-        <ScrollView contentContainerStyle={styles.container}>
-            <Text style={styles.title}>{title}</Text>
-            <Text style={styles.description}>{description}</Text>
+        <View style={styles.container}>
+            <ScrollView contentContainerStyle={styles.scrollContent}>
+                <Text style={styles.title}>{title}</Text>
+                <Text style={styles.description}>{description}</Text>
 
-            {expireDate && (
-                <Text style={styles.expireText}>
-                    Gültig bis: <Text style={styles.expireDate}>{expireDate}</Text>
-                </Text>
+                {expireDate && (
+                    <Text style={styles.expireText}>
+                        Gültig bis: <Text style={styles.expireDate}>{expireDate}</Text>
+                    </Text>
+                )}
+                <RewardBadge badges={rewardPoints} />
+            </ScrollView>
+
+            {status !== "won" && (
+                <Animated.View style={[styles.fixedButton, { transform: [{ scale: scaleAnim }] }]}>
+                    <PrimaryButton title={getButtonText()} onPress={handlePress} />
+                </Animated.View>
             )}
-
-            <Reward points={rewardPoints} />
-
-            <View style={styles.buttonWrapper}>
-                {status !== "won" && (
-                    <Animated.View style={{ transform: [{ scale: scaleAnim }], width: "100%" }}>
-                        <PrimaryButton title={getButtonText()} onPress={handlePress} />
-                    </Animated.View>
-                )}
-
-                {status === "won" && (
-                    <Animated.View style={[styles.iconWrapper, { opacity: iconOpacity }]}>
-                        <Ionicons name="star" size={64} color="#f5c518" />
-                        <Text style={styles.iconText}>Challenge gewonnen!</Text>
-                    </Animated.View>
-                )}
-            </View>
-        </ScrollView>
+        </View>
     );
 };
 
 const styles = StyleSheet.create({
     container: {
-        padding: 20,
+        flex: 1,
+    },
+    scrollContent: {
+        paddingHorizontal: 20,
+        paddingTop: 20,
+        paddingBottom: 120, // Platz für Button
         gap: 20,
+    },
+    fixedButton: {
+        position: "absolute",
+        bottom: 60,
+        left: 20,
+        right: 20,
     },
     title: {
         fontSize: 22,
@@ -111,20 +113,6 @@ const styles = StyleSheet.create({
     expireDate: {
         fontWeight: "600",
         color: "#0e1a13",
-    },
-    buttonWrapper: {
-        alignItems: "center",
-        marginTop: 16,
-    },
-    iconWrapper: {
-        marginTop: 16,
-        alignItems: "center",
-    },
-    iconText: {
-        marginTop: 8,
-        fontSize: 18,
-        fontWeight: "600",
-        color: "#f5c518",
     },
 });
 
