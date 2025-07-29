@@ -1,6 +1,12 @@
 import React, { useState, useRef, useEffect } from "react";
-import { View, Text, StyleSheet, ScrollView, Pressable, Animated } from "react-native";
-import { Ionicons } from "@expo/vector-icons";
+import {
+    View,
+    Text,
+    StyleSheet,
+    ScrollView,
+    Pressable,
+    Animated,
+} from "react-native";
 import Reward from "./Reward";
 import PrimaryButton from "./PrimaryButton";
 
@@ -33,16 +39,9 @@ const TaskDetail: React.FC<TaskDetailProps> = ({
                                                }) => {
     const [steps, setSteps] = useState(initialSteps);
     const scaleAnim = useRef(new Animated.Value(1)).current;
-    const trophyOpacity = useRef(new Animated.Value(0)).current;
 
     useEffect(() => {
-        if (completed) {
-            Animated.timing(trophyOpacity, {
-                toValue: 1,
-                duration: 500,
-                useNativeDriver: true,
-            }).start();
-        } else if (started) {
+        if (started && !completed) {
             Animated.sequence([
                 Animated.timing(scaleAnim, {
                     toValue: 1.05,
@@ -68,33 +67,37 @@ const TaskDetail: React.FC<TaskDetailProps> = ({
 
     const handlePress = () => {
         if (!started) {
-            onStart && onStart();
+            onStart?.();
         } else if (!completed) {
-            onComplete && onComplete();
+            onComplete?.();
         }
     };
 
     return (
-        <ScrollView contentContainerStyle={styles.container}>
+        <View style={styles.wrapper}>
+            <ScrollView contentContainerStyle={styles.container}>
                 <Text style={styles.title}>{title}</Text>
                 <Text style={styles.description}>{description}</Text>
-            <View style={styles.stepsContainer}>
-                {steps.map(step => (
-                    <Pressable
-                        key={step.id}
-                        onPress={() => toggleStep(step.id)}
-                        style={styles.stepItem}
-                    >
-                        <View style={[styles.checkbox, step.checked && styles.checked]} />
-                        <Text style={styles.stepText}>{step.text}</Text>
-                    </Pressable>
-                ))}
-            </View>
 
-            <Reward points={rewardPoints} />
+                <Text style={styles.sectionTitle}>Schritte: </Text>
+                <View style={styles.stepsContainer}>
+                    {steps.map(step => (
+                        <Pressable
+                            key={step.id}
+                            onPress={() => toggleStep(step.id)}
+                            style={styles.stepItem}
+                        >
+                            <View style={[styles.checkbox, step.checked && styles.checked]} />
+                            <Text style={styles.stepText}>{step.text}</Text>
+                        </Pressable>
+                    ))}
+                </View>
+
+                <Reward points={rewardPoints} />
+            </ScrollView>
 
             {!completed && (
-                <View style={styles.largeButtonWrapper}>
+                <View style={styles.fixedButton}>
                     <Animated.View style={{ width: "100%", transform: [{ scale: scaleAnim }] }}>
                         <PrimaryButton
                             title={started ? "Erledigt" : "Aufgabe starten"}
@@ -103,21 +106,19 @@ const TaskDetail: React.FC<TaskDetailProps> = ({
                     </Animated.View>
                 </View>
             )}
-
-            {completed && (
-                <Animated.View style={[styles.trophyWrapper, { opacity: trophyOpacity }]}>
-                    <Ionicons name="trophy" size={64} color="#f5c518" />
-                    <Text style={styles.trophyText}>Aufgabe abgeschlossen!</Text>
-                </Animated.View>
-            )}
-        </ScrollView>
+        </View>
     );
 };
 
 const styles = StyleSheet.create({
+    wrapper: {
+        flex: 1,
+        justifyContent: "space-between",
+    },
     container: {
         padding: 20,
         gap: 20,
+        paddingBottom: 100, // Platz für den festen Button
     },
     title: {
         fontSize: 22,
@@ -127,6 +128,14 @@ const styles = StyleSheet.create({
     description: {
         fontSize: 16,
         color: "#4a635f",
+    },
+    sectionTitle: {
+        fontSize: 18,
+        fontWeight: "bold",
+        color: "#0e1a13",
+        paddingTop: 16,
+        paddingBottom: 4,
+        paddingHorizontal: 4,
     },
     stepsContainer: {
         gap: 12,
@@ -150,19 +159,11 @@ const styles = StyleSheet.create({
         fontSize: 16,
         color: "#0e1a13",
     },
-    trophyWrapper: {
-        marginTop: 24,
-        alignItems: "center",
-    },
-    trophyText: {
-        marginTop: 8,
-        fontSize: 18,
-        fontWeight: "600",
-        color: "#f5c518",
-    },
-    largeButtonWrapper: {
-        marginTop: 16,
-        width: "100%",
+    fixedButton: {
+        position: "absolute",
+        bottom: 60,
+        left: 20,
+        right: 20,
     },
 });
 

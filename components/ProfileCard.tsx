@@ -1,21 +1,27 @@
 import React from 'react';
 import { View, Text, Image, StyleSheet } from 'react-native';
-import { Ionicons } from '@expo/vector-icons';
 
 type ProfileCardProps = {
     name: string;
     points: number;
+    badges: number;
     imageUrl: string;
 };
 
-const ProfileCard: React.FC<ProfileCardProps> = ({ name, points, imageUrl }) => (
+const ProfileCard: React.FC<ProfileCardProps> = ({ name, points, badges, imageUrl }) => (
     <View style={styles.container}>
         <Image source={{ uri: imageUrl }} style={styles.avatar} />
         <View>
             <Text style={styles.name}>{name}</Text>
             <View style={styles.pointsRow}>
-                <Ionicons name="trophy" size={18} color="#f5c518" style={styles.icon} />
-                <Text style={styles.points}>Gesamtpunkte: {points}</Text>
+                <Text style={styles.points}>Punkte:  </Text>
+                <Image source={require('../assets/images/trophy.png')} style={styles.iconImage} />
+                <Text style={styles.points}>{points}</Text>
+            </View>
+            <View style={styles.pointsRow}>
+                <Text style={styles.points}>Abzeichen:  </Text>
+                <Image source={require('../assets/images/badge.png')} style={styles.iconImage} />
+                <Text style={styles.points}>{badges}</Text>
             </View>
         </View>
     </View>
@@ -33,7 +39,7 @@ const styles = StyleSheet.create({
         borderRadius: 40,
     },
     name: {
-        fontSize: 22,
+        fontSize: 18,
         fontWeight: 'bold',
         color: '#0e1a13',
     },
@@ -42,11 +48,13 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         marginTop: 4,
     },
-    icon: {
+    iconImage: {
+        width: 18,
+        height: 18,
         marginRight: 6,
     },
     points: {
-        fontSize: 16,
+        fontSize: 14,
         color: '#51946c',
     },
 });

@@ -1,24 +1,24 @@
 import React from "react";
 import { View, Text, StyleSheet, TextStyle, ViewStyle, Image } from "react-native";
 
-interface RewardProps {
-    points: number | string;
+interface RewardBadgeProps {
+    badges: number | string; // Anzahl der Abzeichen
     textStyle?: TextStyle;
     containerStyle?: ViewStyle;
     showTitle?: boolean;
 }
 
-const Reward: React.FC<RewardProps> = ({
-                                           points,
-                                           textStyle,
-                                           containerStyle,
-                                           showTitle = true,
-                                       }) => (
+const RewardBadge: React.FC<RewardBadgeProps> = ({
+                                                     badges,
+                                                     textStyle,
+                                                     containerStyle,
+                                                     showTitle = true,
+                                                 }) => (
     <View style={[styles.container, containerStyle]}>
-        {showTitle && <Text style={styles.title}>Belohnung: </Text>}
+        {showTitle && <Text style={styles.title}>Abzeichen</Text>}
         <View style={styles.row}>
-            <Text style={[styles.points, textStyle]}>{points} </Text>
-            <Image source={require("../assets/images/trophy.png")} style={styles.icon} />
+            <Image source={require("../assets/images/badge.png")} style={styles.icon} />
+            <Text style={[styles.points, textStyle]}>{badges}</Text>
         </View>
     </View>
 );
@@ -54,4 +54,4 @@ const styles = StyleSheet.create({
     },
 });
 
-export default Reward;
+export default RewardBadge;
