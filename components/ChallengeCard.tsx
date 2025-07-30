@@ -39,7 +39,7 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         backgroundColor: '#ffffff',
         borderRadius: 16,
-        padding: 16,
+        padding: 12,
         gap: 16,
         alignItems: 'center',
         shadowColor: '#000',
@@ -67,8 +67,8 @@ const styles = StyleSheet.create({
         fontSize: 13,
     },
     image: {
-        width: 72,
-        height: 72,
+        width: 120,
+        height: 120,
     },
     imageStyle: {
         borderRadius: 12,

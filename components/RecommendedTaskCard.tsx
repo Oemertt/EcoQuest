@@ -1,5 +1,5 @@
 import React from "react";
-import {Text, ImageBackground, StyleSheet, Pressable } from "react-native";
+import { Text, ImageBackground, StyleSheet, Pressable } from "react-native";
 import { router } from "expo-router";
 
 type RecommendedTaskCardProps = {
@@ -15,7 +15,11 @@ const RecommendedTaskCard: React.FC<RecommendedTaskCardProps> = ({ title, imageU
 
     return (
         <Pressable style={styles.card} onPress={goToTask}>
-            <ImageBackground source={{ uri: imageUrl }} style={styles.image} imageStyle={styles.imageStyle} />
+            <ImageBackground
+                source={{ uri: imageUrl }}
+                style={styles.image}
+                imageStyle={styles.imageStyle}
+            />
             <Text style={styles.title}>{title}</Text>
         </Pressable>
     );
@@ -23,16 +27,16 @@ const RecommendedTaskCard: React.FC<RecommendedTaskCardProps> = ({ title, imageU
 
 const styles = StyleSheet.create({
     card: {
-        width: 120,
+        width: 150,
         marginRight: 16,
     },
     image: {
         width: "100%",
-        height: 120,
+        height: 150,
         justifyContent: "flex-end",
     },
     imageStyle: {
-        borderRadius: 12,
+        borderRadius: 8,
     },
     title: {
         marginTop: 8,

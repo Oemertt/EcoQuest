@@ -9,16 +9,14 @@ type TaskCardProps = {
 };
 
 const TaskCard: React.FC<TaskCardProps> = ({ title, subtitle, imageUrl, onStart }) => (
-    <View style={styles.container}>
+    <View style={styles.card}>
         <View style={styles.row}>
-            <View style={styles.textButtonContainer}>
-                <View style={styles.textContainer}>
-                    <Text style={styles.title}>{title}</Text>
-                    <Text style={styles.subtitle}>{subtitle}</Text>
-                    <Pressable style={styles.button} onPress={onStart}>
-                        <Text style={styles.buttonText}>Details</Text>
-                    </Pressable>
-                </View>
+            <View style={styles.textContainer}>
+                <Text style={styles.title}>{title}</Text>
+                <Text style={styles.subtitle}>{subtitle}</Text>
+                <Pressable style={styles.button} onPress={onStart}>
+                    <Text style={styles.buttonText}>Details</Text>
+                </Pressable>
             </View>
 
             <ImageBackground
@@ -31,7 +29,7 @@ const TaskCard: React.FC<TaskCardProps> = ({ title, subtitle, imageUrl, onStart 
 );
 
 const styles = StyleSheet.create({
-    container: {
+    card: {
         backgroundColor: '#ffffff',
         padding: 16,
         borderRadius: 12,
@@ -44,46 +42,42 @@ const styles = StyleSheet.create({
     row: {
         flexDirection: 'row',
         alignItems: 'center',
-        gap: 12,
-    },
-    image: {
-        width: 80,
-        height: 80,
-        borderRadius: 12,
-    },
-    imageStyle: {
-        borderRadius: 12,
-    },
-    textButtonContainer: {
-        flex: 1,
-        // flexDirection: 'row', // rausgenommen, da Button jetzt unter Text
-        justifyContent: 'center',
+        gap: 16,
     },
     textContainer: {
         flex: 1,
+        justifyContent: 'center',
     },
     title: {
         color: '#0e1a13',
         fontWeight: '600',
-        fontSize: 16,
+        fontSize: 18,
+        marginBottom: 4,
     },
     subtitle: {
         color: '#51946c',
-        fontSize: 13,
-        marginTop: 2,
-        marginBottom: 8,
+        fontSize: 14,
+        marginBottom: 12,
     },
     button: {
         backgroundColor: '#e9f1ec',
-        paddingHorizontal: 16,
-        paddingVertical: 6,
+        paddingVertical: 8,
+        paddingHorizontal: 20,
         borderRadius: 999,
-        alignSelf: 'flex-start', // Button linksbündig unter dem Text
+        alignSelf: 'flex-start',
     },
     buttonText: {
         color: '#0e1a13',
         fontWeight: '500',
         fontSize: 14,
+    },
+    image: {
+        width: 120,
+        height: 120,
+        borderRadius: 12,
+    },
+    imageStyle: {
+        borderRadius: 12,
     },
 });
 

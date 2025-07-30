@@ -1,7 +1,6 @@
 import React from "react";
 import { ScrollView, StyleSheet } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
-import BottomNavigation, { NavItem } from "@/components/BottomNavigation";
 import Header from "@/components/Header";
 import { router } from "expo-router";
 import TaskContainer from "@/components/TaskContainer";
@@ -34,12 +33,6 @@ const tasksGruppe2 = [
 ];
 
 const TasksScreen: React.FC = () => {
-    const navItems: NavItem[] = [
-        { label: "Home", icon: "home", onPress: () => router.push("/home") },
-        { label: "Aufgaben", icon: "list", isActive: true },
-        { label: "Fortschritt", icon: "bar-chart", onPress: () => router.push("./progress")  },
-    ];
-
     return (
         <SafeAreaView style={styles.container} edges={["top"]}>
             <Header title="Deine Aufgaben" />
@@ -56,7 +49,7 @@ const TasksScreen: React.FC = () => {
                     tasks={tasksGruppe2}
                 />
             </ScrollView>
-            <BottomNavigation items={navItems} />
+
         </SafeAreaView>
     );
 };

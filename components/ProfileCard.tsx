@@ -34,12 +34,12 @@ const styles = StyleSheet.create({
         gap: 16,
     },
     avatar: {
-        width: 80,
-        height: 80,
-        borderRadius: 40,
+        width: 115,
+        height: 115,
+        borderRadius: 60,
     },
     name: {
-        fontSize: 18,
+        fontSize: 20,
         fontWeight: 'bold',
         color: '#0e1a13',
     },

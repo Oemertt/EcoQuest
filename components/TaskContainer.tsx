@@ -12,21 +12,16 @@ interface Task {
 
 interface TaskContainerProps {
     title: string;
-    description: string;
     tasks: Task[];
 }
 
 const TaskContainer: React.FC<TaskContainerProps> = ({
                                                          title,
-                                                         description,
                                                          tasks,
                                                      }) => {
     return (
         <View style={styles.container}>
             <Text style={styles.title}>{title}</Text>
-            <Text style={styles.description}>{description}</Text>
-
-            {/* Task cards */}
             {tasks.map((task) => (
                 <View key={task.id} style={styles.cardWrapper}>
                     <TaskCard

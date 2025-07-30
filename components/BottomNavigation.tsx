@@ -42,6 +42,7 @@ const styles = StyleSheet.create({
         borderTopColor: '#e8f2ec',
         paddingVertical: 8,
         backgroundColor: '#f8fbfa',
+        marginTop: 12,
     },
     item: {
         flex: 1,

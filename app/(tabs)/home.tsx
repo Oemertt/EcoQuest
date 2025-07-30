@@ -1,39 +1,31 @@
 import React from "react";
 import { ScrollView, StyleSheet, Text, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
-import BottomNavigation from "@/components/BottomNavigation";
 import ChallengeCard from "@/components/ChallengeCard";
 import Header from "@/components/Header";
 import ProfileCard from "@/components/ProfileCard";
-import RecommendedTaskCard from "@/components/RecommendedTaskCard"; // Ersetzt TaskCard
-import { NavItem } from "@/components/BottomNavigation";
+import RecommendedTaskCard from "@/components/RecommendedTaskCard";
 import { router } from "expo-router";
 
 const recommendedTasks = [
     {
         id: "1",
-        title: "Einkaufen gehen",
-        imageUrl: "https://images.unsplash.com/photo-1567306226416-28f0efdc88ce",
+        title: "Müll trennen",
+        imageUrl: "https://lh3.googleusercontent.com/aida-public/AB6AXuBZtD_LXf6CywdjZPgNQR1nqpNp8H7ZbOdEUPL-IhfAMvshaCiM5BArS9_6GgxTnyup6OLjifi3uU8DiZ-m1n1igqO-59OokpErYysnIAi_--t0ZMTROspstZ3Muox7Qnn-tgxueXG279rhjyeSMrTfiYASP2zgvr1hmvWRy1tOuzAg3x1kVaKVNXe5BU-Mdw7ccm5d-FXIpXRNraHQps_-ARY4bq_W54mOmwta_4VPCY8KGsOKJuU-9dS9Vby6Ms2X-G7MNeRomGk\n",
     },
     {
         id: "2",
         title: "Kurzer Spaziergang",
-        imageUrl: "https://images.unsplash.com/photo-1503341455253-b2e723bb3dbb",
+        imageUrl: "https://lh3.googleusercontent.com/aida-public/AB6AXuBZtD_LXf6CywdjZPgNQR1nqpNp8H7ZbOdEUPL-IhfAMvshaCiM5BArS9_6GgxTnyup6OLjifi3uU8DiZ-m1n1igqO-59OokpErYysnIAi_--t0ZMTROspstZ3Muox7Qnn-tgxueXG279rhjyeSMrTfiYASP2zgvr1hmvWRy1tOuzAg3x1kVaKVNXe5BU-Mdw7ccm5d-FXIpXRNraHQps_-ARY4bq_W54mOmwta_4VPCY8KGsOKJuU-9dS9Vby6Ms2X-G7MNeRomGk\n",
     },
     {
         id: "3",
         title: "Licht ausschalten",
-        imageUrl: "https://images.unsplash.com/photo-1510626176961-4b57d4fbad03",
+        imageUrl: "https://lh3.googleusercontent.com/aida-public/AB6AXuBZtD_LXf6CywdjZPgNQR1nqpNp8H7ZbOdEUPL-IhfAMvshaCiM5BArS9_6GgxTnyup6OLjifi3uU8DiZ-m1n1igqO-59OokpErYysnIAi_--t0ZMTROspstZ3Muox7Qnn-tgxueXG279rhjyeSMrTfiYASP2zgvr1hmvWRy1tOuzAg3x1kVaKVNXe5BU-Mdw7ccm5d-FXIpXRNraHQps_-ARY4bq_W54mOmwta_4VPCY8KGsOKJuU-9dS9Vby6Ms2X-G7MNeRomGk\n",
     },
 ];
 
 const HomeScreen: React.FC = () => {
-    const navItems: NavItem[] = [
-        { label: "Home", icon: "home", isActive: true },
-        { label: "Aufgaben", icon: "list", onPress: () => router.push("./tasks") },
-        { label: "Fortschritt", icon: "bar-chart", onPress: () => router.push("./progress") },
-    ];
-
     return (
         <SafeAreaView style={styles.container} edges={["top"]}>
             <Header title="Home" />
@@ -43,7 +35,7 @@ const HomeScreen: React.FC = () => {
                     name="Max Mustermann"
                     points={3450}
                     badges={7}
-                    imageUrl="https://randomuser.me/api/portraits/men/32.jpg"
+                    imageUrl="https://lh3.googleusercontent.com/aida-public/AB6AXuCMZlu-716uMlFR2wmDQs292n35ubOQHUHfiv_aM1PeQGAhC1Ma-b4y6ErFNGF9m3q8mo6l-PlMsb0zdX0-7BFBKeFc2mRZPuBra2UaMtvVRFbJYDCD8C9KPUyOMWRq4Y5KVqSaygThmMDuP515IOYcFaYNRIi-2U17uTpMtjWabWDNWCdY9lv_GaD04EzIP7ajJ90AvYVgwwCKczA0kf93OAsRotWV0ffK2yHOohiUlKrOFwev1d4W_mc9bkDgRWYDxS-k_QMUIgw"
                 />
 
                 <Text style={styles.sectionTitle}>Empfohlene Aufgaben</Text>
@@ -74,8 +66,6 @@ const HomeScreen: React.FC = () => {
                     onStart={() => router.push("/challengedetail")}
                 />
             </ScrollView>
-
-            <BottomNavigation items={navItems} />
         </SafeAreaView>
     );
 };

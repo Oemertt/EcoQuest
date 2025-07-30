@@ -49,12 +49,6 @@ const ProgressScreen: React.FC = () => {
         badges: 5,
     };
 
-    const navItems: NavItem[] = [
-        { label: "Home", icon: "home", onPress: () => router.push("./home") },
-        { label: "Aufgaben", icon: "list", onPress: () => router.push("./tasks") },
-        { label: "Fortschritt", icon: "bar-chart", isActive: true },
-    ];
-
     return (
         <SafeAreaView edges={["top"]} style={styles.container}>
             <Header title="Dein Fortschritt" />
@@ -65,8 +59,6 @@ const ProgressScreen: React.FC = () => {
 
             <Text style={[styles.sectionTitle, { fontWeight: "bold" }]}>Rangliste</Text>
             <LeaderboardContainer users={users} />
-
-            <BottomNavigation items={navItems} />
         </SafeAreaView>
     );
 };
