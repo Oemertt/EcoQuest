@@ -1,13 +1,12 @@
-import React from "react";
-import { ScrollView, StyleSheet, Text, View } from "react-native";
-import { SafeAreaView } from "react-native-safe-area-context";
-import BottomNavigation from "@/components/BottomNavigation";
+import BottomNavigation, { NavItem } from "@/components/BottomNavigation";
 import ChallengeCard from "@/components/ChallengeCard";
 import Header from "@/components/Header";
 import ProfileCard from "@/components/ProfileCard";
-import RecommendedTaskCard from "@/components/RecommendedTaskCard"; // Ersetzt TaskCard
-import { NavItem } from "@/components/BottomNavigation";
+import RecommendedTaskCard from "@/components/RecommendedTaskCard";
 import { router } from "expo-router";
+import React from "react";
+import { ScrollView, StyleSheet, Text } from "react-native";
+import { SafeAreaView } from "react-native-safe-area-context";
 
 const recommendedTasks = [
     {
