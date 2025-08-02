@@ -45,7 +45,7 @@ const HomeScreen: React.FC = () => {
                     name={user?.firstName + " " + user?.lastName || user?.emailAddresses[0]?.emailAddress || "Benutzer"}
                     points={3450}
                     badges={7}
-                    imageUrl="https://randomuser.me/api/portraits/men/32.jpg"
+                    imageUrl={user?.imageUrl || "https://randomuser.me/api/portraits/men/32.jpg"}
                     />
                     <SignOutButton />
                 </View>
