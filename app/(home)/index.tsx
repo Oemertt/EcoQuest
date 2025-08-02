@@ -40,12 +40,12 @@ const HomeScreen: React.FC = () => {
 
             <ScrollView style={styles.content} contentContainerStyle={{ gap: 16 }}>
                 <ProfileCard
-                    name={user?.firstName + " " + user?.lastName || "Benutzer"}
+                    name={user?.firstName + " " + user?.lastName || user?.emailAddresses[0]?.emailAddress || "Benutzer"}
                     points={3450}
                     badges={7}
                     imageUrl="https://randomuser.me/api/portraits/men/32.jpg"
                 />
-
+                {/* <SignOutButton /> */}
                 <Text style={styles.sectionTitle}>Empfohlene Aufgaben</Text>
                 <ScrollView horizontal showsHorizontalScrollIndicator={false} style={styles.horizontalList}>
                     {recommendedTasks.map((task) => (

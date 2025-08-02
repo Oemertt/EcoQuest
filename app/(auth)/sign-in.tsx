@@ -60,7 +60,7 @@ return (
             <Text className="text-base text-gray-600 italic">
               Deine Reise in eine grünere Zukunft beginnt hier
             </Text>
-            //Füge dein bild hinzu
+            {/* Füge dein bild hinzu */}
             <Image
               source={require("../../assets/images/auth2.gif")}
               className="size-96"
