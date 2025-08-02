@@ -1,10 +1,10 @@
+import BottomNavigation, { NavItem } from "@/components/BottomNavigation";
+import Header from "@/components/Header";
+import TaskContainer from "@/components/TaskContainer";
+import { router } from "expo-router";
 import React from "react";
 import { ScrollView, StyleSheet } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
-import BottomNavigation, { NavItem } from "@/components/BottomNavigation";
-import Header from "@/components/Header";
-import { router } from "expo-router";
-import TaskContainer from "@/components/TaskContainer";
 
 const tasksGruppe1 = [
     {
@@ -35,7 +35,7 @@ const tasksGruppe2 = [
 
 const TasksScreen: React.FC = () => {
     const navItems: NavItem[] = [
-        { label: "Home", icon: "home", onPress: () => router.push("/home") },
+        { label: "Home", icon: "home", onPress: () => router.push("/") },
         { label: "Aufgaben", icon: "list", isActive: true },
         { label: "Fortschritt", icon: "bar-chart", onPress: () => router.push("./progress")  },
     ];

@@ -3,6 +3,7 @@ import ChallengeCard from "@/components/ChallengeCard";
 import Header from "@/components/Header";
 import ProfileCard from "@/components/ProfileCard";
 import RecommendedTaskCard from "@/components/RecommendedTaskCard";
+import { useUser } from '@clerk/clerk-expo';
 import { router } from "expo-router";
 import React from "react";
 import { ScrollView, StyleSheet, Text } from "react-native";
@@ -32,14 +33,14 @@ const HomeScreen: React.FC = () => {
         { label: "Aufgaben", icon: "list", onPress: () => router.push("./tasks") },
         { label: "Fortschritt", icon: "bar-chart", onPress: () => router.push("./progress") },
     ];
-
+    const { user } = useUser()
     return (
         <SafeAreaView style={styles.container} edges={["top"]}>
             <Header title="Home" />
 
             <ScrollView style={styles.content} contentContainerStyle={{ gap: 16 }}>
                 <ProfileCard
-                    name="Max Mustermann"
+                    name={user?.firstName + " " + user?.lastName || "Benutzer"}
                     points={3450}
                     badges={7}
                     imageUrl="https://randomuser.me/api/portraits/men/32.jpg"

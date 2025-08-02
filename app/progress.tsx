@@ -1,11 +1,11 @@
-import React from "react";
-import { View, StyleSheet, Text } from "react-native";
+import BottomNavigation, { NavItem } from "@/components/BottomNavigation";
 import Header from "@/components/Header";
 import LeaderboardContainer from "@/components/LeaderboardContainer";
 import ProgressHeader from "@/components/ProgressHeader";
-import { SafeAreaView } from "react-native-safe-area-context";
-import BottomNavigation, { NavItem } from "@/components/BottomNavigation";
 import { router } from "expo-router";
+import React from "react";
+import { StyleSheet, Text, View } from "react-native";
+import { SafeAreaView } from "react-native-safe-area-context";
 
 const users = [
     {
@@ -50,7 +50,7 @@ const ProgressScreen: React.FC = () => {
     };
 
     const navItems: NavItem[] = [
-        { label: "Home", icon: "home", onPress: () => router.push("./home") },
+        { label: "Home", icon: "home", onPress: () => router.push("./") },
         { label: "Aufgaben", icon: "list", onPress: () => router.push("./tasks") },
         { label: "Fortschritt", icon: "bar-chart", isActive: true },
     ];
