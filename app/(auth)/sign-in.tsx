@@ -55,7 +55,7 @@ return (
           {/* DEMO IMAGE */}
           <View className="items-center mb-5">
             <Text className="text-6xl font-sans text-green-700 tracking-wide">
-              Titel
+              EcoQuest
             </Text>
             <Text className="text-base text-gray-600 italic">
               Deine Reise in eine grünere Zukunft beginnt hier

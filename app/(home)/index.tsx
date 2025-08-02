@@ -3,10 +3,11 @@ import ChallengeCard from "@/components/ChallengeCard";
 import Header from "@/components/Header";
 import ProfileCard from "@/components/ProfileCard";
 import RecommendedTaskCard from "@/components/RecommendedTaskCard";
+import { SignOutButton } from "@/components/SignOutButton";
 import { useUser } from '@clerk/clerk-expo';
 import { router } from "expo-router";
 import React from "react";
-import { ScrollView, StyleSheet, Text } from "react-native";
+import { ScrollView, StyleSheet, Text, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 
 const recommendedTasks = [
@@ -39,13 +40,17 @@ const HomeScreen: React.FC = () => {
             <Header title="Home" />
 
             <ScrollView style={styles.content} contentContainerStyle={{ gap: 16 }}>
-                <ProfileCard
+                <View className="flex-row justify-between">
+                    <ProfileCard
                     name={user?.firstName + " " + user?.lastName || user?.emailAddresses[0]?.emailAddress || "Benutzer"}
                     points={3450}
                     badges={7}
                     imageUrl="https://randomuser.me/api/portraits/men/32.jpg"
-                />
-                {/* <SignOutButton /> */}
+                    />
+                    <SignOutButton />
+                </View>
+                
+                
                 <Text style={styles.sectionTitle}>Empfohlene Aufgaben</Text>
                 <ScrollView horizontal showsHorizontalScrollIndicator={false} style={styles.horizontalList}>
                     {recommendedTasks.map((task) => (
