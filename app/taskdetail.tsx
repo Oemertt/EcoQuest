@@ -6,8 +6,7 @@ import TaskDetail from "@/components/TaskDetail";
 import { Ionicons } from "@expo/vector-icons";
 
 const TaskDetailScreen: React.FC = () => {
-    const [started, setStarted] = useState(false);
-    const [completed, setCompleted] = useState(false);
+
 
     return (
         <SafeAreaView edges={["top"]} style={styles.container}>
@@ -23,10 +22,7 @@ const TaskDetailScreen: React.FC = () => {
                         { id: "3", text: "Stehlampe vom Strom trennen" },
                     ]}
                     rewardPoints={10}
-                    started={started}
-                    completed={completed}
-                    onStart={() => setStarted(true)}
-                    onComplete={() => setCompleted(true)}
+
                 />
             </View>
         </SafeAreaView>

@@ -5,7 +5,7 @@ import ProfileCard from "@/components/ProfileCard";
 import RecommendedTaskCard from "@/components/RecommendedTaskCard";
 import { SignOutButton } from "@/components/SignOutButton";
 import { useUser } from '@clerk/clerk-expo';
-import { router } from "expo-router";
+import {Link, router} from "expo-router";
 import React from "react";
 import { ScrollView, StyleSheet, Text, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
@@ -45,7 +45,7 @@ const HomeScreen: React.FC = () => {
                     name={user?.firstName + " " + user?.lastName || user?.emailAddresses[0]?.emailAddress || "Benutzer"}
                     points={3450}
                     badges={7}
-                    imageUrl={user?.imageUrl || "https://randomuser.me/api/portraits/men/32.jpg"}
+                    imageUrl={user?.imageUrl || ""}
                     />
                     <SignOutButton />
                 </View>
@@ -78,6 +78,7 @@ const HomeScreen: React.FC = () => {
                     imageUrl="https://images.unsplash.com/photo-1510626176961-4b57d4fbad03"
                     onStart={() => router.push("/challengedetail")}
                 />
+
             </ScrollView>
 
             <BottomNavigation items={navItems} />

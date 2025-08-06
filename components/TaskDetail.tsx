@@ -21,10 +21,6 @@ interface TaskDetailProps {
     description: string;
     steps: Step[];
     rewardPoints: number;
-    started?: boolean;
-    completed?: boolean;
-    onStart?: () => void;
-    onComplete?: () => void;
 }
 
 const TaskDetail: React.FC<TaskDetailProps> = ({
@@ -32,13 +28,12 @@ const TaskDetail: React.FC<TaskDetailProps> = ({
                                                    description,
                                                    steps: initialSteps,
                                                    rewardPoints,
-                                                   started = false,
-                                                   completed = false,
-                                                   onStart,
-                                                   onComplete,
                                                }) => {
     const [steps, setSteps] = useState(initialSteps);
     const scaleAnim = useRef(new Animated.Value(1)).current;
+
+    const [started, setStarted] = useState(false);
+    const [completed, setCompleted] = useState(false);
 
     useEffect(() => {
         if (started && !completed) {
@@ -67,9 +62,13 @@ const TaskDetail: React.FC<TaskDetailProps> = ({
 
     const handlePress = () => {
         if (!started) {
-            onStart?.();
+            setStarted(true);
+            setCompleted(false);
         } else if (!completed) {
-            onComplete?.();
+            setCompleted(true);
+            setStarted(false);
+            //toast
+
         }
     };
 
@@ -96,16 +95,16 @@ const TaskDetail: React.FC<TaskDetailProps> = ({
                 <Reward points={rewardPoints} />
             </ScrollView>
 
-            {!completed && (
-                <View style={styles.fixedButton}>
-                    <Animated.View style={{ width: "100%", transform: [{ scale: scaleAnim }] }}>
-                        <PrimaryButton
-                            title={started ? "Erledigt" : "Aufgabe starten"}
-                            onPress={handlePress}
-                        />
-                    </Animated.View>
-                </View>
-            )}
+
+            <View style={styles.fixedButton}>
+                <Animated.View style={{ width: "100%", transform: [{ scale: scaleAnim }] }}>
+                    <PrimaryButton
+                        title={started ? "Erledigt" : "Aufgabe starten"}
+                        onPress={handlePress}
+                    />
+                </Animated.View>
+            </View>
+
         </View>
     );
 };
@@ -116,7 +115,6 @@ const styles = StyleSheet.create({
         justifyContent: "space-between",
     },
     container: {
-        padding: 20,
         gap: 20,
         paddingBottom: 100, // Platz für den festen Button
     },
@@ -138,7 +136,7 @@ const styles = StyleSheet.create({
         paddingHorizontal: 4,
     },
     stepsContainer: {
-        gap: 12,
+        gap: 30,
     },
     stepItem: {
         flexDirection: "row",

@@ -9,16 +9,16 @@ import { SafeAreaView } from "react-native-safe-area-context";
 const tasksGruppe1 = [
     {
         id: "1",
-        title: "Licht ausschalten",
-        subtitle: "Schalte unnötige Lichter aus",
-        imageUrl: "https://images.unsplash.com/photo-1567306226416-28f0efdc88ce",
+        title: "Lichter ausschalten",
+        subtitle: "Schalte die Lichter aus, wenn du einen Raum verlässt",
+        imageUrl: require("@/assets/images/light.png"),
         onPress: () => router.push("./taskdetail"),
     },
     {
         id: "2",
-        title: "Heizung herunterdrehen",
-        subtitle: "Spare Energie im Winter",
-        imageUrl: "https://images.unsplash.com/photo-1503341455253-b2e723bb3dbb",
+        title: "Stecker Ziehen",
+        subtitle: "Ziehe den Stecker von nicht verwendeten Geräten",
+        imageUrl: require("@/assets/images/unplug.png"),
         onPress: () => router.push("./taskdetail"),
     },
 ];
@@ -28,7 +28,7 @@ const tasksGruppe2 = [
         id: "3",
         title: "Zimmer aufräumen",
         subtitle: "Sorge für Ordnung",
-        imageUrl: "https://images.unsplash.com/photo-1510626176961-4b57d4fbad03",
+        imageUrl: "",
         onPress: () => router.push("./taskdetail"),
     },
 ];
@@ -42,7 +42,7 @@ const TasksScreen: React.FC = () => {
 
     return (
         <SafeAreaView style={styles.container} edges={["top"]}>
-            <Header title="Deine Aufgaben" />
+            <Header title="Tasks" />
             <ScrollView contentContainerStyle={styles.scroll}>
                 <TaskContainer
                     title="Energie sparen"
@@ -51,7 +51,7 @@ const TasksScreen: React.FC = () => {
                 />
 
                 <TaskContainer
-                    title="Zimmerpflege"
+                    title="Recycling"
                     description="Halte dein Zimmer sauber und ordentlich"
                     tasks={tasksGruppe2}
                 />

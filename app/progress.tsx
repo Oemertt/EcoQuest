@@ -3,9 +3,9 @@ import Header from "@/components/Header";
 import LeaderboardContainer from "@/components/LeaderboardContainer";
 import ProgressHeader from "@/components/ProgressHeader";
 import { router } from "expo-router";
-import React from "react";
 import { StyleSheet, Text, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
+import LeaderboardScreen from "@/app/leaderboard";
 
 const users = [
     {
@@ -41,7 +41,7 @@ const users = [
 ];
 
 
-const ProgressScreen: React.FC = () => {
+const ProgressScreen = () => {
     const currentUser = {
         name: "Du",
         points: 200,
@@ -57,14 +57,14 @@ const ProgressScreen: React.FC = () => {
 
     return (
         <SafeAreaView edges={["top"]} style={styles.container}>
-            <Header title="Dein Fortschritt" />
+            <Header title="Fortschritt" />
 
             <View style={styles.profileContainer}>
                 <ProgressHeader points={currentUser.points} badges={currentUser.badges} />
             </View>
 
-            <Text style={[styles.sectionTitle, { fontWeight: "bold" }]}>Rangliste</Text>
-            <LeaderboardContainer users={users} />
+            <Text className="font-bold text-2xl mt-5 mb-3">Ranglisten</Text>
+            <LeaderboardScreen/>
 
             <BottomNavigation items={navItems} />
         </SafeAreaView>
@@ -80,14 +80,7 @@ const styles = StyleSheet.create({
     profileContainer: {
         marginVertical: 16,
     },
-    sectionTitle: {
-        fontSize: 18,
-        fontWeight: "bold",
-        color: "#0e1a13",
-        paddingTop: 16,
-        paddingBottom: 4,
-        paddingHorizontal: 4,
-    },
+    
 });
 
 export default ProgressScreen;

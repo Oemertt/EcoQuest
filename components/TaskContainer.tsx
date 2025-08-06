@@ -1,12 +1,12 @@
 import React from "react";
-import { View, Text, StyleSheet } from "react-native";
+import { StyleSheet, Text, View } from "react-native";
 import TaskCard from "./TaskCard";
 
 interface Task {
     id: string;
     title: string;
     subtitle: string;
-    imageUrl: string;
+    imageUrl: string | any;
     onPress?: () => void;   // onPress ist optional, falls gewünscht
 }
 
@@ -16,15 +16,10 @@ interface TaskContainerProps {
     tasks: Task[];
 }
 
-const TaskContainer: React.FC<TaskContainerProps> = ({
-                                                         title,
-                                                         description,
-                                                         tasks,
-                                                     }) => {
+const TaskContainer: React.FC<TaskContainerProps> = ({ title, description, tasks, }) => {
     return (
         <View style={styles.container}>
             <Text style={styles.title}>{title}</Text>
-            <Text style={styles.description}>{description}</Text>
 
             {/* Task cards */}
             {tasks.map((task) => (
@@ -43,23 +38,18 @@ const TaskContainer: React.FC<TaskContainerProps> = ({
 
 const styles = StyleSheet.create({
     container: {
-        marginBottom: 32,
+        marginBottom: 6,
         paddingHorizontal: 16,
         backgroundColor: "#f9fbfa",
     },
     title: {
-        fontSize: 20,
+        fontSize: 24,
         fontWeight: "bold",
         color: "#101914",
-        marginBottom: 8,
-    },
-    description: {
-        fontSize: 16,
-        color: "#101914",
-        marginBottom: 16,
+        marginBottom: 18,
     },
     cardWrapper: {
-        marginBottom: 16,
+        marginBottom: 10,
     },
 });
 

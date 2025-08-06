@@ -1,5 +1,5 @@
 import React from "react";
-import { ScrollView, View, StyleSheet } from "react-native";
+import { ScrollView, StyleSheet, View } from "react-native";
 import ProfileCard from "./ProfileCard";
 
 type User = {

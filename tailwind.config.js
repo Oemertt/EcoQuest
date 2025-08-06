@@ -4,7 +4,20 @@ module.exports = {
   content: ["./app/**/*.{js,jsx,ts,tsx}", "./components/**/*.{js,jsx,ts,tsx}"],
   presets: [require("nativewind/preset")],
   theme: {
-    extend: {},
+    extend: {
+      fontFamily: {
+        'sans': ['BeVietnamPro-Regular', 'sans-serif'],
+        'vietnam': ['BeVietnamPro-Regular', 'sans-serif'],
+        'thin': ['BeVietnamPro-Thin'],
+        'light': ['BeVietnamPro-Light'],
+        'regular': ['BeVietnamPro-Regular'],
+        'medium': ['BeVietnamPro-Medium'],
+        'semibold': ['BeVietnamPro-SemiBold'],
+        'bold': ['BeVietnamPro-Bold'],
+        'extrabold': ['BeVietnamPro-ExtraBold'],
+        'black': ['BeVietnamPro-Black'],
+      },
+    },
   },
   plugins: [],
 };

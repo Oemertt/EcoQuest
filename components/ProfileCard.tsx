@@ -1,14 +1,9 @@
-import React from 'react';
-import { View, Text, Image, StyleSheet } from 'react-native';
+import { Image } from 'expo-image';
+import { StyleSheet, Text, View } from 'react-native';
 
-type ProfileCardProps = {
-    name: string;
-    points: number;
-    badges: number;
-    imageUrl: string;
-};
 
-const ProfileCard: React.FC<ProfileCardProps> = ({ name, points, badges, imageUrl }) => (
+
+const ProfileCard = ({ name, points, badges, imageUrl }: any) => (
     <View style={styles.container}>
         <Image source={{ uri: imageUrl }} style={styles.avatar} />
         <View>
