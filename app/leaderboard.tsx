@@ -1,107 +1,103 @@
 import { View, Text, StyleSheet, ScrollView, Image } from 'react-native';
 import { Crown, Medal, Award } from 'lucide-react-native';
+import { useState, useEffect } from 'react';
+import axios from 'axios';
 
 interface LeaderboardEntry {
-    id: string;
-    rank: number;
-    name: string;
+    clerkUserId: string;
     points: number;
-    avatar: string;
-    change?: number;
+    name: string;
+    imageUrl: string;
 }
-
-const leaderboardData: LeaderboardEntry[] = [
-    { id: '1', rank: 1, name: 'Anna Müller', points: 2847, avatar: 'https://images.pexels.com/photos/774909/pexels-photo-774909.jpeg?auto=compress&cs=tinysrgb&w=150&h=150&fit=crop', change: 2 },
-    { id: '2', rank: 2, name: 'Max Schmidt', points: 2654, avatar: 'https://images.pexels.com/photos/220453/pexels-photo-220453.jpeg?auto=compress&cs=tinysrgb&w=150&h=150&fit=crop', change: -1 },
-    { id: '3', rank: 3, name: 'Sophie Weber', points: 2489, avatar: 'https://images.pexels.com/photos/1239291/pexels-photo-1239291.jpeg?auto=compress&cs=tinysrgb&w=150&h=150&fit=crop', change: 1 },
-    { id: '4', rank: 4, name: 'Leon Bauer', points: 2387, avatar: 'https://images.pexels.com/photos/1559486/pexels-photo-1559486.jpeg?auto=compress&cs=tinysrgb&w=150&h=150&fit=crop', change: 3 },
-    { id: '5', rank: 5, name: 'Emma Fischer', points: 2156, avatar: 'https://images.pexels.com/photos/415829/pexels-photo-415829.jpeg?auto=compress&cs=tinysrgb&w=150&h=150&fit=crop', change: -2 },
-    { id: '6', rank: 6, name: 'Paul Wagner', points: 1987, avatar: 'https://images.pexels.com/photos/1121796/pexels-photo-1121796.jpeg?auto=compress&cs=tinysrgb&w=150&h=150&fit=crop', change: 0 },
-    { id: '7', rank: 7, name: 'Lisa Hoffmann', points: 1845, avatar: 'https://images.pexels.com/photos/1130626/pexels-photo-1130626.jpeg?auto=compress&cs=tinysrgb&w=150&h=150&fit=crop', change: 1 },
-    { id: '8', rank: 8, name: 'Tim Klein', points: 1723, avatar: 'https://images.pexels.com/photos/1192609/pexels-photo-1192609.jpeg?auto=compress&cs=tinysrgb&w=150&h=150&fit=crop', change: -3 },
-];
-
-function getRankIcon(rank: number) {
-    switch (rank) {
-        case 1:
-            return <Crown size={20} color="#F59E0B" />;
-        case 2:
-            return <Medal size={20} color="#9CA3AF" />;
-        case 3:
-            return <Award size={20} color="#CD7C2F" />;
-        default:
-            return null;
-    }
-}
-
-/*function getRankStyle(rank: number) {
-    switch (rank) {
-        case 1:
-            return styles.goldRank;
-        case 2:
-            return styles.silverRank;
-        case 3:
-            return styles.bronzeRank;
-        default:
-            return styles.defaultRank;
-    }
-}
-
-function getChangeIndicator(change?: number) {
-    if (!change || change === 0) return null;
-
-    const isPositive = change > 0;
-    return (
-        <View style={[styles.changeIndicator, isPositive ? styles.positiveChange : styles.negativeChange]}>
-            <Text style={[styles.changeText, isPositive ? styles.positiveChangeText : styles.negativeChangeText]}>
-                {isPositive ? '+' : ''}{change}
-            </Text>
-        </View>
-    );
-}*/
 
 export default function LeaderboardScreen() {
+    const [leaderboard, setLeaderboard] = useState<LeaderboardEntry[]>([]);
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState<string | null>(null);
+
+    useEffect(() => {
+        fetchLeaderboard();
+    }, []);
+
+    const fetchLeaderboard = async () => {
+        try {
+            setLoading(true);
+            setError(null);
+
+            const response = await axios.get('http://192.168.0.2:5001/leaderboard');
+            console.log("leaderbord:" + response.data);
+            setLeaderboard(response.data);
+        } catch (err) {
+            console.error('Fehler beim Laden der Rangliste:', err);
+            setError('Fehler beim Laden der Rangliste');
+            setLeaderboard([]);
+        } finally {
+            setLoading(false);
+        }
+    };
+
+    const getRankIcon = (rank: number) => {
+        switch (rank) {
+            case 1:
+                return <Crown size={20} color="#F59E0B" />;
+            case 2:
+                return <Medal size={20} color="#9CA3AF" />;
+            case 3:
+                return <Award size={20} color="#CD7C2F" />;
+            default:
+                return null;
+        }
+    };
+
+    if (loading) {
+        return (
+            <View style={[styles.container, styles.centerContent]}>
+                <Text style={styles.loadingText}>Lade Rangliste...</Text>
+            </View>
+        );
+    }
+
+    /*if (error) {
+        return (
+            <View style={[styles.container, styles.centerContent]}>
+                <Text style={styles.errorText}>{error}</Text>
+                <Text style={styles.retryText} onPress={fetchLeaderboard}>
+                    Erneut versuchen
+                </Text>
+            </View>
+        );
+    }*/
+
+  /*  if (leaderboard.length === 0) {
+        return (
+            <View style={[styles.container, styles.centerContent]}>
+                <Text style={styles.emptyText}>Noch keine Daten verfügbar</Text>
+            </View>
+        );
+    }*/
+
     return (
         <ScrollView style={styles.container} contentContainerStyle={styles.content}>
-
-
             <View style={styles.podium}>
-                {leaderboardData.slice(0, 3).map((entry, index) => (
-                    <View key={entry.id} style={[styles.podiumPlace, index === 0 ? styles.firstPlace : index === 1 ? styles.secondPlace : styles.thirdPlace]}>
+                {leaderboard.slice(0, 3).map((entry, index) => (
+                    <View key={entry.clerkUserId} style={[styles.podiumPlace, index === 0 ? styles.firstPlace : index === 1 ? styles.secondPlace : styles.thirdPlace]}>
                         <View style={styles.podiumRank}>
-                            {getRankIcon(entry.rank)}
-                            <Text style={styles.podiumRankText}>#{entry.rank}</Text>
+                            {getRankIcon(index + 1)}
+                            <Text style={styles.podiumRankText}>#{index + 1}</Text>
                         </View>
-                        <Image source={{ uri: entry.avatar }} style={styles.podiumAvatar} />
-                        <Text style={styles.podiumName} numberOfLines={1}>{entry.name}</Text>
+                        <Image
+                            source={{ uri: entry.imageUrl || 'https://via.placeholder.com/60' }}
+                            style={styles.podiumAvatar}
+                        />
+                        <Text style={styles.podiumName} numberOfLines={1}>
+                            {entry.name || 'Unbekannt'}
+                        </Text>
                         <Text style={styles.podiumPoints}>{entry.points.toLocaleString()}</Text>
                     </View>
                 ))}
             </View>
 
             <Text style={styles.subtitle}>Sehen Sie, wer an der Spitze steht</Text>
-
-
-            {/*<View style={styles.leaderboardList}>
-                <Text style={styles.sectionTitle}>Vollständige Rangliste</Text>
-                {leaderboardData.map((entry) => (
-                    <View key={entry.id} style={[styles.leaderboardItem, getRankStyle(entry.rank)]}>
-                        <View style={styles.rankContainer}>
-                            <Text style={styles.rankNumber}>#{entry.rank}</Text>
-                            {getRankIcon(entry.rank)}
-                        </View>
-
-                        <Image source={{ uri: entry.avatar }} style={styles.avatar} />
-
-                        <View style={styles.playerInfo}>
-                            <Text style={styles.playerName}>{entry.name}</Text>
-                            <Text style={styles.playerPoints}>{entry.points.toLocaleString()} Punkte</Text>
-                        </View>
-
-                        {getChangeIndicator(entry.change)}
-                    </View>
-                ))}
-            </View>*/}
         </ScrollView>
     );
 }
@@ -193,57 +189,6 @@ const styles = StyleSheet.create({
         color: '#64748B',
         fontWeight: '500',
     },
-    /*leaderboardList: {
-        gap: 12,
-    },
-    sectionTitle: {
-        fontSize: 20,
-        fontWeight: 'bold',
-        color: '#1E293B',
-        marginBottom: 16,
-    },
-    leaderboardItem: {
-        flexDirection: 'row',
-        alignItems: 'center',
-        backgroundColor: '#FFFFFF',
-        padding: 16,
-        borderRadius: 16,
-        shadowColor: '#000',
-        shadowOffset: {
-            width: 0,
-            height: 2,
-        },
-        shadowOpacity: 0.1,
-        shadowRadius: 8,
-        elevation: 4,
-    },*/
-    /*goldRank: {
-        borderLeftWidth: 4,
-        borderLeftColor: '#F59E0B',
-    },
-    silverRank: {
-        borderLeftWidth: 4,
-        borderLeftColor: '#9CA3AF',
-    },
-    bronzeRank: {
-        borderLeftWidth: 4,
-        borderLeftColor: '#CD7C2F',
-    },
-    defaultRank: {
-        borderLeftWidth: 4,
-        borderLeftColor: '#E2E8F0',
-    },
-    rankContainer: {
-        flexDirection: 'row',
-        alignItems: 'center',
-        minWidth: 60,
-        gap: 4,
-    },
-    rankNumber: {
-        fontSize: 18,
-        fontWeight: 'bold',
-        color: '#1E293B',
-    },*/
     avatar: {
         width: 48,
         height: 48,
@@ -285,5 +230,27 @@ const styles = StyleSheet.create({
     },
     negativeChangeText: {
         color: '#DC2626',
+    },
+    centerContent: {
+        justifyContent: 'center',
+        alignItems: 'center',
+    },
+    loadingText: {
+        fontSize: 18,
+        color: '#1E293B',
+    },
+    errorText: {
+        fontSize: 16,
+        color: '#DC2626',
+        marginBottom: 8,
+    },
+    retryText: {
+        fontSize: 16,
+        color: '#2563EB',
+        textDecorationLine: 'underline',
+    },
+    emptyText: {
+        fontSize: 16,
+        color: '#64748B',
     },
 });
