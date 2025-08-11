@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="CopilotDiffPersistence">
+    <option name="pendingDiffs">
+      <map>
+        <entry key="$PROJECT_DIR$/components/TaskDetail.tsx">
+          <value>
+            <PendingDiffInfo>
+              <option name="filePath" value="$PROJECT_DIR$/components/TaskDetail.tsx" />
+              <option name="updatedContent" value="import React, { useState, useRef, useEffect } from &quot;react&quot;;&#10;import {&#10;    View,&#10;    Text,&#10;    StyleSheet,&#10;    ScrollView,&#10;    Pressable,&#10;    Animated, Platform,&#10;} from &quot;react-native&quot;;&#10;import Reward from &quot;./Reward&quot;;&#10;import PrimaryButton from &quot;./PrimaryButton&quot;;&#10;import * as Haptics from 'expo-haptics';&#10;import {useToast} from &quot;@/components/ui/toast&quot;;&#10;import ToastExample from &quot;@/components/ToastExample&quot;;&#10;import { useAudioPlayer } from 'expo-audio';&#10;&#10;&#10;interface Step {&#10;    id: string;&#10;    text: string;&#10;    checked?: boolean;&#10;}&#10;&#10;interface TaskDetailProps {&#10;    title: string;&#10;    description: string;&#10;    steps: Step[];&#10;    rewardPoints: number;&#10;}&#10;&#10;const TaskDetail: React.FC&lt;TaskDetailProps&gt; = ({&#10;    title,&#10;    description,&#10;    steps: initialSteps,&#10;    rewardPoints,&#10;}) =&gt; {&#10;    const [steps, setSteps] = useState(initialSteps);&#10;    const scaleAnim = useRef(new Animated.Value(1)).current;&#10;&#10;    const [started, setStarted] = useState(false);&#10;    const [completed, setCompleted] = useState(false);&#10;    const toast = useToast();&#10;    const audioSource = require('../assets/appSound.mp3');&#10;    const player = useAudioPlayer(audioSource);&#10;&#10;    useEffect(() =&gt; {&#10;        if (started &amp;&amp; !completed) {&#10;            Animated.sequence([&#10;                Animated.timing(scaleAnim, {&#10;                    toValue: 1.05,&#10;                    duration: 100,&#10;                    useNativeDriver: true,&#10;                }),&#10;                Animated.timing(scaleAnim, {&#10;                    toValue: 1,&#10;                    duration: 100,&#10;                    useNativeDriver: true,&#10;                }),&#10;            ]).start();&#10;        }&#10;    }, [started, completed, scaleAnim]);&#10;&#10;    const toggleStep = (id: string) =&gt; {&#10;        setSteps(prev =&gt;&#10;            prev.map(step =&gt;&#10;                step.id === id ? { ...step, checked: !step.checked } : step&#10;            )&#10;        );&#10;    };&#10;&#10;    const handlePress = () =&gt; {&#10;        player.seekTo(0);&#10;        player.play();&#10;        const newId = Math.random().toString();&#10;        toast.show({&#10;            id: newId,&#10;            placement:&quot;top&quot;,&#10;            render: ({ id }) =&gt; {&#10;                const toastId = &quot;toast-&quot; + id;&#10;                return (&#10;                    &lt;ToastExample id={toastId}/&gt;&#10;                );&#10;            },&#10;        });&#10;&#10;        if(Platform.OS=== 'ios') {&#10;            Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Heavy);&#10;        } else {&#10;            Haptics.performAndroidHapticsAsync(Haptics.AndroidHaptics.Reject);&#10;        }&#10;&#10;        if (!started) {&#10;            setStarted(true);&#10;            setCompleted(false);&#10;        } else if (!completed) {&#10;            setCompleted(true);&#10;            setStarted(false);&#10;        }&#10;    };&#10;&#10;    return (&#10;        &lt;View style={styles.wrapper}&gt;&#10;            &lt;ScrollView contentContainerStyle={styles.container}&gt;&#10;                &lt;Text style={styles.title}&gt;{title}&lt;/Text&gt;&#10;                &lt;Text style={styles.description}&gt;{description}&lt;/Text&gt;&#10;&#10;                &lt;Text style={styles.sectionTitle}&gt;Schritte: &lt;/Text&gt;&#10;                &lt;View style={styles.stepsContainer}&gt;&#10;                    {steps.map(step =&gt; (&#10;                        &lt;Pressable&#10;                            key={step.id}&#10;                            onPress={() =&gt; toggleStep(step.id)}&#10;                            style={styles.stepItem}&#10;                        &gt;&#10;                            &lt;View style={[styles.checkbox, step.checked &amp;&amp; styles.checked]} /&gt;&#10;                            &lt;Text style={styles.stepText}&gt;{step.text}&lt;/Text&gt;&#10;                        &lt;/Pressable&gt;&#10;                    ))}&#10;                &lt;/View&gt;&#10;&#10;                &lt;Reward points={rewardPoints} /&gt;&#10;            &lt;/ScrollView&gt;&#10;&#10;            &lt;View style={styles.fixedButton}&gt;&#10;                &lt;Animated.View style={{ width: &quot;100%&quot;, transform: [{ scale: scaleAnim }] }}&gt;&#10;                    &lt;PrimaryButton&#10;                        title={started ? &quot;Erledigt&quot; : &quot;Aufgabe starten&quot;}&#10;                        onPressIn={handlePress}&#10;                    /&gt;&#10;                &lt;/Animated.View&gt;&#10;            &lt;/View&gt;&#10;        &lt;/View&gt;&#10;    );&#10;};&#10;&#10;const styles = StyleSheet.create({&#10;    wrapper: {&#10;        flex: 1,&#10;        justifyContent: &quot;space-between&quot;,&#10;    },&#10;    container: {&#10;        gap: 20,&#10;        paddingBottom: 100,&#10;    },&#10;    title: {&#10;        fontSize: 22,&#10;        fontWeight: &quot;bold&quot;,&#10;        color: &quot;#0e1a13&quot;,&#10;    },&#10;    description: {&#10;        fontSize: 16,&#10;        color: &quot;#4a635f&quot;,&#10;    },&#10;    sectionTitle: {&#10;        fontSize: 18,&#10;        fontWeight: &quot;bold&quot;,&#10;        color: &quot;#0e1a13&quot;,&#10;        paddingTop: 16,&#10;        paddingBottom: 4,&#10;        paddingHorizontal: 4,&#10;    },&#10;    stepsContainer: {&#10;        gap: 30,&#10;    },&#10;    stepItem: {&#10;        flexDirection: &quot;row&quot;,&#10;        alignItems: &quot;center&quot;,&#10;        gap: 10,&#10;    },&#10;    checkbox: {&#10;        width: 18,&#10;        height: 18,&#10;        borderRadius: 4,&#10;        borderWidth: 2,&#10;        borderColor: &quot;#4a635f&quot;,&#10;    },&#10;    checked: {&#10;        backgroundColor: &quot;#4a635f&quot;,&#10;    },&#10;    stepText: {&#10;        fontSize: 16,&#10;        color: &quot;#0e1a13&quot;,&#10;    },&#10;    fixedButton: {&#10;        position: &quot;absolute&quot;,&#10;        bottom: 60,&#10;        left: 20,&#10;        right: 20,&#10;    },&#10;});&#10;&#10;export default TaskDetail;" />
+            </PendingDiffInfo>
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/babel.config.js">
+          <value>
+            <PendingDiffInfo>
+              <option name="filePath" value="$PROJECT_DIR$/babel.config.js" />
+              <option name="originalContent" value="module.exports = function (api) {&#10;  api.cache(true);&#10;  api.cache(true);&#10;  return {&#10;    presets: [&#10;      [&quot;babel-preset-expo&quot;, { jsxImportSource: &quot;nativewind&quot; }],&#10;      &quot;nativewind/babel&quot;,&#10;      &quot;nativewind/babel&quot;&#10;    ],&#10;&#10;    plugins: [[&quot;module-resolver&quot;, {&#10;      root: [&quot;./&quot;],&#10;&#10;      alias: {&#10;        &quot;@&quot;: &quot;./&quot;,&#10;        &quot;tailwind.config&quot;: &quot;./tailwind.config.js&quot;&#10;      }&#10;    }]]&#10;  };&#10;};&#10;" />
+              <option name="updatedContent" value="module.exports = function (api) {&#10;  api.cache(true);&#10;  return {&#10;    presets: [&#10;      [&quot;babel-preset-expo&quot;, { jsxImportSource: &quot;nativewind&quot; }],&#10;      &quot;nativewind/babel&quot;&#10;    ],&#10;&#10;    plugins: [[&quot;module-resolver&quot;, {&#10;      root: [&quot;./&quot;],&#10;&#10;      alias: {&#10;        &quot;@&quot;: &quot;./&quot;,&#10;        &quot;tailwind.config&quot;: &quot;./tailwind.config.js&quot;&#10;      }&#10;    }]]&#10;  };&#10;};" />
+            </PendingDiffInfo>
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/backend/server.js">
+          <value>
+            <PendingDiffInfo>
+              <option name="filePath" value="$PROJECT_DIR$/backend/server.js" />
+              <option name="originalContent" value="import express from 'express';&#10;import { drizzle } from 'drizzle-orm/neon-http';&#10;import { neon } from '@neondatabase/serverless';&#10;import { eq } from 'drizzle-orm';&#10;import { users } from './src/db/schema.js';&#10;import dotenv from 'dotenv';&#10;dotenv.config();&#10;&#10;// DATABASE_URL überprüfen&#10;if (!process.env.DATABASE_URL) {&#10;    throw new Error('DATABASE_URL environment variable is required');&#10;}&#10;&#10;// Neon Client erstellen und dann Drizzle initialisieren&#10;const sql = neon(process.env.DATABASE_URL);&#10;const db = drizzle(sql);&#10;&#10;const app = express();&#10;app.use(express.json());&#10;app.listen(5001, () =&gt; { console.log('Server is running on port 5001'); });&#10;&#10;app.get('/', (req, res) =&gt; {&#10;    res.send('Welcome to the EcoQuest');&#10;});&#10;&#10;/*&#10;app.post('/api/clerk-webhook', async (req, res) =&gt; {&#10;    const event = req.body;&#10;&#10;    if (event.type === 'user.created') {&#10;        const clerkUserId = event.data.id;&#10;&#10;        try {&#10;            // in die users-Tabelle einfügen&#10;            await db.insert(userTable).values({&#10;                id: clerkUserId,&#10;                points: 0,&#10;            });&#10;&#10;            return res.status(200).json({ success: true });&#10;        } catch (err) {&#10;            console.error('Fehler beim Einfügen:', err);&#10;            return res.status(500).json({ error: 'DB insert failed' });&#10;        }&#10;    }&#10;&#10;    res.status(200).json({ received: true });&#10;});*/&#10;&#10;&#10;app.post('/api/user/init', async (req, res) =&gt; {&#10;    const { userId } = req.body;&#10;&#10;    if (!userId) return res.status(400).json({ error: 'No userId provided' });&#10;&#10;    try {&#10;        const existing = await db.select().from(users).where(users.id.eq(userId));&#10;&#10;        if (existing.length === 0) {&#10;            await db.insert(users).values({&#10;                id: userId,&#10;                points: 0,&#10;            });&#10;        }&#10;&#10;        res.status(200).json({ status: 'ok' });&#10;    } catch (err) {&#10;        console.error(err);&#10;        res.status(500).json({ error: 'Database error' });&#10;    }&#10;});&#10;" />
+              <option name="updatedContent" value="import express from 'express';&#10;import { drizzle } from 'drizzle-orm/neon-http';&#10;import { neon } from '@neondatabase/serverless';&#10;import { eq } from 'drizzle-orm';&#10;import { users } from './src/db/schema.js';&#10;import dotenv from 'dotenv';&#10;dotenv.config();&#10;&#10;// DATABASE_URL überprüfen&#10;if (!process.env.DATABASE_URL) {&#10;    throw new Error('DATABASE_URL environment variable is required');&#10;}&#10;&#10;// Neon Client erstellen und dann Drizzle initialisieren&#10;const sql = neon(process.env.DATABASE_URL);&#10;const db = drizzle(sql);&#10;&#10;const app = express();&#10;app.use(express.json());&#10;app.listen(5001, () =&gt; { console.log('Server is running on port 5001'); });&#10;&#10;app.get('/', (req, res) =&gt; {&#10;    res.send('Welcome to the EcoQuest');&#10;});&#10;&#10;/*&#10;app.post('/api/clerk-webhook', async (req, res) =&gt; {&#10;    const event = req.body;&#10;&#10;    if (event.type === 'user.created') {&#10;        const clerkUserId = event.data.id;&#10;&#10;        try {&#10;            // in die users-Tabelle einfügen&#10;            await db.insert(userTable).values({&#10;                id: clerkUserId,&#10;                points: 0,&#10;            });&#10;&#10;            return res.status(200).json({ success: true });&#10;        } catch (err) {&#10;            console.error('Fehler beim Einfügen:', err);&#10;            return res.status(500).json({ error: 'DB insert failed' });&#10;        }&#10;    }&#10;&#10;    res.status(200).json({ received: true });&#10;});*/&#10;&#10;&#10;app.post('/api/user/init', async (req, res) =&gt; {&#10;    const { userId } = req.body;&#10;&#10;    if (!userId) return res.status(400).json({ error: 'No userId provided' });&#10;&#10;    try {&#10;        const existing = await db.select().from(users).where(eq(users.id, userId));&#10;&#10;        if (existing.length === 0) {&#10;            await db.insert(users).values({&#10;                id: userId,&#10;                points: 0,&#10;            });&#10;        }&#10;&#10;        res.status(200).json({ status: 'ok' });&#10;    } catch (err) {&#10;        console.error(err);&#10;        res.status(500).json({ error: 'Database error' });&#10;    }&#10;});" />
+            </PendingDiffInfo>
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/backend/src/db/schema.js">
+          <value>
+            <PendingDiffInfo>
+              <option name="filePath" value="$PROJECT_DIR$/backend/src/db/schema.js" />
+              <option name="updatedContent" value="import { pgTable, text, integer } from 'drizzle-orm/pg-core';&#10;&#10;export const users = pgTable('users', {&#10;    id: text('id').primaryKey(), // Clerk user ID&#10;    points: integer('points').default(0),&#10;});" />
+            </PendingDiffInfo>
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/backend/src/index.ts">
+          <value>
+            <PendingDiffInfo>
+              <option name="filePath" value="$PROJECT_DIR$/backend/src/index.ts" />
+              <option name="originalContent" value="import { drizzle } from 'drizzle-orm/neon-http';&#10;&#10;const db = drizzle(process.env.DATABASE_URL);&#10;" />
+              <option name="updatedContent" value="import { drizzle } from 'drizzle-orm/neon-http';&#10;&#10;if (!process.env.DATABASE_URL) {&#10;  throw new Error('DATABASE_URL environment variable is required');&#10;}&#10;&#10;const db = drizzle(process.env.DATABASE_URL);&#10;&#10;export { db };" />
+            </PendingDiffInfo>
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/components/InitUser.tsx">
+          <value>
+            <PendingDiffInfo>
+              <option name="filePath" value="$PROJECT_DIR$/components/InitUser.tsx" />
+              <option name="originalContent" value="import { useUser } from '@clerk/clerk-expo';&#10;import { useEffect } from 'react';&#10;import axios from 'axios';&#10;&#10;export default function InitUser() {&#10;    const { user } = useUser();&#10;&#10;    useEffect(() =&gt; {&#10;        if (user?.id) {&#10;            axios.post('http://localhost:5001/api/user/init', {&#10;                userId: user.id,&#10;            })&#10;                .then(response =&gt; {&#10;                    console.log('User initialized:', response.data);&#10;                })&#10;                .catch(error =&gt; {&#10;                    console.error('Fehler beim Initialisieren des Users:', error);&#10;                });&#10;        }&#10;    }, [user]);&#10;&#10;    return null;&#10;}&#10;" />
+              <option name="updatedContent" value="import { useUser } from '@clerk/clerk-expo';&#10;import { useEffect } from 'react';&#10;import axios from 'axios';&#10;&#10;export default function InitUser() {&#10;    const { user } = useUser();&#10;&#10;    useEffect(() =&gt; {&#10;        if (user?.id) {&#10;            axios.post('http://192.168.0.2:5001/api/user/init', {&#10;                userId: user.id,&#10;            })&#10;                .then(response =&gt; {&#10;                    console.log('User initialized:', response.data);&#10;                })&#10;                .catch(error =&gt; {&#10;                    console.error('Fehler beim Initialisieren des Users:', error);&#10;                });&#10;        }&#10;    }, [user?.id]);&#10;&#10;    return null;&#10;}" />
+            </PendingDiffInfo>
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/components/ui/avatar/index.tsx">
+          <value>
+            <PendingDiffInfo>
+              <option name="filePath" value="$PROJECT_DIR$/components/ui/avatar/index.tsx" />
+              <option name="updatedContent" value="import React from 'react';&#10;import { View, ViewProps } from 'react-native';&#10;&#10;interface AvatarProps extends ViewProps {&#10;  children: React.ReactNode;&#10;  size?: 'xs' | 'sm' | 'md' | 'lg' | 'xl';&#10;}&#10;&#10;interface AvatarImageProps {&#10;  source: { uri: string };&#10;  alt?: string;&#10;}&#10;&#10;interface AvatarFallbackTextProps {&#10;  children: React.ReactNode;&#10;}&#10;&#10;export const Avatar: React.FC&lt;AvatarProps&gt; = ({ children, size = 'md', style, ...props }) =&gt; {&#10;  const sizeMap = {&#10;    xs: 24,&#10;    sm: 32,&#10;    md: 40,&#10;    lg: 48,&#10;    xl: 56&#10;  };&#10;  &#10;  return (&#10;    &lt;View&#10;      style={[&#10;        {&#10;          width: sizeMap[size],&#10;          height: sizeMap[size],&#10;          borderRadius: sizeMap[size] / 2,&#10;          backgroundColor: '#e2e8f0',&#10;          alignItems: 'center',&#10;          justifyContent: 'center',&#10;          overflow: 'hidden'&#10;        },&#10;        style&#10;      ]}&#10;      {...props}&#10;    &gt;&#10;      {children}&#10;    &lt;/View&gt;&#10;  );&#10;};&#10;&#10;export const AvatarImage: React.FC&lt;AvatarImageProps&gt; = ({ source, alt }) =&gt; {&#10;  const Image = require('expo-image').Image;&#10;  return (&#10;    &lt;Image&#10;      source={source}&#10;      style={{ width: '100%', height: '100%' }}&#10;      contentFit=&quot;cover&quot;&#10;    /&gt;&#10;  );&#10;};&#10;&#10;export const AvatarFallbackText: React.FC&lt;AvatarFallbackTextProps&gt; = ({ children }) =&gt; {&#10;  const { Text } = require('react-native');&#10;  return (&#10;    &lt;Text style={{ color: '#64748b', fontWeight: '500' }}&gt;&#10;      {children}&#10;    &lt;/Text&gt;&#10;  );&#10;};" />
+            </PendingDiffInfo>
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/components/ui/button/index.tsx">
+          <value>
+            <PendingDiffInfo>
+              <option name="filePath" value="$PROJECT_DIR$/components/ui/button/index.tsx" />
+              <option name="updatedContent" value="import React from 'react';&#10;import { Button as GluestackButton, ButtonText as GluestackButtonText } from '@gluestack-ui/button';&#10;&#10;export { GluestackButton as Button, GluestackButtonText as ButtonText };" />
+            </PendingDiffInfo>
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/components/ui/divider/index.tsx">
+          <value>
+            <PendingDiffInfo>
+              <option name="filePath" value="$PROJECT_DIR$/components/ui/divider/index.tsx" />
+              <option name="updatedContent" value="import React from 'react';&#10;import { Divider as GluestackDivider } from '@gluestack-ui/divider';&#10;&#10;export { GluestackDivider as Divider };" />
+            </PendingDiffInfo>
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/components/ui/heading/index.tsx">
+          <value>
+            <PendingDiffInfo>
+              <option name="filePath" value="$PROJECT_DIR$/components/ui/heading/index.tsx" />
+            </PendingDiffInfo>
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/components/ui/hstack/index.tsx">
+          <value>
+            <PendingDiffInfo>
+              <option name="filePath" value="$PROJECT_DIR$/components/ui/hstack/index.tsx" />
+              <option name="updatedContent" value="import React from 'react';&#10;import { View, ViewProps } from 'react-native';&#10;&#10;interface HStackProps extends ViewProps {&#10;  children: React.ReactNode;&#10;  space?: number;&#10;}&#10;&#10;export const HStack: React.FC&lt;HStackProps&gt; = ({ children, space = 8, style, ...props }) =&gt; {&#10;  return (&#10;    &lt;View&#10;      style={[&#10;        {&#10;          flexDirection: 'row',&#10;          alignItems: 'center',&#10;          gap: space&#10;        },&#10;        style&#10;      ]}&#10;      {...props}&#10;    &gt;&#10;      {children}&#10;    &lt;/View&gt;&#10;  );&#10;};" />
+            </PendingDiffInfo>
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/components/ui/icon/index.tsx">
+          <value>
+            <PendingDiffInfo>
+              <option name="filePath" value="$PROJECT_DIR$/components/ui/icon/index.tsx" />
+              <option name="updatedContent" value="import React from 'react';&#10;import { Icon as LucideIcon } from 'lucide-react-native';&#10;&#10;interface IconProps {&#10;  as: any;&#10;  size?: string | number;&#10;  className?: string;&#10;}&#10;&#10;export const Icon: React.FC&lt;IconProps&gt; = ({ as: IconComponent, size = 24, className, ...props }) =&gt; {&#10;  return &lt;IconComponent size={size} className={className} {...props} /&gt;;&#10;};" />
+            </PendingDiffInfo>
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/components/ui/text/index.tsx">
+          <value>
+            <PendingDiffInfo>
+              <option name="filePath" value="$PROJECT_DIR$/components/ui/text/index.tsx" />
+              <option name="updatedContent" value="import React from 'react';&#10;import { Text as RNText, TextProps } from 'react-native';&#10;&#10;interface TextComponentProps extends TextProps {&#10;  size?: 'xs' | 'sm' | 'md' | 'lg' | 'xl';&#10;  children: React.ReactNode;&#10;}&#10;&#10;export const Text: React.FC&lt;TextComponentProps&gt; = ({ size = 'md', style, children, ...props }) =&gt; {&#10;  const sizeMap = {&#10;    xs: 12,&#10;    sm: 14,&#10;    md: 16,&#10;    lg: 18,&#10;    xl: 20&#10;  };&#10;&#10;  return (&#10;    &lt;RNText&#10;      style={[&#10;        {&#10;          fontSize: sizeMap[size],&#10;          color: '#374151'&#10;        },&#10;        style&#10;      ]}&#10;      {...props}&#10;    &gt;&#10;      {children}&#10;    &lt;/RNText&gt;&#10;  );&#10;};" />
+            </PendingDiffInfo>
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/components/ui/vstack/index.tsx">
+          <value>
+            <PendingDiffInfo>
+              <option name="filePath" value="$PROJECT_DIR$/components/ui/vstack/index.tsx" />
+              <option name="updatedContent" value="import React from 'react';&#10;import { View, ViewProps } from 'react-native';&#10;&#10;interface VStackProps extends ViewProps {&#10;  children: React.ReactNode;&#10;  space?: number;&#10;}&#10;&#10;export const VStack: React.FC&lt;VStackProps&gt; = ({ children, space = 8, style, ...props }) =&gt; {&#10;  return (&#10;    &lt;View&#10;      style={[&#10;        {&#10;          flexDirection: 'column',&#10;          gap: space&#10;        },&#10;        style&#10;      ]}&#10;      {...props}&#10;    &gt;&#10;      {children}&#10;    &lt;/View&gt;&#10;  );&#10;};" />
+            </PendingDiffInfo>
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+</project>

@@ -5,10 +5,15 @@ import {
     StyleSheet,
     ScrollView,
     Pressable,
-    Animated,
+    Animated, Platform,
 } from "react-native";
 import Reward from "./Reward";
 import PrimaryButton from "./PrimaryButton";
+import * as Haptics from 'expo-haptics';
+import {useToast} from "@/components/ui/toast";
+import ToastExample from "@/components/ToastExample";
+import { useAudioPlayer } from 'expo-audio';
+
 
 interface Step {
     id: string;
@@ -24,16 +29,19 @@ interface TaskDetailProps {
 }
 
 const TaskDetail: React.FC<TaskDetailProps> = ({
-                                                   title,
-                                                   description,
-                                                   steps: initialSteps,
-                                                   rewardPoints,
-                                               }) => {
+    title,
+    description,
+    steps: initialSteps,
+    rewardPoints,
+}) => {
     const [steps, setSteps] = useState(initialSteps);
     const scaleAnim = useRef(new Animated.Value(1)).current;
 
     const [started, setStarted] = useState(false);
     const [completed, setCompleted] = useState(false);
+    const toast = useToast();
+    const audioSource = require('../assets/appSound.mp3');
+    const player = useAudioPlayer(audioSource);
 
     useEffect(() => {
         if (started && !completed) {
@@ -50,7 +58,7 @@ const TaskDetail: React.FC<TaskDetailProps> = ({
                 }),
             ]).start();
         }
-    }, [started, completed]);
+    }, [started, completed, scaleAnim]);
 
     const toggleStep = (id: string) => {
         setSteps(prev =>
@@ -61,14 +69,32 @@ const TaskDetail: React.FC<TaskDetailProps> = ({
     };
 
     const handlePress = () => {
+        player.seekTo(0);
+        player.play();
+        const newId = Math.random().toString();
+        toast.show({
+            id: newId,
+            placement:"top",
+            render: ({ id }) => {
+                const toastId = "toast-" + id;
+                return (
+                    <ToastExample id={toastId}/>
+                );
+            },
+        });
+
+        if(Platform.OS=== 'ios') {
+            Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Heavy);
+        } else {
+            Haptics.performAndroidHapticsAsync(Haptics.AndroidHaptics.Reject);
+        }
+
         if (!started) {
             setStarted(true);
             setCompleted(false);
         } else if (!completed) {
             setCompleted(true);
             setStarted(false);
-            //toast
-
         }
     };
 
@@ -95,16 +121,14 @@ const TaskDetail: React.FC<TaskDetailProps> = ({
                 <Reward points={rewardPoints} />
             </ScrollView>
 
-
             <View style={styles.fixedButton}>
                 <Animated.View style={{ width: "100%", transform: [{ scale: scaleAnim }] }}>
                     <PrimaryButton
                         title={started ? "Erledigt" : "Aufgabe starten"}
-                        onPress={handlePress}
+                        onPressIn={handlePress}
                     />
                 </Animated.View>
             </View>
-
         </View>
     );
 };
@@ -116,7 +140,7 @@ const styles = StyleSheet.create({
     },
     container: {
         gap: 20,
-        paddingBottom: 100, // Platz für den festen Button
+        paddingBottom: 100,
     },
     title: {
         fontSize: 22,

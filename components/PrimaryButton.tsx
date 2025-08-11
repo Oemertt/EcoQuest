@@ -8,15 +8,16 @@ import {
 
 interface PrimaryButtonProps {
     title: string;
-    onPress: (event: GestureResponderEvent) => void;
+    onPressIn: (event: GestureResponderEvent) => void;
     color?: string;  // optionales Farb-Prop
 }
 
-const PrimaryButton: React.FC<PrimaryButtonProps> = ({ title, onPress, color }) => {
+// @ts-ignore
+const PrimaryButton: React.FC<PrimaryButtonProps> = ({ title, onPressIn, color }) => {
     return (
         <TouchableOpacity
             style={[styles.button, color ? { backgroundColor: color } : null]} // Farbe hier dynamisch setzen
-            onPress={onPress}
+            onPressIn={onPressIn}
             activeOpacity={0.8}
         >
             <Text style={styles.text} numberOfLines={1}>

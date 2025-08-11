@@ -1,9 +1,8 @@
 import React, { useState } from "react";
-import { StyleSheet, View, Animated, Text, Dimensions } from "react-native";
+import { StyleSheet, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import Header from "@/components/Header";
 import TaskDetail from "@/components/TaskDetail";
-import { Ionicons } from "@expo/vector-icons";
 
 const TaskDetailScreen: React.FC = () => {
 

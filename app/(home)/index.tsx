@@ -5,10 +5,11 @@ import ProfileCard from "@/components/ProfileCard";
 import RecommendedTaskCard from "@/components/RecommendedTaskCard";
 import { SignOutButton } from "@/components/SignOutButton";
 import { useUser } from '@clerk/clerk-expo';
-import {Link, router} from "expo-router";
+import {router} from "expo-router";
 import React from "react";
 import { ScrollView, StyleSheet, Text, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
+import InitUser from "@/components/InitUser";
 
 const recommendedTasks = [
     {
@@ -37,6 +38,7 @@ const HomeScreen: React.FC = () => {
     const { user } = useUser()
     return (
         <SafeAreaView style={styles.container} edges={["top"]}>
+            <InitUser/>
             <Header title="Home" />
 
             <ScrollView style={styles.content} contentContainerStyle={{ gap: 16 }}>

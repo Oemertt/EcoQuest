@@ -1,4 +1,6 @@
 import { useColorScheme } from '@/hooks/useColorScheme';
+import { GluestackUIProvider } from "@/components/ui/gluestack-ui-provider";
+import "@/global.css";
 import { ClerkProvider } from '@clerk/clerk-expo';
 import { tokenCache } from '@clerk/clerk-expo/token-cache';
 import {
@@ -26,7 +28,6 @@ import { useFonts } from 'expo-font';
 import { Slot } from 'expo-router';
 import { StatusBar } from 'expo-status-bar';
 import 'react-native-reanimated';
-import "../global.css";
 
 export default function RootLayout() {
     const colorScheme = useColorScheme();
@@ -55,19 +56,19 @@ export default function RootLayout() {
     if (!loaded) return null;
 
     return (
-        <ClerkProvider tokenCache={tokenCache}>
-            <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
-                {/* <Stack>
-                    <Stack.Screen name="(auth)/sign-in" options={{ headerShown: false }} />
-                    <Stack.Screen name="(home)/index" options={{ headerShown: false }} />
-                    <Stack.Screen name="tasks" options={{ headerShown: false }} />
-                    <Stack.Screen name="taskdetail" options={{ headerShown: false }} />
-                    <Stack.Screen name="challengedetail" options={{ headerShown: false }} />
-                    <Stack.Screen name="progress" options={{ headerShown: false }} />
-                </Stack> */}
-                <Slot />
-                <StatusBar style="auto" />
-            </ThemeProvider>
-        </ClerkProvider>
+        <GluestackUIProvider mode="light"><ClerkProvider tokenCache={tokenCache}>
+                <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
+                    {/* <Stack>
+                        <Stack.Screen name="(auth)/sign-in" options={{ headerShown: false }} />
+                        <Stack.Screen name="(home)/index" options={{ headerShown: false }} />
+                        <Stack.Screen name="tasks" options={{ headerShown: false }} />
+                        <Stack.Screen name="taskdetail" options={{ headerShown: false }} />
+                        <Stack.Screen name="challengedetail" options={{ headerShown: false }} />
+                        <Stack.Screen name="progress" options={{ headerShown: false }} />
+                    </Stack> */}
+                    <Slot />
+                    <StatusBar style="auto" />
+                </ThemeProvider>
+            </ClerkProvider></GluestackUIProvider>
     );
 }

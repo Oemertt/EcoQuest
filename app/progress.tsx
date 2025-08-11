@@ -1,6 +1,5 @@
 import BottomNavigation, { NavItem } from "@/components/BottomNavigation";
 import Header from "@/components/Header";
-import LeaderboardContainer from "@/components/LeaderboardContainer";
 import ProgressHeader from "@/components/ProgressHeader";
 import { router } from "expo-router";
 import { StyleSheet, Text, View } from "react-native";
