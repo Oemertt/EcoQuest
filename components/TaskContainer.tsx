@@ -12,11 +12,10 @@ interface Task {
 
 interface TaskContainerProps {
     title: string;
-    description: string;
     tasks: Task[];
 }
 
-const TaskContainer: React.FC<TaskContainerProps> = ({ title, description, tasks, }) => {
+const TaskContainer: React.FC<TaskContainerProps> = ({ title, tasks, }) => {
     return (
         <View style={styles.container}>
             <Text style={styles.title}>{title}</Text>
