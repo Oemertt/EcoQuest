@@ -1,0 +1,9 @@
+<Rive
+    /*url="https://cdn.rive.app/animations/vehicles.riv"*/
+    resourceName="riveButton"
+    autoplay={true}
+    style={{width: 300, height: 300}}
+    onPlay={() => console.log('Rive animation started')}
+    onError={(error) => console.log('Rive error:', error)}
+/>
+

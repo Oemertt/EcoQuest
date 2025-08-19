@@ -1,6 +1,7 @@
 import React from "react";
 import { StyleSheet, Text, View } from "react-native";
 import TaskCard from "./TaskCard";
+import {FlashList} from "@shopify/flash-list";
 
 interface Task {
     id: string;
@@ -21,19 +22,21 @@ const TaskContainer: React.FC<TaskContainerProps> = ({ title, tasks, }) => {
             <Text style={styles.title}>{title}</Text>
 
             {/* Task cards */}
-            {tasks.map((task) => (
-                <View key={task.id} style={styles.cardWrapper}>
+            <FlashList data={tasks} renderItem={({ item }) => (
                     <TaskCard
-                        title={task.title}
-                        subtitle={task.subtitle}
-                        imageUrl={task.imageUrl}
-                        onStart={task.onPress}
+                        key={item.id}
+                        title={item.title}
+                        subtitle={item.subtitle}
+                        imageUrl={item.imageUrl}
+                        onStart={item.onPress}
                     />
-                </View>
-            ))}
+                )}
+            />
         </View>
     );
 };
+
+
 
 const styles = StyleSheet.create({
     container: {

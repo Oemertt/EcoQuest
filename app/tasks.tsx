@@ -5,6 +5,8 @@ import { router } from "expo-router";
 import React from "react";
 import { ScrollView, StyleSheet } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
+import { FlashList } from "@shopify/flash-list";
+
 
 const taskGroups = [
     {
@@ -142,7 +144,7 @@ const taskGroups = [
             {
                 id: "15",
                 title: "Second Hand kaufen",
-                subtitle: "Gebrauchte Kleidung und Möbel kaufen, um Ressourcen zu schonen.",
+                subtitle: "Gebrauchte Artikel wie Kleidung und Möbel kaufen, um Ressourcen zu schonen.",
                 imageUrl: require("@/assets/images/secondHand.png"),
                 onPress: () => router.push("./taskdetail"),
             }
@@ -161,15 +163,14 @@ const TasksScreen: React.FC = () => {
     return (
         <SafeAreaView style={styles.container} edges={["top"]}>
             <Header title="Tasks" />
-            <ScrollView contentContainerStyle={styles.scroll}>
-                {taskGroups.map(group => (
-                    <TaskContainer
-                        key={group.id}
-                        title={group.title}
-                        tasks={group.tasks}
-                    />
-                ))}
-            </ScrollView>
+            <FlashList data={taskGroups} renderItem={({ item }) => (
+                <TaskContainer
+                    key={item.id}
+                    title={item.title}
+                    tasks={item.tasks}
+                />
+                )}
+            />
             <BottomNavigation items={navItems} />
         </SafeAreaView>
     );

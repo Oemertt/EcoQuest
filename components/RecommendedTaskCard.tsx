@@ -1,6 +1,7 @@
 import React from "react";
 import {Text, ImageBackground, StyleSheet, Pressable } from "react-native";
 import { router } from "expo-router";
+import { Image } from "expo-image";
 
 type RecommendedTaskCardProps = {
     title: string;

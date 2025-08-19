@@ -13,6 +13,9 @@ import * as Haptics from 'expo-haptics';
 import {useToast} from "@/components/ui/toast";
 import ToastExample from "@/components/ToastExample";
 import { useAudioPlayer } from 'expo-audio';
+import Rive from 'rive-react-native';
+import useUserStore from "@/store/userStore";
+import {addPointsSelector} from "@/store/userStore";
 
 
 interface Step {
@@ -42,7 +45,7 @@ const TaskDetail: React.FC<TaskDetailProps> = ({
     const toast = useToast();
     const audioSource = require('../assets/appSound.mp3');
     const player = useAudioPlayer(audioSource);
-
+    const addPoints = useUserStore(addPointsSelector);
     useEffect(() => {
         if (started && !completed) {
             Animated.sequence([
@@ -69,19 +72,22 @@ const TaskDetail: React.FC<TaskDetailProps> = ({
     };
 
     const handlePress = () => {
-        player.seekTo(0);
-        player.play();
-        const newId = Math.random().toString();
-        toast.show({
-            id: newId,
-            placement:"top",
-            render: ({ id }) => {
-                const toastId = "toast-" + id;
-                return (
-                    <ToastExample id={toastId}/>
-                );
-            },
-        });
+        if(started) {
+            player.seekTo(0);
+            player.play();
+            const newId = Math.random().toString();
+            toast.show({
+                id: newId,
+                placement:"top",
+                render: ({ id }) => {
+                    const toastId = "toast-" + id;
+                    return (
+                        <ToastExample id={toastId}/>
+                    );
+                },
+            });
+            addPoints(rewardPoints);
+        }
 
         if(Platform.OS=== 'ios') {
             Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Heavy);
@@ -101,6 +107,11 @@ const TaskDetail: React.FC<TaskDetailProps> = ({
     return (
         <View style={styles.wrapper}>
             <ScrollView contentContainerStyle={styles.container}>
+
+
+
+
+
                 <Text style={styles.title}>{title}</Text>
                 <Text style={styles.description}>{description}</Text>
 

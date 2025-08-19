@@ -50,7 +50,7 @@ app.post('/api/clerk-webhook', async (req, res) => {
 });*/
 
 
-app.post('/api/user/init', async (req, res) => {
+app.post('/user/init', async (req, res) => {
     const { userId } = req.body;
 
     if (!userId) return res.status(400).json({ error: 'No userId provided' });
@@ -59,19 +59,67 @@ app.post('/api/user/init', async (req, res) => {
         const existing = await db.select().from(users).where(eq(users.id, userId));
 
         if (existing.length === 0) {
-            await db.insert(users).values({
+           const [createdUser] = await db.insert(users).values({
                 id: userId,
                 points: 0,
-            });
+            }).returning();
+            console.log('Created new user:', createdUser);
+            return res.json(createdUser);
         }
+        console.log('Found existing user:', existing[0]);
+        return res.json(existing[0]);
 
-        res.status(200).json({ status: 'ok' });
     } catch (err) {
         console.error(err);
         res.status(500).json({ error: 'Database error' });
     }
 });
 
+/*app.get('/user', async (req, res) => {
+    const { userId } = req.query;
+    const user = await db.select().from(users).where(eq(users.id, userId));
+    if (user.length === 0) {
+        return res.status(404).json({ error: 'User not found' });
+    }
+    return res.json(user[0]);
+})*/
+
+app.patch('/add-points', async (req, res) => {
+    const { userId, points } = req.body;
+
+    if (!userId || points === undefined) {
+        return res.status(400).json({ error: 'userId and points are required' });
+    }
+
+    try {
+        // Zuerst den aktuellen Benutzer holen
+        const currentUser = await db.select().from(users).where(eq(users.id, userId));
+
+        if (currentUser.length === 0) {
+            return res.status(404).json({ error: 'User not found' });
+        }
+
+        // Punkte berechnen und aktualisieren
+        const newPoints = currentUser[0].points + points;
+
+        const result = await db
+            .update(users)
+            .set({ points: newPoints })
+            .where(eq(users.id, userId))
+            .returning();
+
+        console.log(`Added ${points} points to user ${userId}. New total: ${newPoints}`);
+
+        res.status(200).json({
+            status: 'ok',
+            user: result[0],
+            pointsAdded: points
+        });
+    } catch (err) {
+        console.error('Error adding points:', err);
+        res.status(500).json({ error: 'Database error, could not add points' });
+    }
+})
 
 app.get("/leaderboard", async (req, res) => {
     try {

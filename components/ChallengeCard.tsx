@@ -1,6 +1,6 @@
 import React from 'react';
 import { View, Text, ImageBackground, StyleSheet, Pressable } from 'react-native';
-
+import { Image } from 'expo-image';
 type ChallengeCardProps = {
     title: string;
     subtitle: string;

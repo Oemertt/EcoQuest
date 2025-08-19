@@ -105,7 +105,7 @@ export default function LeaderboardScreen() {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: '#FFFFFF',
+        backgroundColor: '#f9fbfa',
         paddingTop: 20
     },
     content: {

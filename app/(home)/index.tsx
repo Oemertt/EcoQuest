@@ -6,10 +6,13 @@ import RecommendedTaskCard from "@/components/RecommendedTaskCard";
 import { SignOutButton } from "@/components/SignOutButton";
 import { useUser } from '@clerk/clerk-expo';
 import {router} from "expo-router";
-import React from "react";
+import React, {useEffect} from "react";
 import { ScrollView, StyleSheet, Text, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
-import InitUser from "@/components/InitUser";
+import useUserStore from "@/store/userStore";
+import {userSelector} from "@/store/userStore";
+import {initUserSelector} from "@/store/userStore";
+
 
 const recommendedTasks = [
     {
@@ -36,16 +39,24 @@ const HomeScreen: React.FC = () => {
         { label: "Fortschritt", icon: "bar-chart", onPress: () => router.push("./progress") },
     ];
     const { user } = useUser()
+    const initUser = useUserStore(initUserSelector);
+    const userData = useUserStore(userSelector);
+
+    useEffect(() => {
+        if (user?.id) {
+            initUser(user.id);
+        }
+    }, [user?.id]);
+
     return (
         <SafeAreaView style={styles.container} edges={["top"]}>
-            <InitUser/>
             <Header title="Home" />
 
             <ScrollView style={styles.content} contentContainerStyle={{ gap: 16 }}>
                 <View className="flex-row justify-between">
                     <ProfileCard
                     name={user?.firstName + " " + user?.lastName || user?.emailAddresses[0]?.emailAddress || "Benutzer"}
-                    points={3450}
+                    points={userData?.points || 0} // Null-Check hinzugefügt mit Fallback zu 0
                     badges={7}
                     imageUrl={user?.imageUrl || ""}
                     />
