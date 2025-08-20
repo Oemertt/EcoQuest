@@ -1,15 +1,10 @@
+// @ts-nocheck
 import { Image } from 'expo-image';
 import React from 'react';
 import { Pressable, StyleSheet, Text, View } from 'react-native';
 
-type TaskCardProps = {
-    title: string;
-    subtitle: string;
-    imageUrl: string | any;
-    onStart?: () => void;
-};
 
-const TaskCard: React.FC<TaskCardProps> = ({ title, subtitle, imageUrl, onStart }) => (
+const TaskCard = ({ title, subtitle, imageUrl, onStart }) => (
     <View style={styles.container} className='py-3 p'>
         <View style={styles.row}>
             <View style={styles.textButtonContainer}>

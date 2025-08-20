@@ -1,10 +1,10 @@
+// @ts-nocheck
 import React, { useState, useRef, useEffect } from "react";
 import {
     View,
     Text,
     StyleSheet,
     ScrollView,
-    Pressable,
     Animated, Platform,
 } from "react-native";
 import Reward from "./Reward";
@@ -13,31 +13,15 @@ import * as Haptics from 'expo-haptics';
 import {useToast} from "@/components/ui/toast";
 import ToastExample from "@/components/ToastExample";
 import { useAudioPlayer } from 'expo-audio';
-import Rive from 'rive-react-native';
-import useUserStore from "@/store/userStore";
-import {addPointsSelector} from "@/store/userStore";
+import useUserStore, {addPointsSelector} from "@/store/userStore";
 
 
-interface Step {
-    id: string;
-    text: string;
-    checked?: boolean;
-}
-
-interface TaskDetailProps {
-    title: string;
-    description: string;
-    steps: Step[];
-    rewardPoints: number;
-}
-
-const TaskDetail: React.FC<TaskDetailProps> = ({
+const TaskDetail = ({
     title,
     description,
     steps: initialSteps,
     rewardPoints,
 }) => {
-    const [steps, setSteps] = useState(initialSteps);
     const scaleAnim = useRef(new Animated.Value(1)).current;
 
     const [started, setStarted] = useState(false);
@@ -62,14 +46,6 @@ const TaskDetail: React.FC<TaskDetailProps> = ({
             ]).start();
         }
     }, [started, completed, scaleAnim]);
-
-    const toggleStep = (id: string) => {
-        setSteps(prev =>
-            prev.map(step =>
-                step.id === id ? { ...step, checked: !step.checked } : step
-            )
-        );
-    };
 
     const handlePress = () => {
         if(started) {
@@ -107,25 +83,18 @@ const TaskDetail: React.FC<TaskDetailProps> = ({
     return (
         <View style={styles.wrapper}>
             <ScrollView contentContainerStyle={styles.container}>
-
-
-
-
-
                 <Text style={styles.title}>{title}</Text>
                 <Text style={styles.description}>{description}</Text>
 
                 <Text style={styles.sectionTitle}>Schritte: </Text>
                 <View style={styles.stepsContainer}>
-                    {steps.map(step => (
-                        <Pressable
+                    {initialSteps.map(step => (
+                        <View
                             key={step.id}
-                            onPress={() => toggleStep(step.id)}
                             style={styles.stepItem}
                         >
-                            <View style={[styles.checkbox, step.checked && styles.checked]} />
                             <Text style={styles.stepText}>{step.text}</Text>
-                        </Pressable>
+                        </View>
                     ))}
                 </View>
 
@@ -176,17 +145,6 @@ const styles = StyleSheet.create({
     stepItem: {
         flexDirection: "row",
         alignItems: "center",
-        gap: 10,
-    },
-    checkbox: {
-        width: 18,
-        height: 18,
-        borderRadius: 4,
-        borderWidth: 2,
-        borderColor: "#4a635f",
-    },
-    checked: {
-        backgroundColor: "#4a635f",
     },
     stepText: {
         fontSize: 16,

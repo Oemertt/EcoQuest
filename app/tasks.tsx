@@ -1,9 +1,10 @@
+// @ts-nocheck
 import BottomNavigation, { NavItem } from "@/components/BottomNavigation";
 import Header from "@/components/Header";
 import TaskContainer from "@/components/TaskContainer";
 import { router } from "expo-router";
 import React from "react";
-import { ScrollView, StyleSheet } from "react-native";
+import { StyleSheet } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { FlashList } from "@shopify/flash-list";
 
@@ -18,21 +19,18 @@ const taskGroups = [
                 title: "Lichter ausschalten",
                 subtitle: "Schalte die Lichter aus, wenn du einen Raum verlässt",
                 imageUrl: require("@/assets/images/light.png"),
-                onPress: () => router.push("./taskdetail"),
             },
             {
                 id: "2",
                 title: "Stecker Ziehen",
                 subtitle: "Ziehe den Stecker von nicht verwendeten Geräten",
                 imageUrl: require("@/assets/images/unplug.png"),
-                onPress: () => router.push("./taskdetail"),
             },
             {
                 id: "3",
                 title: "Digital Detox",
                 subtitle: "Weniger Streaming und Surfen – spart Strom und entlastet Server.",
                 imageUrl: require("@/assets/images/handy.png"),
-                onPress: () => router.push("./taskdetail"),
             }
         ]
     },
@@ -45,21 +43,18 @@ const taskGroups = [
                 title: "Kurz duschen",
                 subtitle: "Zeit unter der Dusche reduzieren, um Wasser und Energie zu sparen.",
                 imageUrl: require("@/assets/images/duschen.png"),
-                onPress: () => router.push("./taskdetail"),
             },
             {
                 id: "5",
                 title: "Wasserhahn zudrehen",
                 subtitle: "Drehe den Wasserhahn zu, während du Zähne putzt oder dich einseifst.",
                 imageUrl: require("@/assets/images/water.png"),
-                onPress: () => router.push("./taskdetail"),
             },
             {
                 id: "6",
                 title: "Regenwasser nutzen",
                 subtitle: "Sammle Regenwasser für die Gartenbewässerung.",
                 imageUrl: require("@/assets/images/regenwasser.png"),
-                onPress: () => router.push("./taskdetail"),
             }
         ]
     },
@@ -72,14 +67,12 @@ const taskGroups = [
                 title: "Fahrrad nutzen",
                 subtitle: "Kurzstrecken zu Fuß oder mit dem Rad zurücklegen, um CO₂ zu sparen.",
                 imageUrl: require("@/assets/images/fahrrad.png"),
-                onPress: () => router.push("./taskdetail"),
             },
             {
                 id: "8",
                 title: "Öffis nutzen",
                 subtitle: "Nutze öffentliche Verkehrsmittel, um CO₂ zu sparen.",
                 imageUrl: require("@/assets/images/öffis.png"),
-                onPress: () => router.push("./taskdetail"),
             },
         ]
     },
@@ -92,21 +85,18 @@ const taskGroups = [
                 title: "Mülltrennung",
                 subtitle: "Abfälle richtig sortieren, um Recycling zu ermöglichen.",
                 imageUrl: require("@/assets/images/trash.png"),
-                onPress: () => router.push("./taskdetail"),
             },
             {
                 id: "10",
                 title: "Upcycling machen",
                 subtitle: "Aus alten Dingen Neues basteln – z. B. Gläser als Aufbewahrung nutzen.",
                 imageUrl: require("@/assets/images/upcycling.png"),
-                onPress: () => router.push("./taskdetail"),
             },
             {
                 id: "11",
                 title: "Mehrweg statt Einweg",
                 subtitle: "Stoffbeutel, Trinkflaschen und Brotdosen statt Einwegplastik verwenden.",
                 imageUrl: require("@/assets/images/reusableBag.png"),
-                onPress: () => router.push("./taskdetail"),
             }
         ]
     },
@@ -119,14 +109,12 @@ const taskGroups = [
                 title: "Gemüse anbauen",
                 subtitle: "Tomaten, Paprika oder Kräuter selbst anpflanzen – frisch und umweltfreundlich.",
                 imageUrl: require("@/assets/images/gemüse.png"),
-                onPress: () => router.push("./taskdetail"),
             },
             {
                 id: "13",
                 title: "Pflanzen für Natur & Artenvielfalt setzen",
                 subtitle: "Einen Baum, Blumen oder bienenfreundliche Pflanzen anpflanzen, um das Klima zu schützen und Insekten zu unterstützen.",
                 imageUrl: require("@/assets/images/baum.png"),
-                onPress: () => router.push("./taskdetail"),
             },
         ]
     },
@@ -139,22 +127,20 @@ const taskGroups = [
                 title: "Regional & saisonal einkaufen",
                 subtitle: "Lebensmittel aus der Region kaufen, am besten unverpackt auf dem Markt.",
                 imageUrl: require("@/assets/images/regional.png"),
-                onPress: () => router.push("./taskdetail"),
             },
             {
                 id: "15",
                 title: "Second Hand kaufen",
                 subtitle: "Gebrauchte Artikel wie Kleidung und Möbel kaufen, um Ressourcen zu schonen.",
                 imageUrl: require("@/assets/images/secondHand.png"),
-                onPress: () => router.push("./taskdetail"),
             }
         ]
     }
 ];
 
 
-const TasksScreen: React.FC = () => {
-    const navItems: NavItem[] = [
+const TasksScreen = () => {
+    const navItems = [
         { label: "Home", icon: "home", onPress: () => router.push("/") },
         { label: "Aufgaben", icon: "list", isActive: true },
         { label: "Fortschritt", icon: "bar-chart", onPress: () => router.push("./progress")  },

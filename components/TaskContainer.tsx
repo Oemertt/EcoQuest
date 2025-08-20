@@ -2,6 +2,7 @@ import React from "react";
 import { StyleSheet, Text, View } from "react-native";
 import TaskCard from "./TaskCard";
 import {FlashList} from "@shopify/flash-list";
+import {router} from "expo-router";
 
 interface Task {
     id: string;
@@ -28,7 +29,7 @@ const TaskContainer: React.FC<TaskContainerProps> = ({ title, tasks, }) => {
                         title={item.title}
                         subtitle={item.subtitle}
                         imageUrl={item.imageUrl}
-                        onStart={item.onPress}
+                        onStart={ () => router.push(`./taskdetails/${item.id}`) }
                     />
                 )}
             />
