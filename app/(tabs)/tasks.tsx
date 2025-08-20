@@ -7,6 +7,8 @@ import React from "react";
 import { StyleSheet } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { FlashList } from "@shopify/flash-list";
+import { LegendList } from "@legendapp/list";
+
 
 
 const taskGroups = [
@@ -140,11 +142,6 @@ const taskGroups = [
 
 
 const TasksScreen = () => {
-    const navItems = [
-        { label: "Home", icon: "home", onPress: () => router.push("/") },
-        { label: "Aufgaben", icon: "list", isActive: true },
-        { label: "Fortschritt", icon: "bar-chart", onPress: () => router.push("./progress")  },
-    ];
 
     return (
         <SafeAreaView style={styles.container} edges={["top"]}>
@@ -157,7 +154,6 @@ const TasksScreen = () => {
                 />
                 )}
             />
-            <BottomNavigation items={navItems} />
         </SafeAreaView>
     );
 };

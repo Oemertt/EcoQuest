@@ -1,4 +1,3 @@
-import BottomNavigation, { NavItem } from "@/components/BottomNavigation";
 import ChallengeCard from "@/components/ChallengeCard";
 import Header from "@/components/Header";
 import ProfileCard from "@/components/ProfileCard";
@@ -33,11 +32,6 @@ const recommendedTasks = [
 ];
 
 const HomeScreen: React.FC = () => {
-    const navItems: NavItem[] = [
-        { label: "Home", icon: "home", isActive: true },
-        { label: "Aufgaben", icon: "list", onPress: () => router.push("./tasks") },
-        { label: "Fortschritt", icon: "bar-chart", onPress: () => router.push("./progress") },
-    ];
     const { user } = useUser()
     const initUser = useUserStore(initUserSelector);
     const userData = useUserStore(userSelector);
@@ -93,8 +87,6 @@ const HomeScreen: React.FC = () => {
                 />
 
             </ScrollView>
-
-            <BottomNavigation items={navItems} />
         </SafeAreaView>
     );
 };

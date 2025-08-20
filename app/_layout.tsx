@@ -1,3 +1,4 @@
+import React from 'react';
 import { useColorScheme } from '@/hooks/useColorScheme';
 import { GluestackUIProvider } from "@/components/ui/gluestack-ui-provider";
 import "@/global.css";
@@ -25,10 +26,10 @@ import {
 } from '@expo-google-fonts/be-vietnam-pro';
 import { DarkTheme, DefaultTheme, ThemeProvider } from '@react-navigation/native';
 import { useFonts } from 'expo-font';
-import { Slot } from 'expo-router';
+import { Slot } from "expo-router";
 import { StatusBar } from 'expo-status-bar';
 import 'react-native-reanimated';
-
+import Ionicons from '@expo/vector-icons/Ionicons';
 export default function RootLayout() {
     const colorScheme = useColorScheme();
     const [loaded] = useFonts({
@@ -58,14 +59,6 @@ export default function RootLayout() {
     return (
         <GluestackUIProvider mode="light"><ClerkProvider tokenCache={tokenCache}>
                 <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
-                    {/* <Stack>
-                        <Stack.Screen name="(auth)/sign-in" options={{ headerShown: false }} />
-                        <Stack.Screen name="(home)/index" options={{ headerShown: false }} />
-                        <Stack.Screen name="tasks" options={{ headerShown: false }} />
-                        <Stack.Screen name="taskdetail" options={{ headerShown: false }} />
-                        <Stack.Screen name="challengedetail" options={{ headerShown: false }} />
-                        <Stack.Screen name="progress" options={{ headerShown: false }} />
-                    </Stack> */}
                     <Slot />
                     <StatusBar style="auto" />
                 </ThemeProvider>

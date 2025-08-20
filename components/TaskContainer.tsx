@@ -1,7 +1,8 @@
 import React from "react";
 import { StyleSheet, Text, View } from "react-native";
 import TaskCard from "./TaskCard";
-import {FlashList} from "@shopify/flash-list";
+import { LegendList } from "@legendapp/list";
+import { FlashList } from "@shopify/flash-list";
 import {router} from "expo-router";
 
 interface Task {
@@ -29,7 +30,7 @@ const TaskContainer: React.FC<TaskContainerProps> = ({ title, tasks, }) => {
                         title={item.title}
                         subtitle={item.subtitle}
                         imageUrl={item.imageUrl}
-                        onStart={ () => router.push(`./taskdetails/${item.id}`) }
+                        onStart={ () => router.push(`/(screens)/taskdetails/${item.id}`) }
                     />
                 )}
             />
