@@ -11,7 +11,7 @@ type RecommendedTaskCardProps = {
 
 const RecommendedTaskCard: React.FC<RecommendedTaskCardProps> = ({ title, imageUrl, taskId }) => {
     const goToTask = () => {
-        router.push({ pathname: "/tasks", params: { taskId } });
+        router.push({ pathname: "/(tasks)", params: { taskId } });
     };
 
     return (

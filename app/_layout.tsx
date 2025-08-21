@@ -1,5 +1,4 @@
 import React from 'react';
-import { useColorScheme } from '@/hooks/useColorScheme';
 import { GluestackUIProvider } from "@/components/ui/gluestack-ui-provider";
 import "@/global.css";
 import { ClerkProvider } from '@clerk/clerk-expo';
@@ -24,14 +23,11 @@ import {
     BeVietnamPro_900Black,
     BeVietnamPro_900Black_Italic,
 } from '@expo-google-fonts/be-vietnam-pro';
-import { DarkTheme, DefaultTheme, ThemeProvider } from '@react-navigation/native';
 import { useFonts } from 'expo-font';
-import { Slot } from "expo-router";
+import {Slot, Stack} from "expo-router";
 import { StatusBar } from 'expo-status-bar';
 import 'react-native-reanimated';
-import Ionicons from '@expo/vector-icons/Ionicons';
 export default function RootLayout() {
-    const colorScheme = useColorScheme();
     const [loaded] = useFonts({
         SpaceMono: require('../assets/fonts/SpaceMono-Regular.ttf'),
         'BeVietnamPro-Thin': BeVietnamPro_100Thin,
@@ -58,10 +54,37 @@ export default function RootLayout() {
 
     return (
         <GluestackUIProvider mode="light"><ClerkProvider tokenCache={tokenCache}>
-                <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
+                    {/*<Stack
+                        screenOptions={{
+                            headerStyle: {
+                                backgroundColor: '#f9fbfa',
+                            },
+                            headerTitleStyle: {
+                                fontFamily: 'BeVietnamPro-Bold',
+                                fontSize: 16,
+                            },
+                            headerShadowVisible: false,
+                            animation: 'fade_from_bottom',
+                        }}
+                    >
+                        <Stack.Screen
+                            name="(screens)/taskdetails/[id]"
+                            options={{
+                                title: 'Aufgaben',
+                            }}
+                        />
+                        <Stack.Screen
+                            name="(tabs)"
+                            options={{
+                                headerShown: false,
+                            }}
+                        />
+
+
+
+                    </Stack>*/}
                     <Slot />
                     <StatusBar style="auto" />
-                </ThemeProvider>
             </ClerkProvider></GluestackUIProvider>
     );
 }

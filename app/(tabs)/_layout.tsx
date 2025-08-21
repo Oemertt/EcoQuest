@@ -19,13 +19,20 @@ export default function TabsLayout() {
                 tabBarActiveTintColor: "#50a353",
                 tabBarInactiveTintColor: "gray",
                 animation: "fade",
-                headerShown: false,
+                headerStyle: {
+                    backgroundColor: '#f9fbfa',
+                },
+                headerTitleStyle: {
+                    fontFamily: 'BeVietnamPro-Bold',
+                    fontSize: 16,
+                },
+                headerShadowVisible: false,
             }
         }>
             <Tabs.Screen
                 name="(home)/index"
                 options={{
-                    title: "Home",
+                    title: "Startseite",
                     tabBarIcon: ({color}) => <Ionicons name="home" size={24} color={color} />,
                 }}
                 listeners={{
@@ -35,9 +42,10 @@ export default function TabsLayout() {
                 }}
             />
             <Tabs.Screen
-                name="tasks"
+                name="(tasks)"
                 options={{
                     title: "Aufgaben",
+                    headerShown: false,
                     tabBarIcon: ({color}) => <Ionicons name="list" size={24} color={color} />,
                 }}
                 listeners={{
@@ -45,6 +53,7 @@ export default function TabsLayout() {
                         giveHapticFeedback();
                     },
                 }}
+
             />
             <Tabs.Screen
                 name="progress"

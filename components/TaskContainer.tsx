@@ -30,7 +30,7 @@ const TaskContainer: React.FC<TaskContainerProps> = ({ title, tasks, }) => {
                         title={item.title}
                         subtitle={item.subtitle}
                         imageUrl={item.imageUrl}
-                        onStart={ () => router.push(`/(screens)/taskdetails/${item.id}`) }
+                        onStart={ () => router.push(`/(tabs)/(tasks)/${item.id}`) }
                     />
                 )}
             />

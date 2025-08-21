@@ -1,5 +1,4 @@
 import ChallengeCard from "@/components/ChallengeCard";
-import Header from "@/components/Header";
 import ProfileCard from "@/components/ProfileCard";
 import RecommendedTaskCard from "@/components/RecommendedTaskCard";
 import { SignOutButton } from "@/components/SignOutButton";
@@ -44,7 +43,6 @@ const HomeScreen: React.FC = () => {
 
     return (
         <SafeAreaView style={styles.container} edges={["top"]}>
-            <Header title="Home" />
 
             <ScrollView style={styles.content} contentContainerStyle={{ gap: 16 }}>
                 <View className="flex-row justify-between">

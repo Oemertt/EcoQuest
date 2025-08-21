@@ -3,7 +3,6 @@ import React from "react";
 import { StyleSheet, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { useLocalSearchParams } from "expo-router";
-import Header from "@/components/Header";
 import TaskDetail from "@/components/TaskDetail";
 
 const taskdetails = [
@@ -182,14 +181,12 @@ const TaskDetailScreen = () => {
     if (!task) {
         return (
             <SafeAreaView edges={["top"]} style={styles.container}>
-                <Header title="Aufgabe nicht gefunden" />
             </SafeAreaView>
         );
     }
     
     return (
         <SafeAreaView edges={["top"]} style={styles.container}>
-            <Header title="Aufgabe" />
 
             <View style={styles.content}>
                 <TaskDetail

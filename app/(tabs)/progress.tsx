@@ -1,5 +1,3 @@
-import BottomNavigation, { NavItem } from "@/components/BottomNavigation";
-import Header from "@/components/Header";
 import ProgressHeader from "@/components/ProgressHeader";
 import { router } from "expo-router";
 import { StyleSheet, Text, View } from "react-native";
@@ -48,24 +46,15 @@ const ProgressScreen = () => {
         badges: 5,
     };
 
-   /* const navItems: NavItem[] = [
-        { label: "Home", icon: "home", onPress: () => router.push("./") },
-        { label: "Aufgaben", icon: "list", onPress: () => router.push("./tasks") },
-        { label: "Fortschritt", icon: "bar-chart", isActive: true },
-    ];*/
 
     return (
         <SafeAreaView edges={["top"]} style={styles.container}>
-            <Header title="Fortschritt" />
-
             <View style={styles.profileContainer}>
                 <ProgressHeader points={currentUser.points} badges={currentUser.badges} />
             </View>
 
             <Text className="font-bold text-2xl mt-5 mb-3">Ranglisten</Text>
             <LeaderboardScreen/>
-
-            {/*<BottomNavigation items={navItems} />*/}
         </SafeAreaView>
     );
 };

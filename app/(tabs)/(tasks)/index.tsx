@@ -1,6 +1,4 @@
 // @ts-nocheck
-import BottomNavigation, { NavItem } from "@/components/BottomNavigation";
-import Header from "@/components/Header";
 import TaskContainer from "@/components/TaskContainer";
 import { router } from "expo-router";
 import React from "react";
@@ -145,7 +143,6 @@ const TasksScreen = () => {
 
     return (
         <SafeAreaView style={styles.container} edges={["top"]}>
-            <Header title="Tasks" />
             <FlashList data={taskGroups} renderItem={({ item }) => (
                 <TaskContainer
                     key={item.id}
