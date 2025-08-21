@@ -53,38 +53,11 @@ export default function RootLayout() {
     if (!loaded) return null;
 
     return (
-        <GluestackUIProvider mode="light"><ClerkProvider tokenCache={tokenCache}>
-                    {/*<Stack
-                        screenOptions={{
-                            headerStyle: {
-                                backgroundColor: '#f9fbfa',
-                            },
-                            headerTitleStyle: {
-                                fontFamily: 'BeVietnamPro-Bold',
-                                fontSize: 16,
-                            },
-                            headerShadowVisible: false,
-                            animation: 'fade_from_bottom',
-                        }}
-                    >
-                        <Stack.Screen
-                            name="(screens)/taskdetails/[id]"
-                            options={{
-                                title: 'Aufgaben',
-                            }}
-                        />
-                        <Stack.Screen
-                            name="(tabs)"
-                            options={{
-                                headerShown: false,
-                            }}
-                        />
-
-
-
-                    </Stack>*/}
-                    <Slot />
-                    <StatusBar style="auto" />
-            </ClerkProvider></GluestackUIProvider>
+        <GluestackUIProvider mode="light">
+            <ClerkProvider tokenCache={tokenCache}>
+                <Slot/>
+                <StatusBar style="auto" />
+            </ClerkProvider>
+        </GluestackUIProvider>
     );
 }

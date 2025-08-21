@@ -1,20 +1,17 @@
 import React from "react";
 import { StyleSheet, View } from "react-native";
-import { SafeAreaView } from "react-native-safe-area-context";
 import ChallengeDetail from "@/components/ChallengeDetail";
 
 const ChallengeDetailScreen: React.FC = () => {
     return (
-        <SafeAreaView edges={["top"]} style={styles.container}>
-            <View style={styles.content}>
-                <ChallengeDetail
-                    title="Licht ausschalten"
-                    description="Lerne, wie du mit einfachem Ausschalten Energie sparen kannst."
-                    rewardPoints={10}
-                    expireDate="31.08.2025"
-                />
-            </View>
-        </SafeAreaView>
+        <View style={styles.container}>
+            <ChallengeDetail
+                title="Licht ausschalten"
+                description="Lerne, wie du mit einfachem Ausschalten Energie sparen kannst."
+                rewardPoints={10}
+                expireDate="31.08.2025"
+            />
+        </View>
     );
 };
 

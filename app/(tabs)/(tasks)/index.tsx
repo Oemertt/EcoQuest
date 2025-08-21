@@ -2,11 +2,9 @@
 import TaskContainer from "@/components/TaskContainer";
 import { router } from "expo-router";
 import React from "react";
-import { StyleSheet } from "react-native";
-import { SafeAreaView } from "react-native-safe-area-context";
+import { StyleSheet, View } from "react-native";
 import { FlashList } from "@shopify/flash-list";
 import { LegendList } from "@legendapp/list";
-
 
 
 const taskGroups = [
@@ -142,16 +140,21 @@ const taskGroups = [
 const TasksScreen = () => {
 
     return (
-        <SafeAreaView style={styles.container} edges={["top"]}>
-            <FlashList data={taskGroups} renderItem={({ item }) => (
-                <TaskContainer
-                    key={item.id}
-                    title={item.title}
-                    tasks={item.tasks}
-                />
+        <View style={styles.container}>
+            <LegendList
+                data={taskGroups}
+                renderItem={({ item }) => (
+                    <TaskContainer
+                        key={item.id}
+                        title={item.title}
+                        tasks={item.tasks}
+                        onTaskPress={(taskId) => router.push(`/(tabs)/(tasks)/${taskId}`)}
+                    />
                 )}
+                estimatedItemSize={300}
+                contentContainerStyle={{ padding: 16, gap: 16 }}
             />
-        </SafeAreaView>
+        </View>
     );
 };
 

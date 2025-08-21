@@ -6,7 +6,6 @@ import { useUser } from '@clerk/clerk-expo';
 import {router} from "expo-router";
 import React, {useEffect} from "react";
 import { ScrollView, StyleSheet, Text, View } from "react-native";
-import { SafeAreaView } from "react-native-safe-area-context";
 import useUserStore from "@/store/userStore";
 import {userSelector} from "@/store/userStore";
 import {initUserSelector} from "@/store/userStore";
@@ -42,8 +41,7 @@ const HomeScreen: React.FC = () => {
     }, [user?.id]);
 
     return (
-        <SafeAreaView style={styles.container} edges={["top"]}>
-
+        <View style={styles.container}>
             <ScrollView style={styles.content} contentContainerStyle={{ gap: 16 }}>
                 <View className="flex-row justify-between">
                     <ProfileCard
@@ -85,7 +83,7 @@ const HomeScreen: React.FC = () => {
                 />
 
             </ScrollView>
-        </SafeAreaView>
+        </View>
     );
 };
 

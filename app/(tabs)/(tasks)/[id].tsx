@@ -1,9 +1,7 @@
-// @ts-nocheck
+import TaskDetail from "@/components/TaskDetail";
 import React from "react";
 import { StyleSheet, View } from "react-native";
-import { SafeAreaView } from "react-native-safe-area-context";
 import { useLocalSearchParams } from "expo-router";
-import TaskDetail from "@/components/TaskDetail";
 
 const taskdetails = [
     {
@@ -180,13 +178,13 @@ const TaskDetailScreen = () => {
     
     if (!task) {
         return (
-            <SafeAreaView edges={["top"]} style={styles.container}>
-            </SafeAreaView>
+            <View style={styles.container}>
+            </View>
         );
     }
     
     return (
-        <SafeAreaView edges={["top"]} style={styles.container}>
+        <View style={styles.container}>
 
             <View style={styles.content}>
                 <TaskDetail
@@ -196,7 +194,7 @@ const TaskDetailScreen = () => {
                     rewardPoints={task.rewardPoints}
                 />
             </View>
-        </SafeAreaView>
+        </View>
     );
 };
 

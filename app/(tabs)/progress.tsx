@@ -1,7 +1,7 @@
 import ProgressHeader from "@/components/ProgressHeader";
-import { router } from "expo-router";
+import React from "react";
 import { StyleSheet, Text, View } from "react-native";
-import { SafeAreaView } from "react-native-safe-area-context";
+
 import LeaderboardScreen from "@/app/(screens)/leaderboard";
 
 const users = [
@@ -37,7 +37,6 @@ const users = [
     },
 ];
 
-
 const ProgressScreen = () => {
     const currentUser = {
         name: "Du",
@@ -46,16 +45,15 @@ const ProgressScreen = () => {
         badges: 5,
     };
 
-
     return (
-        <SafeAreaView edges={["top"]} style={styles.container}>
+        <View style={styles.container}>
             <View style={styles.profileContainer}>
                 <ProgressHeader points={currentUser.points} badges={currentUser.badges} />
             </View>
 
             <Text className="font-bold text-2xl mt-5 mb-3">Ranglisten</Text>
-            <LeaderboardScreen/>
-        </SafeAreaView>
+            <LeaderboardScreen />
+        </View>
     );
 };
 
@@ -68,7 +66,6 @@ const styles = StyleSheet.create({
     profileContainer: {
         marginVertical: 16,
     },
-    
 });
 
 export default ProgressScreen;
