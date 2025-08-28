@@ -1,12 +1,10 @@
+// @ts-nocheck
 import React from "react";
 import { StyleSheet, Text, View } from "react-native";
 
-interface ProgressHeaderProps {
-    points: number;
-    badges: number;
-}
 
-const ProgressHeader: React.FC<ProgressHeaderProps> = ({ points, badges }) => {
+
+const ProgressHeader = ({ points, badges, numberTasks }) => {
     return (
         <View style={styles.container}>
             {/* Punkte-Box */}
@@ -30,7 +28,7 @@ const ProgressHeader: React.FC<ProgressHeaderProps> = ({ points, badges }) => {
             <View style={styles.box}>
                 <View style={styles.row}>
                     {/* <Image source={require("../assets/images/badge.png")} style={styles.icon} /> */}
-                    <Text style={styles.pointsText}>{badges}</Text>
+                    <Text style={styles.pointsText}>{numberTasks}</Text>
                 </View>
                 <Text style={styles.label}>Aufgaben</Text>
             </View>

@@ -1,158 +1,149 @@
 // @ts-nocheck
-import TaskContainer from "@/components/TaskContainer";
 import { router } from "expo-router";
 import React from "react";
-import { StyleSheet, View } from "react-native";
+import { StyleSheet, View, Text } from "react-native";
 import { FlashList } from "@shopify/flash-list";
-import { LegendList } from "@legendapp/list";
+import TaskCard from "@/components/TaskCard";
 
+const tasks = [
+    { type: "header", id: "energieSparen", title: "Energie sparen" },
+    {
+        type: "task",
+        id: "1",
+        title: "Lichter ausschalten",
+        subtitle: "Schalte die Lichter aus, wenn du einen Raum verlässt",
+        imageUrl: require("@/assets/images/light.png"),
+    },
+    {
+        type: "task",
+        id: "2",
+        title: "Stecker Ziehen",
+        subtitle: "Ziehe den Stecker von nicht verwendeten Geräten",
+        imageUrl: require("@/assets/images/unplug.png"),
+    },
+    {
+        type: "task",
+        id: "3",
+        title: "Digital Detox",
+        subtitle: "Weniger Streaming und Surfen – spart Strom und entlastet Server.",
+        imageUrl: require("@/assets/images/handy.png"),
+    },
 
-const taskGroups = [
+    { type: "header", id: "wasserSparen", title: "Wasser sparen" },
     {
-        id: "energieSparen",
-        title: "Energie sparen",
-        tasks: [
-            {
-                id: "1",
-                title: "Lichter ausschalten",
-                subtitle: "Schalte die Lichter aus, wenn du einen Raum verlässt",
-                imageUrl: require("@/assets/images/light.png"),
-            },
-            {
-                id: "2",
-                title: "Stecker Ziehen",
-                subtitle: "Ziehe den Stecker von nicht verwendeten Geräten",
-                imageUrl: require("@/assets/images/unplug.png"),
-            },
-            {
-                id: "3",
-                title: "Digital Detox",
-                subtitle: "Weniger Streaming und Surfen – spart Strom und entlastet Server.",
-                imageUrl: require("@/assets/images/handy.png"),
-            }
-        ]
+        type: "task",
+        id: "4",
+        title: "Kurz duschen",
+        subtitle: "Zeit unter der Dusche reduzieren, um Wasser und Energie zu sparen.",
+        imageUrl: require("@/assets/images/duschen.png"),
     },
     {
-        id: "wasserSparen",
-        title: "Wasser sparen",
-        tasks: [
-            {
-                id: "4",
-                title: "Kurz duschen",
-                subtitle: "Zeit unter der Dusche reduzieren, um Wasser und Energie zu sparen.",
-                imageUrl: require("@/assets/images/duschen.png"),
-            },
-            {
-                id: "5",
-                title: "Wasserhahn zudrehen",
-                subtitle: "Drehe den Wasserhahn zu, während du Zähne putzt oder dich einseifst.",
-                imageUrl: require("@/assets/images/water.png"),
-            },
-            {
-                id: "6",
-                title: "Regenwasser nutzen",
-                subtitle: "Sammle Regenwasser für die Gartenbewässerung.",
-                imageUrl: require("@/assets/images/regenwasser.png"),
-            }
-        ]
+        type: "task",
+        id: "5",
+        title: "Wasserhahn zudrehen",
+        subtitle: "Drehe den Wasserhahn zu, während du Zähne putzt oder dich einseifst.",
+        imageUrl: require("@/assets/images/water.png"),
     },
     {
-        id: "nachhaltigeMobilitaet",
-        title: "Nachhaltige Mobilität",
-        tasks: [
-            {
-                id: "7",
-                title: "Fahrrad nutzen",
-                subtitle: "Kurzstrecken zu Fuß oder mit dem Rad zurücklegen, um CO₂ zu sparen.",
-                imageUrl: require("@/assets/images/fahrrad.png"),
-            },
-            {
-                id: "8",
-                title: "Öffis nutzen",
-                subtitle: "Nutze öffentliche Verkehrsmittel, um CO₂ zu sparen.",
-                imageUrl: require("@/assets/images/öffis.png"),
-            },
-        ]
+        type: "task",
+        id: "6",
+        title: "Regenwasser nutzen",
+        subtitle: "Sammle Regenwasser für die Gartenbewässerung.",
+        imageUrl: require("@/assets/images/regenwasser.png"),
+    },
+
+    { type: "header", id: "nachhaltigeMobilitaet", title: "Nachhaltige Mobilität" },
+    {
+        type: "task",
+        id: "7",
+        title: "Fahrrad nutzen",
+        subtitle: "Kurzstrecken zu Fuß oder mit dem Rad zurücklegen, um CO₂ zu sparen.",
+        imageUrl: require("@/assets/images/fahrrad.png"),
     },
     {
-        id: "muellVermeiden",
-        title: "Müll vermeiden",
-        tasks: [
-            {
-                id: "9",
-                title: "Mülltrennung",
-                subtitle: "Abfälle richtig sortieren, um Recycling zu ermöglichen.",
-                imageUrl: require("@/assets/images/trash.png"),
-            },
-            {
-                id: "10",
-                title: "Upcycling machen",
-                subtitle: "Aus alten Dingen Neues basteln – z. B. Gläser als Aufbewahrung nutzen.",
-                imageUrl: require("@/assets/images/upcycling.png"),
-            },
-            {
-                id: "11",
-                title: "Mehrweg statt Einweg",
-                subtitle: "Stoffbeutel, Trinkflaschen und Brotdosen statt Einwegplastik verwenden.",
-                imageUrl: require("@/assets/images/reusableBag.png"),
-            }
-        ]
+        type: "task",
+        id: "8",
+        title: "Öffis nutzen",
+        subtitle: "Nutze öffentliche Verkehrsmittel, um CO₂ zu sparen.",
+        imageUrl: require("@/assets/images/oeffis.png"),
+    },
+
+    { type: "header", id: "muellVermeiden", title: "Müll vermeiden" },
+    {
+        type: "task",
+        id: "9",
+        title: "Mülltrennung",
+        subtitle: "Abfälle richtig sortieren, um Recycling zu ermöglichen.",
+        imageUrl: require("@/assets/images/trash.png"),
     },
     {
-        id: "naturUndUmwelt",
-        title: "Natur & Umwelt",
-        tasks: [
-            {
-                id: "12",
-                title: "Gemüse anbauen",
-                subtitle: "Tomaten, Paprika oder Kräuter selbst anpflanzen – frisch und umweltfreundlich.",
-                imageUrl: require("@/assets/images/gemüse.png"),
-            },
-            {
-                id: "13",
-                title: "Pflanzen für Natur & Artenvielfalt setzen",
-                subtitle: "Einen Baum, Blumen oder bienenfreundliche Pflanzen anpflanzen, um das Klima zu schützen und Insekten zu unterstützen.",
-                imageUrl: require("@/assets/images/baum.png"),
-            },
-        ]
+        type: "task",
+        id: "10",
+        title: "Upcycling machen",
+        subtitle: "Aus alten Dingen Neues basteln – z. B. Gläser als Aufbewahrung nutzen.",
+        imageUrl: require("@/assets/images/upcycling.png"),
     },
     {
-        id: "nachhaltigerKonsum",
-        title: "Nachhaltiger Konsum",
-        tasks: [
-            {
-                id: "14",
-                title: "Regional & saisonal einkaufen",
-                subtitle: "Lebensmittel aus der Region kaufen, am besten unverpackt auf dem Markt.",
-                imageUrl: require("@/assets/images/regional.png"),
-            },
-            {
-                id: "15",
-                title: "Second Hand kaufen",
-                subtitle: "Gebrauchte Artikel wie Kleidung und Möbel kaufen, um Ressourcen zu schonen.",
-                imageUrl: require("@/assets/images/secondHand.png"),
-            }
-        ]
-    }
+        type: "task",
+        id: "11",
+        title: "Mehrweg statt Einweg",
+        subtitle: "Stoffbeutel, Trinkflaschen und Brotdosen statt Einwegplastik verwenden.",
+        imageUrl: require("@/assets/images/reusableBag.png"),
+    },
+
+    { type: "header", id: "naturUndUmwelt", title: "Natur & Umwelt" },
+    {
+        type: "task",
+        id: "12",
+        title: "Gemüse anbauen",
+        subtitle: "Tomaten, Paprika oder Kräuter selbst anpflanzen – frisch und umweltfreundlich.",
+        imageUrl: require("@/assets/images/gemuese.png"),
+    },
+    {
+        type: "task",
+        id: "13",
+        title: "Pflanzen für Natur & Artenvielfalt setzen",
+        subtitle: "Einen Baum, Blumen oder bienenfreundliche Pflanzen anpflanzen, um das Klima zu schützen und Insekten zu unterstützen.",
+        imageUrl: require("@/assets/images/baum.png"),
+    },
+
+    { type: "header", id: "nachhaltigerKonsum", title: "Nachhaltiger Konsum" },
+    {
+        type: "task",
+        id: "14",
+        title: "Regional & saisonal einkaufen",
+        subtitle: "Lebensmittel aus der Region kaufen, am besten unverpackt auf dem Markt.",
+        imageUrl: require("@/assets/images/regional.png"),
+    },
+    {
+        type: "task",
+        id: "15",
+        title: "Second Hand kaufen",
+        subtitle: "Gebrauchte Artikel wie Kleidung und Möbel kaufen, um Ressourcen zu schonen.",
+        imageUrl: require("@/assets/images/secondHand.png"),
+    },
 ];
 
-
 const TasksScreen = () => {
-
     return (
         <View style={styles.container}>
-            <LegendList
-                data={taskGroups}
-                renderItem={({ item }) => (
-                    <TaskContainer
-                        key={item.id}
-                        title={item.title}
-                        tasks={item.tasks}
-                        onTaskPress={(taskId) => router.push(`/(tabs)/(tasks)/${taskId}`)}
-                    />
-                )}
-                estimatedItemSize={300}
-                contentContainerStyle={{ padding: 16, gap: 16 }}
+            <FlashList
+                data={tasks}
+                keyExtractor={(item) => `${item.type}-${item.id}`}
+                showsVerticalScrollIndicator={false}
+                renderItem={({ item }) => {
+                    if (item.type === "header") {
+                        return <Text style={styles.title}>{item.title}</Text>;
+                    }
+                    return (
+                        <TaskCard
+                            title={item.title}
+                            subtitle={item.subtitle}
+                            imageUrl={item.imageUrl}
+                            onStart={() => router.push(`/(tabs)/(tasks)/${item.id}`)}
+                        />
+                    );
+                }}
             />
         </View>
     );
@@ -162,6 +153,15 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         backgroundColor: "#f9fbfa",
+        paddingHorizontal: 16,
+    },
+    title: {
+        fontSize: 24,
+        fontWeight: "bold",
+        color: "#101914",
+        marginBottom: 18,
+        marginTop: 20,
+        paddingHorizontal: 3,
     },
     scroll: {
         paddingVertical: 16,

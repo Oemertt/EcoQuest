@@ -7,11 +7,7 @@ import { Platform } from "react-native";
 export default function TabsLayout() {
 
     function giveHapticFeedback() {
-        if(Platform.OS=== 'ios') {
-            Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
-        } else {
-            Haptics.performAndroidHapticsAsync(Haptics.AndroidHaptics.Keyboard_Release);
-        }
+        Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
     }
     return (
         <Tabs screenOptions={

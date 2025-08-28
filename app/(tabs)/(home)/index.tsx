@@ -6,9 +6,7 @@ import { useUser } from '@clerk/clerk-expo';
 import {router} from "expo-router";
 import React, {useEffect} from "react";
 import { ScrollView, StyleSheet, Text, View } from "react-native";
-import useUserStore from "@/store/userStore";
-import {userSelector} from "@/store/userStore";
-import {initUserSelector} from "@/store/userStore";
+import useUserStore, {userSelector, initUserSelector} from "@/store/userStore";
 
 
 const recommendedTasks = [

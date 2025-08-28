@@ -2,54 +2,16 @@ import ProgressHeader from "@/components/ProgressHeader";
 import React from "react";
 import { StyleSheet, Text, View } from "react-native";
 import LeaderboardScreen from "@/app/(screens)/leaderboard";
-import useUserStore from "@/store/userStore";
-import {userSelector} from "@/store/userStore";
+import useUserStore, { userSelector } from "@/store/userStore";
 
-const users = [
-    {
-        id: "1",
-        name: "Anna",
-        points: 150,
-        imageUrl: "https://randomuser.me/api/portraits/women/65.jpg",
-    },
-    {
-        id: "2",
-        name: "Ben",
-        points: 230,
-        imageUrl: "https://randomuser.me/api/portraits/men/45.jpg",
-    },
-    {
-        id: "3",
-        name: "Clara",
-        points: 180,
-        imageUrl: "https://randomuser.me/api/portraits/women/32.jpg",
-    },
-    {
-        id: "4",
-        name: "Markus",
-        points: 120,
-        imageUrl: "https://randomuser.me/api/portraits/men/38.jpg",
-    },
-    {
-        id: "5",
-        name: "Julia",
-        points: 170,
-        imageUrl: "https://randomuser.me/api/portraits/women/41.jpg",
-    },
-];
 
 const ProgressScreen = () => {
-    const currentUser = {
-        name: "Du",
-        points: 200,
-        imageUrl: "https://randomuser.me/api/portraits/men/32.jpg",
-        badges: 5,
-    };
+
     const userData = useUserStore(userSelector);
     return (
         <View style={styles.container}>
             <View style={styles.profileContainer}>
-                <ProgressHeader points={userData.points} badges={currentUser.badges} />
+                <ProgressHeader points={userData.points} badges={5} numberTasks={4}/>
             </View>
 
             <Text className="font-bold text-2xl mt-5 mb-3">Ranglisten</Text>
