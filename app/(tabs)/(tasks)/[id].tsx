@@ -1,7 +1,6 @@
 import TaskDetail from "@/components/TaskDetail";
-import React from "react";
-import { StyleSheet, View } from "react-native";
 import { useLocalSearchParams } from "expo-router";
+import { StyleSheet, View } from "react-native";
 
 const taskdetails = [
     {
@@ -14,6 +13,7 @@ const taskdetails = [
             { id: "3", text: "Stehlampe vom Strom trennen" },
         ],
         rewardPoints: 10,
+        category: "Energy"
     },
     {
         id: "2",
@@ -25,6 +25,8 @@ const taskdetails = [
             { id: "3", text: "Fernsehgerät oder Konsole über eine Steckerleiste abschalten" },
         ],
         rewardPoints: 15,
+        category: "Energy"
+
     },
     {
         id: "3",
@@ -36,6 +38,8 @@ const taskdetails = [
             { id: "3", text: "Offline-Aktivität wie Spaziergang oder Buchlesen wählen" },
         ],
         rewardPoints: 20,
+        category: "Energy"
+
     },
     {
         id: "4",
@@ -47,6 +51,8 @@ const taskdetails = [
             { id: "3", text: "Kalt oder lauwarm duschen probieren" },
         ],
         rewardPoints: 15,
+        category: "Water"
+
     },
     {
         id: "5",
@@ -58,6 +64,8 @@ const taskdetails = [
             { id: "3", text: "Wasserhahn prüfen, ob er richtig zugedreht ist" },
         ],
         rewardPoints: 10,
+        category: "Water"
+
     },
     {
         id: "6",
@@ -69,6 +77,8 @@ const taskdetails = [
             { id: "3", text: "Regenwasser statt Leitungswasser für Autowäsche verwenden" },
         ],
         rewardPoints: 25,
+        category: "Water"
+
     },
     {
         id: "7",
@@ -80,6 +90,7 @@ const taskdetails = [
             { id: "3", text: "Freizeitwege mit dem Rad planen" },
         ],
         rewardPoints: 30,
+        category: "Mobility"
     },
     {
         id: "8",
@@ -91,6 +102,7 @@ const taskdetails = [
             { id: "3", text: "Fahrgemeinschaft mit Öffis kombinieren" },
         ],
         rewardPoints: 25,
+        category: "Mobility"
     },
     {
         id: "9",
@@ -102,6 +114,7 @@ const taskdetails = [
             { id: "3", text: "Papier und Glas getrennt entsorgen" },
         ],
         rewardPoints: 20,
+        category: "Recycling"
     },
     {
         id: "10",
@@ -113,6 +126,7 @@ const taskdetails = [
             { id: "3", text: "Alte Möbel neu bemalen oder umbauen" },
         ],
         rewardPoints: 30,
+        category: "Recycling"
     },
     {
         id: "11",
@@ -124,6 +138,7 @@ const taskdetails = [
             { id: "3", text: "Brotdose statt Alufolie oder Plastiktüte nutzen" },
         ],
         rewardPoints: 15,
+        category: "Recycling"
     },
     {
         id: "12",
@@ -135,6 +150,8 @@ const taskdetails = [
             { id: "3", text: "Gemüse regelmäßig gießen und pflegen" },
         ],
         rewardPoints: 25,
+        category: "Nature"
+
     },
     {
         id: "13",
@@ -146,6 +163,7 @@ const taskdetails = [
             { id: "3", text: "Pflanzen regelmäßig pflegen" },
         ],
         rewardPoints: 35,
+        category: "Nature"
     },
     {
         id: "14",
@@ -157,6 +175,7 @@ const taskdetails = [
             { id: "3", text: "Unverpackte Lebensmittel bevorzugen" },
         ],
         rewardPoints: 20,
+        category: "Consumption"
     },
     {
         id: "15",
@@ -168,6 +187,7 @@ const taskdetails = [
             { id: "3", text: "Möbel oder Geräte gebraucht kaufen" },
         ],
         rewardPoints: 25,
+        category: "Consumption"
     },
 ];
 
@@ -192,6 +212,7 @@ const TaskDetailScreen = () => {
                     description={task.description}
                     steps={task.steps}
                     rewardPoints={task.rewardPoints}
+                    category={task.category}
                 />
             </View>
         </View>

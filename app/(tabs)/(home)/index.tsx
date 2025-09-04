@@ -2,11 +2,11 @@ import ChallengeCard from "@/components/ChallengeCard";
 import ProfileCard from "@/components/ProfileCard";
 import RecommendedTaskCard from "@/components/RecommendedTaskCard";
 import { SignOutButton } from "@/components/SignOutButton";
+import useUserStore, { initUserSelector, userSelector } from "@/store/userStore";
 import { useUser } from '@clerk/clerk-expo';
-import {router} from "expo-router";
-import React, {useEffect} from "react";
+import { router } from "expo-router";
+import React, { useEffect } from "react";
 import { ScrollView, StyleSheet, Text, View } from "react-native";
-import useUserStore, {userSelector, initUserSelector} from "@/store/userStore";
 
 
 const recommendedTasks = [
@@ -44,7 +44,7 @@ const HomeScreen: React.FC = () => {
                 <View className="flex-row justify-between">
                     <ProfileCard
                     name={user?.firstName + " " + user?.lastName || user?.emailAddresses[0]?.emailAddress || "Benutzer"}
-                    points={userData?.points || 0} // Null-Check hinzugefügt mit Fallback zu 0
+                    points={userData?.points || 0}
                     badges={7}
                     imageUrl={user?.imageUrl || ""}
                     />

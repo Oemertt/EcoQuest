@@ -1,10 +1,10 @@
-import express from 'express';
-import { drizzle } from 'drizzle-orm/neon-http';
+import { createClerkClient } from '@clerk/backend';
 import { neon } from '@neondatabase/serverless';
-import {desc, eq} from 'drizzle-orm';
-import { users } from './src/db/schema.js';
 import dotenv from 'dotenv';
-import { createClerkClient } from '@clerk/backend'
+import { desc, eq } from 'drizzle-orm';
+import { drizzle } from 'drizzle-orm/neon-http';
+import express from 'express';
+import { users } from './src/db/schema.js';
 dotenv.config();
 const clerkClient = createClerkClient({ secretKey: process.env.CLERK_SECRET_KEY })
 
@@ -84,42 +84,6 @@ app.post('/user/init', async (req, res) => {
     return res.json(user[0]);
 })*/
 
-app.patch('/add-points', async (req, res) => {
-    const { userId, points } = req.body;
-
-    if (!userId || points === undefined) {
-        return res.status(400).json({ error: 'userId and points are required' });
-    }
-
-    try {
-        // Zuerst den aktuellen Benutzer holen
-        const currentUser = await db.select().from(users).where(eq(users.id, userId));
-
-        if (currentUser.length === 0) {
-            return res.status(404).json({ error: 'User not found' });
-        }
-
-        // Punkte berechnen und aktualisieren
-        const newPoints = currentUser[0].points + points;
-
-        const result = await db
-            .update(users)
-            .set({ points: newPoints })
-            .where(eq(users.id, userId))
-            .returning();
-
-        console.log(`Added ${points} points to user ${userId}. New total: ${newPoints}`);
-
-        res.status(200).json({
-            status: 'ok',
-            user: result[0],
-            pointsAdded: points
-        });
-    } catch (err) {
-        console.error('Error adding points:', err);
-        res.status(500).json({ error: 'Database error, could not add points' });
-    }
-})
 
 app.get("/leaderboard", async (req, res) => {
     try {
@@ -191,3 +155,118 @@ app.get("/leaderboard", async (req, res) => {
         res.status(500).json({ error: "Interner Serverfehler", details: error.message });
     }
 });
+
+
+
+
+
+app.patch('/increase-tasks-points', async (req, res) => {
+    const { userId, category, points } = req.body;
+
+    if (!userId || category === undefined) {
+        return res.status(400).json({ error: 'userId and category are required' });
+    }
+
+    try {
+        // Zuerst den aktuellen Benutzer holen
+        const currentUser = await db.select().from(users).where(eq(users.id, userId));
+
+        if (currentUser.length === 0) {
+            return res.status(404).json({ error: 'User not found' });
+        }
+
+        const user = currentUser[0];
+        
+        // Basis-Update für alle Kategorien
+        const baseUpdate = {
+            points: user.points + points,
+            tasksCompleted: user.tasksCompleted + 1
+        };
+
+        // Kategorie-spezifische Updates
+        const categoryUpdates = {
+            "Energy": { energyTasksCompleted: user.energyTasksCompleted + 1 },
+            "Water": { waterTasksCompleted: user.waterTasksCompleted + 1 },
+            "Nature": { natureTasksCompleted: user.natureTasksCompleted + 1 },
+            "Mobility": { mobilityTasksCompleted: (user.mobilityTasksCompleted || 0) + 1 },
+            "Recycling": { recyclingTasksCompleted: (user.recyclingTasksCompleted || 0) + 1 },
+            "Consumption": { consumptionTasksCompleted: (user.consumptionTasksCompleted || 0) + 1 }
+        };
+
+        // Kombiniere Base-Update mit kategorie-spezifischem Update
+        const updateData = {
+            ...baseUpdate,
+            ...(categoryUpdates[category] || {})
+        };
+
+        const result = await db
+            .update(users)
+            .set(updateData)
+            .where(eq(users.id, userId))
+            .returning();
+
+        console.log(`Added ${points} points and increased ${category} tasks for user ${userId}`);
+        
+        res.status(200).json({
+            status: 'ok',
+            user: result[0],
+            pointsAdded: points
+        });
+    } catch (err) {
+        console.error('Error adding points:', err);
+        res.status(500).json({ error: 'Database error, could not add points or tasks completed' });
+    }
+})
+
+app.patch('/activate-badge', async (req, res) => {
+    const { userId, category } = req.body;
+    
+    if (!userId || !category) {
+        return res.status(400).json({ error: 'userId and category are required' });
+    }
+
+    try {
+        const currentUser = await db.select().from(users).where(eq(users.id, userId));
+        
+        if (currentUser.length === 0) {
+            return res.status(404).json({ error: 'User not found' });
+        }
+
+        let updateData = {};
+        
+        if(category === "Energy") {
+            updateData = {
+                energyBadge: true
+            };
+        }
+        else if(category === "Water") {
+            updateData = {
+                waterBadge: true
+            };
+        }
+        else if(category === "Nature") {
+            updateData = {
+                natureBadge: true
+            };
+        }
+        else {
+            return res.status(400).json({ error: 'Invalid category' });
+        }
+
+        const result = await db
+            .update(users)
+            .set(updateData)
+            .where(eq(users.id, userId))
+            .returning();
+            
+        console.log(`Activated ${category} badge for user ${userId}`);
+        res.status(200).json({
+            status: 'ok',
+            user: result[0]
+        });
+    } catch (err) {
+        console.error('Error activating badge:', err);
+        res.status(500).json({ error: 'Database error, could not activate badge' });    
+    }
+});
+    

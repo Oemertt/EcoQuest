@@ -1,7 +1,7 @@
-import { View, Text, StyleSheet, ScrollView, Image } from 'react-native';
-import { Crown, Medal, Award } from 'lucide-react-native';
-import { useState, useEffect } from 'react';
 import axios from 'axios';
+import { Award, Crown, Medal } from 'lucide-react-native';
+import { useEffect, useState } from 'react';
+import { Image, StyleSheet, Text, View } from 'react-native';
 
 interface LeaderboardEntry {
     clerkUserId: string;
@@ -24,7 +24,7 @@ export default function LeaderboardScreen() {
             setLoading(true);
             setError(null);
 
-            const response = await axios.get('http://192.168.0.2:5001/leaderboard');
+            const response = await axios.get('http://192.168.1.5:5001/leaderboard');
             console.log("leaderbord:" + response.data);
             setLeaderboard(response.data);
         } catch (err) {
@@ -77,7 +77,7 @@ export default function LeaderboardScreen() {
     }*/
 
     return (
-        <ScrollView style={styles.container} contentContainerStyle={styles.content}>
+        <View style={styles.container} >
             <View style={styles.podium}>
                 {leaderboard.slice(0, 3).map((entry, index) => (
                     <View key={entry.clerkUserId} style={[styles.podiumPlace, index === 0 ? styles.firstPlace : index === 1 ? styles.secondPlace : styles.thirdPlace]}>
@@ -98,7 +98,7 @@ export default function LeaderboardScreen() {
             </View>
 
             <Text style={styles.subtitle}>Sehen Sie, wer an der Spitze steht</Text>
-        </ScrollView>
+        </View>
     );
 }
 

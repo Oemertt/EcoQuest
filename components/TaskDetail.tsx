@@ -1,26 +1,28 @@
 // @ts-nocheck
-import React, { useState, useRef, useEffect } from "react";
-import {
-    View,
-    Text,
-    StyleSheet,
-    ScrollView,
-    Animated, Platform,
-} from "react-native";
-import Reward from "./Reward";
-import PrimaryButton from "./PrimaryButton";
-import * as Haptics from 'expo-haptics';
-import {useToast} from "@/components/ui/toast";
 import ToastExample from "@/components/ToastExample";
+import ToastForBadge from "@/components/ToastForBadge";
+import { useToast } from "@/components/ui/toast";
+import useUserStore, { activateBadgeSelector, increaseTasksAndPointsSelector, userSelector } from "@/store/userStore";
 import { useAudioPlayer } from 'expo-audio';
-import useUserStore, {addPointsSelector} from "@/store/userStore";
-
+import * as Haptics from 'expo-haptics';
+import { useEffect, useRef, useState } from "react";
+import {
+    Animated, Platform,
+    ScrollView,
+    StyleSheet,
+    Text,
+    View,
+} from "react-native";
+import { Confetti, ConfettiMethods } from "react-native-fast-confetti";
+import PrimaryButton from "./PrimaryButton";
+import Reward from "./Reward";
 
 const TaskDetail = ({
     title,
     description,
     steps: initialSteps,
     rewardPoints,
+    category
 }) => {
     const scaleAnim = useRef(new Animated.Value(1)).current;
 
@@ -28,8 +30,15 @@ const TaskDetail = ({
     const [completed, setCompleted] = useState(false);
     const toast = useToast();
     const audioSource = require('../assets/appSound.mp3');
+    const audioSource2 = require('../assets/success2.mp3');
     const player = useAudioPlayer(audioSource);
-    const addPoints = useUserStore(addPointsSelector);
+    const player2 = useAudioPlayer(audioSource2);
+    const userData = useUserStore(userSelector);
+    const increaseTasksAndPoints = useUserStore(increaseTasksAndPointsSelector)
+    const activateBadge = useUserStore(activateBadgeSelector)
+    const confettiRef = useRef<ConfettiMethods>(null);
+    const [showConfetti, setShowConfetti] = useState(false);
+
     useEffect(() => {
         if (started && !completed) {
             Animated.sequence([
@@ -47,22 +56,52 @@ const TaskDetail = ({
         }
     }, [started, completed, scaleAnim]);
 
+
+    const earnBadge = (category, title, description, src) => {
+        activateBadge(category);
+        setShowConfetti(true);  
+        player2.seekTo(0);
+        player2.play();
+        const newId = Math.random().toString();
+        toast.show({
+            id: newId,
+            placement:"top",
+            render: ({ id }) => {
+                const toastId = "toast-" + id;
+                return (
+                    <ToastForBadge id={toastId} title={title} description={description} src={src}/>
+                );
+            },
+        });            
+    }
+
     const handlePress = () => {
         if(started) {
-            player.seekTo(0);
-            player.play();
-            const newId = Math.random().toString();
-            toast.show({
-                id: newId,
-                placement:"top",
-                render: ({ id }) => {
-                    const toastId = "toast-" + id;
-                    return (
-                        <ToastExample id={toastId}/>
-                    );
-                },
-            });
-            addPoints(rewardPoints);
+            increaseTasksAndPoints(category, rewardPoints);
+            if(category === "Nature" && userData.natureTasksCompleted === 4 && userData.natureBadge === false) {
+                earnBadge("Nature", "Dschungelkrieger Abzeichen verdient", "Du hast 5 Natur-Aufgaben erledigt!", "dschungelkrieger.png");
+            }
+            else if(category === "Energy" && userData.energyTasksCompleted === 4 && userData.energyBadge === false) {
+                earnBadge("Energy", "Energiesparmodus Abzeichen verdient", "Du hast 5 Energiespar-Aufgaben erledigt!", "energiesparmodus.png");
+            }
+            else if(category === "Water" && userData.waterTasksCompleted === 4 && userData.waterBadge === false) {
+                earnBadge("Water", "Aquaman Abzeichen verdient", "Du hast 5 Wasserspar-Aufgaben erledigt!", "aquaman.png");
+            }
+            else {
+                player.seekTo(0);
+                player.play();
+                const newId = Math.random().toString();
+                toast.show({
+                    id: newId,
+                    placement:"top",
+                    render: ({ id }) => {
+                        const toastId = "toast-" + id;
+                        return (
+                            <ToastExample id={toastId}/>
+                        );
+                    },
+                });
+            }
         }
 
         if(Platform.OS=== 'ios') {
@@ -109,6 +148,17 @@ const TaskDetail = ({
                     />
                 </Animated.View>
             </View>
+            {showConfetti && (
+                <Confetti
+                ref={confettiRef}
+                count={200}
+                autoplay={true}
+                isInfinite={false}
+                fadeOutOnEnd={true}
+                />
+            )}
+            
+           
         </View>
     );
 };

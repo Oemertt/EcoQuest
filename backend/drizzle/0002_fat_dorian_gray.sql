@@ -1,0 +1,1 @@
+ALTER TABLE "users" ADD COLUMN "tasksCompleted" integer DEFAULT 0;
