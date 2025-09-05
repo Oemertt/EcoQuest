@@ -23,9 +23,10 @@ import {
     BeVietnamPro_900Black_Italic,
 } from '@expo-google-fonts/be-vietnam-pro';
 import { useFonts } from 'expo-font';
-import { Slot } from "expo-router";
+import { Stack } from "expo-router";
 import { StatusBar } from 'expo-status-bar';
 import 'react-native-reanimated';
+
 export default function RootLayout() {
     const [loaded] = useFonts({
         SpaceMono: require('../assets/fonts/SpaceMono-Regular.ttf'),
@@ -54,7 +55,28 @@ export default function RootLayout() {
     return (
         <GluestackUIProvider mode="light">
             <ClerkProvider tokenCache={tokenCache}>
-                <Slot/>
+                <Stack>
+                    <Stack.Screen
+                        name="(tabs)"
+                        options={{
+                            headerShown: false
+                        }}
+                    />
+                    <Stack.Screen
+                        name="modal"
+                        options={{
+                            title: "Abzeichen",
+                            presentation: 'formSheet',
+                            sheetGrabberVisible: true,
+                            animation: 'slide_from_bottom',
+                            sheetInitialDetentIndex: 0,
+                            sheetElevation: 24,
+                            sheetCornerRadius: 20,
+                            sheetAllowedDetents: [0.5, 1.0],
+                            sheetExpandsWhenScrolledToEdge: true,
+                        }}
+                    />
+                </Stack>
                 <StatusBar style="auto" />
             </ClerkProvider>
         </GluestackUIProvider>

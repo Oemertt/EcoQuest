@@ -50,7 +50,7 @@ export default function TabsLayout() {
 
             />
             <Tabs.Screen
-                name="(progress)/index"
+                name="progress"
                 options={{
                     title: "Fortschritt",
                     tabBarIcon: ({color}) => <Ionicons name="bar-chart" size={24} color={color} />,
@@ -61,12 +61,7 @@ export default function TabsLayout() {
                     },
                 }}
             />
-            <Tabs.Screen
-                name="(progress)/[id]"
-                options={{
-                    href: null, // Versteckt diese dynamische Route aus der Tab-Bar
-                }}
-            />
+            
         
         </Tabs>
     );

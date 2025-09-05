@@ -2,8 +2,7 @@ import LeaderboardScreen from "@/app/(screens)/leaderboard";
 import Badges from "@/components/Badges";
 import ProgressHeader from "@/components/ProgressHeader";
 import useUserStore, { userSelector } from "@/store/userStore";
-import { Link } from "expo-router";
-import { Button, StyleSheet, Text, View } from "react-native";
+import { StyleSheet, Text, View } from "react-native";
 
 const ProgressScreen = () => {
     const userData = useUserStore(userSelector);
@@ -16,9 +15,7 @@ const ProgressScreen = () => {
             </View>
             <Text className="font-bold text-2xl mt-5 mb-3">Abzeichen</Text>
             <Badges />
-            <Link href="/1" push asChild>
-                <Button title="Modal" />
-            </Link>
+            
             <Text className="font-bold text-2xl mt-8 mb-3">Ranglisten</Text>
             <LeaderboardScreen />
         </View>

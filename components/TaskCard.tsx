@@ -1,6 +1,5 @@
 // @ts-nocheck
 import { Image } from 'expo-image';
-import React from 'react';
 import { Pressable, StyleSheet, Text, View } from 'react-native';
 
 
@@ -24,8 +23,6 @@ const TaskCard = ({ title, subtitle, imageUrl, onStart }) => (
 const styles = StyleSheet.create({
     container: {
         backgroundColor: '#f9fbfa',
-        
-        
     },
     row: {
         flexDirection: 'row',

@@ -12,18 +12,21 @@ import { ScrollView, StyleSheet, Text, View } from "react-native";
 const recommendedTasks = [
     {
         id: "1",
-        title: "Einkaufen gehen",
-        imageUrl: "https://images.unsplash.com/photo-1567306226416-28f0efdc88ce",
+        title: "Lichter ausschalten",
+        imageUrl: require("@/assets/images/light.png"),
+        url: "/(tasks)/1"
     },
     {
         id: "2",
-        title: "Kurzer Spaziergang",
-        imageUrl: "https://images.unsplash.com/photo-1503341455253-b2e723bb3dbb",
+        title: "Kurz duschen",
+        imageUrl: require("@/assets/images/duschen.png"),
+        url: "/(tasks)/4"
     },
     {
         id: "3",
-        title: "Licht ausschalten",
-        imageUrl: "https://images.unsplash.com/photo-1510626176961-4b57d4fbad03",
+        title: "Wasserhahn zudrehen",
+        imageUrl: require("@/assets/images/water.png"),
+        url: "/(tasks)/5"
     },
 ];
 
@@ -60,6 +63,7 @@ const HomeScreen: React.FC = () => {
                             title={task.title}
                             imageUrl={task.imageUrl}
                             taskId={task.id}
+                            url={task.url}
                         />
                     ))}
                 </ScrollView>

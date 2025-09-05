@@ -1,6 +1,7 @@
 import useUserStore, { userSelector } from "@/store/userStore";
-import { Image } from "expo-image";
-import { StyleSheet, View } from "react-native";
+import { Link } from "expo-router";
+import { Image, Pressable, StyleSheet, View } from "react-native";
+
 
 // const badges = [
 //     {
@@ -30,19 +31,32 @@ const Badges = () => {
     const userData = useUserStore(userSelector);
     return (
         <View className="flex-row gap-8">
-            <Image
-                source={require("@/assets/images/dschungelkrieger.png")}
-                style={userData?.natureBadge ? styles.badgeImage : styles.locked}
-            />
-
-            <Image
-                source={require("@/assets/images/energiesparmodus.png")}
-                style={userData?.energyBadge ? styles.badgeImage : styles.locked}
-            />
-            <Image
-                source={require("@/assets/images/aquaman.png")}
-                style={userData?.waterBadge ? styles.badgeImage : styles.locked}
-            />
+            <Link href="/modal?badgeId=dschungelkrieger" push asChild>
+                <Pressable>
+                    <Image
+                        source={require("@/assets/images/dschungelkrieger.png")}
+                        style={userData?.natureBadge ? styles.badgeImage : styles.locked}
+                    />
+                </Pressable>
+            </Link>
+            <Link href="/modal?badgeId=aquaman" push asChild>
+                <Pressable>
+                    <Image
+                        source={require("@/assets/images/aquaman.png")}
+                        style={userData?.waterBadge ? styles.badgeImage : styles.locked}
+                    />
+                </Pressable>
+            </Link>
+            
+            <Link href="/modal?badgeId=energiesparmodus" push asChild>
+                <Pressable>
+                    <Image
+                        source={require("@/assets/images/energiesparmodus.png")}
+                        style={userData?.energyBadge ? styles.badgeImage : styles.locked}
+                    />
+                </Pressable>
+            </Link>
+            
         </View>
     )
 };
