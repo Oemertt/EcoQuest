@@ -1,8 +1,6 @@
-import React from 'react';
-import { Tabs } from "expo-router";
 import { Ionicons } from "@expo/vector-icons";
 import * as Haptics from 'expo-haptics';
-import { Platform } from "react-native";
+import { Tabs } from "expo-router";
 
 export default function TabsLayout() {
 
@@ -52,7 +50,7 @@ export default function TabsLayout() {
 
             />
             <Tabs.Screen
-                name="progress"
+                name="(progress)/index"
                 options={{
                     title: "Fortschritt",
                     tabBarIcon: ({color}) => <Ionicons name="bar-chart" size={24} color={color} />,
@@ -63,6 +61,13 @@ export default function TabsLayout() {
                     },
                 }}
             />
+            <Tabs.Screen
+                name="(progress)/[id]"
+                options={{
+                    href: null, // Versteckt diese dynamische Route aus der Tab-Bar
+                }}
+            />
+        
         </Tabs>
     );
 }

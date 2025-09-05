@@ -1,4 +1,3 @@
-import React from 'react';
 import { GluestackUIProvider } from "@/components/ui/gluestack-ui-provider";
 import "@/global.css";
 import { ClerkProvider } from '@clerk/clerk-expo';
@@ -24,7 +23,7 @@ import {
     BeVietnamPro_900Black_Italic,
 } from '@expo-google-fonts/be-vietnam-pro';
 import { useFonts } from 'expo-font';
-import {Slot, Stack} from "expo-router";
+import { Slot } from "expo-router";
 import { StatusBar } from 'expo-status-bar';
 import 'react-native-reanimated';
 export default function RootLayout() {
