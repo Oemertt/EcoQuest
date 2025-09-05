@@ -93,11 +93,11 @@ const styles = StyleSheet.create({
     container: { flex: 1, backgroundColor: "#f9fbfa" },
     content: { flex: 1, paddingHorizontal: 16, paddingTop: 8 },
     sectionTitle: {
-        fontSize: 18,
+        fontSize: 22,
         fontWeight: "bold",
         color: "#0e1a13",
         paddingTop: 16,
-        paddingBottom: 4,
+        paddingBottom: 6,
         paddingHorizontal: 4,
     },
     horizontalList: {

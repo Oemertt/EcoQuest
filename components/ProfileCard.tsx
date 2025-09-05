@@ -29,12 +29,12 @@ const styles = StyleSheet.create({
         gap: 16,
     },
     avatar: {
-        width: 80,
-        height: 80,
-        borderRadius: 40,
+        width: 90,
+        height: 90,
+        borderRadius: 50,
     },
     name: {
-        fontSize: 18,
+        fontSize: 20,
         fontWeight: 'bold',
         color: '#0e1a13',
     },
@@ -49,7 +49,7 @@ const styles = StyleSheet.create({
         marginRight: 6,
     },
     points: {
-        fontSize: 14,
+        fontSize: 16,
         color: '#51946c',
     },
 });
