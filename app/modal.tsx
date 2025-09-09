@@ -14,32 +14,36 @@ export default function Modal() {
     // Badge data configuration
 const badgeData = {
     dschungelkrieger: {
-        image: require("@/assets/images/dschungelkrieger.png"),
+        image: require("@/assets/images/dschungelkrieger.webp"),
         title: "Dschungelkrieger",
         description: "Bezwinge den Dschungel mit 5 Natur-Aufgaben",
         category: "Natur",
         requiredTasks: 5,
         earned: userData?.natureBadge,
         progress: userData?.natureTasksCompleted / 5,
+        barColor: '#a5c779',
     },
     // Weitere Badges können hier hinzugefügt werden
     aquaman: {
-        image: require("@/assets/images/aquaman.png"),
+        image: require("@/assets/images/aquaman.webp"),
         title: "Wasserwächter", 
         description: "Schütze unsere Gewässer durch 3 Wasser-Aufgaben",
         category: "Wasser",
         requiredTasks: 5,
         earned: userData?.waterBadge,
         progress: userData?.waterTasksCompleted / 5, 
+        barColor: '#69b9ff',
     },
     energiesparmodus: {
-        image: require("@/assets/images/energiesparmodus.png"), 
+        image: require("@/assets/images/energiesparmodus.webp"), 
         title: "Energiesparmodus", 
         description: "Schalte den Energiesparmodus frei durch 5 Energie-Aufgaben",
         category: "Energie",
         requiredTasks: 5,
         earned: userData?.energyBadge,
         progress: userData?.energyTasksCompleted / 5,
+        barColor: '#ffae44',
+
     }
 };
 
@@ -60,11 +64,7 @@ const badgeData = {
             <Text className="text-center text-lg font-semibold text-gray-700 mt-2 mx-4 leading-6">
                 {badge.description}
             </Text>
-            {/* <View className="mt-4 bg-green-100 px-4 py-2 rounded-lg">
-                <Text className="text-green-700 font-medium">
-                    Kategorie: {badge.category} • {badge.requiredTasks} Aufgaben
-                </Text>
-            </View> */}
+            
             <View
                 className={`my-4 px-4 py-2 rounded-lg ${
                     badge.earned ? "bg-green-100" : "bg-red-100"
@@ -78,7 +78,7 @@ const badgeData = {
                     {badge.earned ? "Freigeschaltet" : "Nicht freigeschaltet"}
                 </Text>
             </View>
-            <AnimatedProgressBar progress={badge.progress} progressColor="#a5c779"/>
+            <AnimatedProgressBar progress={badge.progress} progressColor={badge.barColor}/>
             <Text className="text-center text-lg font-semibold text-gray-700 mt-2 mx-4 leading-6">
                 ({badge.progress*5} / 5)
             </Text>

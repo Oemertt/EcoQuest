@@ -24,7 +24,7 @@ export default function LeaderboardScreen() {
             setLoading(true);
             setError(null);
 
-            const response = await axios.get('http://192.168.1.5:5001/leaderboard');
+            const response = await axios.get(`${process.env.EXPO_PUBLIC_BACKEND_URL}/leaderboard`);
             console.log("leaderbord:" + response.data);
             setLeaderboard(response.data);
         } catch (err) {

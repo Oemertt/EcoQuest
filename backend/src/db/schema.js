@@ -11,6 +11,7 @@ export const users = pgTable('users', {
     waterTasksCompleted: integer('waterTasksCompleted').default(0),
     natureTasksCompleted: integer('natureTasksCompleted').default(0),
     tasksCompleted: integer('tasksCompleted').default(0),
+    level: integer('level').default(1),
 });
 
 //mobilityTasksCompleted: integer('mobilityTasksCompleted').default(0),
