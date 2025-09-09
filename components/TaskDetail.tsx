@@ -16,6 +16,7 @@ import {
 import { Confetti, ConfettiMethods } from "react-native-fast-confetti";
 import PrimaryButton from "./PrimaryButton";
 import Reward from "./Reward";
+import ToastForLevelUp from "./ToastForLevelUp";
 
 const TaskDetail = ({
     title,
@@ -31,14 +32,25 @@ const TaskDetail = ({
     const toast = useToast();
     const audioSource = require('../assets/appSound.mp3');
     const audioSource2 = require('../assets/success2.mp3');
+    const audioSource3 = require('../assets/success.mp3');
     const player = useAudioPlayer(audioSource);
     const player2 = useAudioPlayer(audioSource2);
+    const player3 = useAudioPlayer(audioSource3);
     const userData = useUserStore(userSelector);
     const increaseTasksAndPoints = useUserStore(increaseTasksAndPointsSelector)
     const activateBadge = useUserStore(activateBadgeSelector)
     const confettiRef = useRef<ConfettiMethods>(null);
     const [showConfetti, setShowConfetti] = useState(false);
-
+    const getLevel = () => {
+        const points = userData?.points ?? 0;
+    
+        if (points >= 50) return 5;
+        if (points >= 40) return 4;
+        if (points >= 30) return 3;
+        if (points >= 20) return 2;
+        return 1;
+      };
+    const level = getLevel();
     useEffect(() => {
         if (started && !completed) {
             Animated.sequence([
@@ -76,40 +88,88 @@ const TaskDetail = ({
     }
 
     const handlePress = () => {
-        if(started) {
+        if (started) {
+            const previousLevel = getLevel();
+            const oldPoints = userData?.points ?? 0;
+            const newPoints = oldPoints + rewardPoints;
+    
             increaseTasksAndPoints(category, rewardPoints);
-            if(category === "Nature" && userData.natureTasksCompleted === 4 && userData.natureBadge === false) {
-                earnBadge("Nature", "Dschungelkrieger Abzeichen verdient", "Du hast 5 Natur-Aufgaben erledigt!", "dschungelkrieger.png");
+    
+            // neuen Level direkt berechnen
+            const newLevel = (() => {
+                if (newPoints >= 50) return 5;
+                if (newPoints >= 40) return 4;
+                if (newPoints >= 30) return 3;
+                if (newPoints >= 20) return 2;
+                return 1;
+            })();
+    
+            let didLevelUp = false;
+            let didEarnBadge = false;
+    
+            // --- Level Up ---
+            if (newLevel > previousLevel) {
+                didLevelUp = true;
+                player3.seekTo(0);
+                player3.play();
+                const newId = Math.random().toString();
+                toast.show({
+                    id: newId,
+                    placement: "top",
+                    render: ({ id }) => {
+                        const toastId = "toast-" + id;
+                        return <ToastForLevelUp id={toastId} level={newLevel} />;
+                    },
+                });
             }
-            else if(category === "Energy" && userData.energyTasksCompleted === 4 && userData.energyBadge === false) {
-                earnBadge("Energy", "Energiesparmodus Abzeichen verdient", "Du hast 5 Energiespar-Aufgaben erledigt!", "energiesparmodus.png");
+    
+            // --- Badge ---
+            const triggerBadge = () => {
+                if (category === "Nature" && userData.natureTasksCompleted === 4 && !userData.natureBadge) {
+                    earnBadge("Nature", "Dschungelkrieger Abzeichen verdient", "Du hast 5 Natur-Aufgaben erledigt!", "dschungelkrieger.webp");
+                    didEarnBadge = true;
+                } else if (category === "Energy" && userData.energyTasksCompleted === 4 && !userData.energyBadge) {
+                    earnBadge("Energy", "Energiesparmodus Abzeichen verdient", "Du hast 5 Energiespar-Aufgaben erledigt!", "energiesparmodus.webp");
+                    didEarnBadge = true;
+                } else if (category === "Water" && userData.waterTasksCompleted === 4 && !userData.waterBadge) {
+                    earnBadge("Water", "Aquaman Abzeichen verdient", "Du hast 5 Wasserspar-Aufgaben erledigt!", "aquaman.webp");
+                    didEarnBadge = true;
+                }
+            };
+    
+            if (didLevelUp) {
+                // Badge Toast etwas verzögern
+                setTimeout(() => {
+                    triggerBadge();
+                }, 1200);
+            } else {
+                triggerBadge();
             }
-            else if(category === "Water" && userData.waterTasksCompleted === 4 && userData.waterBadge === false) {
-                earnBadge("Water", "Aquaman Abzeichen verdient", "Du hast 5 Wasserspar-Aufgaben erledigt!", "aquaman.png");
-            }
-            else {
+    
+            // --- Punkte ---
+            if (!didLevelUp && !didEarnBadge) {
                 player.seekTo(0);
                 player.play();
                 const newId = Math.random().toString();
                 toast.show({
                     id: newId,
-                    placement:"top",
+                    placement: "top",
                     render: ({ id }) => {
                         const toastId = "toast-" + id;
-                        return (
-                            <ToastExample id={toastId}/>
-                        );
+                        return <ToastExample id={toastId} />;
                     },
                 });
             }
         }
-
-        if(Platform.OS=== 'ios') {
+    
+        // --- Haptics ---
+        if (Platform.OS === "ios") {
             Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Heavy);
         } else {
             Haptics.performAndroidHapticsAsync(Haptics.AndroidHaptics.Reject);
         }
-
+    
+        // --- State Umschalten ---
         if (!started) {
             setStarted(true);
             setCompleted(false);
@@ -118,6 +178,9 @@ const TaskDetail = ({
             setStarted(false);
         }
     };
+    
+    
+         
 
     return (
         <View style={styles.wrapper}>

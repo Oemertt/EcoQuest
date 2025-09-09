@@ -6,9 +6,9 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 // Static image mapping for require statements
 const imageMap = {
-    'energiesparmodus.png': require('@/assets/images/energiesparmodus.png'),
-    'dschungelkrieger.png': require('@/assets/images/dschungelkrieger.png'),    
-    'aquaman.png': require('@/assets/images/aquaman.png'),
+    'energiesparmodus.webp': require('@/assets/images/energiesparmodus.webp'),
+    'dschungelkrieger.webp': require('@/assets/images/dschungelkrieger.webp'),    
+    'aquaman.webp': require('@/assets/images/aquaman.webp'),
 };
 
 // @ts-ignore
@@ -24,7 +24,7 @@ const ToastForBadge = ({id, title, description, src}) => {
         <View style={{ marginTop: androidTopMargin }}>
             <Toast
                 nativeID={id}
-                className="px-7 py-4 gap-4 shadow-soft-1 items-center flex-row bg-white mx-4"
+                className="px-4 py-4 gap-4 shadow-soft-1 items-center flex-row bg-white mx-4"
             >
                 <Image
                 source={imageSource}

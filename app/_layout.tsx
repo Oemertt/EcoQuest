@@ -55,7 +55,7 @@ export default function RootLayout() {
     return (
         <GluestackUIProvider mode="light">
             <ClerkProvider tokenCache={tokenCache}>
-                <Stack>
+                <Stack screenOptions={{ headerShown: false }}>
                     <Stack.Screen
                         name="(tabs)"
                         options={{
@@ -65,6 +65,7 @@ export default function RootLayout() {
                     <Stack.Screen
                         name="modal"
                         options={{
+                            headerShown: true,
                             title: "Abzeichen",
                             presentation: 'formSheet',
                             sheetGrabberVisible: true,

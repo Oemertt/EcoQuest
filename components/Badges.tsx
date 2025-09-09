@@ -34,7 +34,7 @@ const Badges = () => {
             <Link href="/modal?badgeId=dschungelkrieger" push asChild>
                 <Pressable>
                     <Image
-                        source={require("@/assets/images/dschungelkrieger.png")}
+                        source={require("@/assets/images/dschungelkrieger.webp")}
                         style={userData?.natureBadge ? styles.badgeImage : styles.locked}
                     />
                 </Pressable>
@@ -42,7 +42,7 @@ const Badges = () => {
             <Link href="/modal?badgeId=aquaman" push asChild>
                 <Pressable>
                     <Image
-                        source={require("@/assets/images/aquaman.png")}
+                        source={require("@/assets/images/aquaman.webp")}
                         style={userData?.waterBadge ? styles.badgeImage : styles.locked}
                     />
                 </Pressable>
@@ -51,7 +51,7 @@ const Badges = () => {
             <Link href="/modal?badgeId=energiesparmodus" push asChild>
                 <Pressable>
                     <Image
-                        source={require("@/assets/images/energiesparmodus.png")}
+                        source={require("@/assets/images/energiesparmodus.webp")}
                         style={userData?.energyBadge ? styles.badgeImage : styles.locked}
                     />
                 </Pressable>
