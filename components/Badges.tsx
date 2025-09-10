@@ -1,4 +1,5 @@
 import useUserStore, { userSelector } from "@/store/userStore";
+import * as Haptics from 'expo-haptics';
 import { Link } from "expo-router";
 import { Image, Pressable, StyleSheet, View } from "react-native";
 
@@ -29,10 +30,13 @@ import { Image, Pressable, StyleSheet, View } from "react-native";
 
 const Badges = () => {
     const userData = useUserStore(userSelector);
+    const giveHaptic = () => {
+        Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Medium);
+    }
     return (
         <View className="flex-row gap-8">
             <Link href="/modal?badgeId=dschungelkrieger" push asChild>
-                <Pressable>
+                <Pressable onPress={giveHaptic}>
                     <Image
                         source={require("@/assets/images/dschungelkrieger.webp")}
                         style={userData?.natureBadge ? styles.badgeImage : styles.locked}
@@ -40,7 +44,7 @@ const Badges = () => {
                 </Pressable>
             </Link>
             <Link href="/modal?badgeId=aquaman" push asChild>
-                <Pressable>
+                <Pressable onPress={giveHaptic}>
                     <Image
                         source={require("@/assets/images/aquaman.webp")}
                         style={userData?.waterBadge ? styles.badgeImage : styles.locked}
@@ -49,7 +53,7 @@ const Badges = () => {
             </Link>
             
             <Link href="/modal?badgeId=energiesparmodus" push asChild>
-                <Pressable>
+                <Pressable onPress={giveHaptic}>
                     <Image
                         source={require("@/assets/images/energiesparmodus.webp")}
                         style={userData?.energyBadge ? styles.badgeImage : styles.locked}

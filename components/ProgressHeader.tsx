@@ -1,5 +1,4 @@
 // @ts-nocheck
-import React from "react";
 import { StyleSheet, Text, View } from "react-native";
 
 
@@ -16,14 +15,7 @@ const ProgressHeader = ({ points, badges, numberTasks }) => {
                 <Text style={styles.label}>Punkte</Text>
             </View>
 
-            {/* Abzeichen-Box */}
-            <View style={styles.box}>
-                <View style={styles.row}>
-                    {/* <Image source={require("../assets/images/badge.png")} style={styles.icon} /> */}
-                    <Text style={styles.pointsText}>{badges}</Text>
-                </View>
-                <Text style={styles.label}>Abzeichen</Text>
-            </View>
+           
             {/* Aufgaben-Box */}
             <View style={styles.box}>
                 <View style={styles.row}>

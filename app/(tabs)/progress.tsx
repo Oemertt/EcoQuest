@@ -11,7 +11,7 @@ const ProgressScreen = () => {
     return (
         <View style={styles.container}>
             <View style={styles.profileContainer}>
-                <ProgressHeader points={userData?.points || 0} badges={5} numberTasks={userData?.tasksCompleted || 0}/>
+                <ProgressHeader points={userData?.points || 0} numberTasks={userData?.tasksCompleted || 0}/>
             </View>
             <Text className="font-bold text-2xl mt-5 mb-3">Abzeichen</Text>
             <Badges />
