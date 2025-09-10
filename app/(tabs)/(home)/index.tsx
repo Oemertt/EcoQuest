@@ -47,7 +47,8 @@ const HomeScreen: React.FC = () => {
             initUser(user.id);
         }
     }, [user?.id]);
-
+    
+    
     return (
         <View style={styles.container}>
             <ScrollView style={styles.content} contentContainerStyle={{ gap: 16 }}>
@@ -78,7 +79,6 @@ const HomeScreen: React.FC = () => {
                 </ScrollView>
                 <Text style={styles.sectionTitle}>Informiere dich</Text>
                 <YoutubeScreen />
-
             </ScrollView>
         </View>
     );
