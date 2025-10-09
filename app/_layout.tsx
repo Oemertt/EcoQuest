@@ -3,24 +3,24 @@ import "@/global.css";
 import { ClerkProvider } from '@clerk/clerk-expo';
 import { tokenCache } from '@clerk/clerk-expo/token-cache';
 import {
-    BeVietnamPro_100Thin,
-    BeVietnamPro_100Thin_Italic,
-    BeVietnamPro_200ExtraLight,
-    BeVietnamPro_200ExtraLight_Italic,
-    BeVietnamPro_300Light,
-    BeVietnamPro_300Light_Italic,
-    BeVietnamPro_400Regular,
-    BeVietnamPro_400Regular_Italic,
-    BeVietnamPro_500Medium,
-    BeVietnamPro_500Medium_Italic,
-    BeVietnamPro_600SemiBold,
-    BeVietnamPro_600SemiBold_Italic,
-    BeVietnamPro_700Bold,
-    BeVietnamPro_700Bold_Italic,
-    BeVietnamPro_800ExtraBold,
-    BeVietnamPro_800ExtraBold_Italic,
-    BeVietnamPro_900Black,
-    BeVietnamPro_900Black_Italic,
+  BeVietnamPro_100Thin,
+  BeVietnamPro_100Thin_Italic,
+  BeVietnamPro_200ExtraLight,
+  BeVietnamPro_200ExtraLight_Italic,
+  BeVietnamPro_300Light,
+  BeVietnamPro_300Light_Italic,
+  BeVietnamPro_400Regular,
+  BeVietnamPro_400Regular_Italic,
+  BeVietnamPro_500Medium,
+  BeVietnamPro_500Medium_Italic,
+  BeVietnamPro_600SemiBold,
+  BeVietnamPro_600SemiBold_Italic,
+  BeVietnamPro_700Bold,
+  BeVietnamPro_700Bold_Italic,
+  BeVietnamPro_800ExtraBold,
+  BeVietnamPro_800ExtraBold_Italic,
+  BeVietnamPro_900Black,
+  BeVietnamPro_900Black_Italic,
 } from '@expo-google-fonts/be-vietnam-pro';
 import { useFonts } from 'expo-font';
 import * as Notifications from "expo-notifications";
@@ -115,6 +115,21 @@ export default function RootLayout() {
                 sheetCornerRadius: 20,
                 sheetAllowedDetents: [0.5, 1.0],
                 sheetExpandsWhenScrolledToEdge: true,
+              }}
+            />
+            <Stack.Screen
+              name="modalLevelMap"
+              options={{
+                title: "Level Map",
+                presentation: 'formSheet',
+                sheetGrabberVisible: true,
+                animation: 'slide_from_bottom',
+                sheetInitialDetentIndex: 0,
+                sheetElevation: 24,
+                sheetCornerRadius: 20,
+                sheetAllowedDetents: [0.5, 1.0],
+                sheetExpandsWhenScrolledToEdge: true,
+                contentStyle: { backgroundColor: 'white' },
               }}
             />
           </Stack>

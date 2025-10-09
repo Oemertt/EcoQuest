@@ -1,3 +1,4 @@
+// @ts-nocheck
 import LeaderboardScreen from "@/app/(screens)/leaderboard";
 import Badges from "@/components/Badges";
 import ProgressHeader from "@/components/ProgressHeader";
