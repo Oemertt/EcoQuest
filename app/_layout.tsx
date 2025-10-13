@@ -99,6 +99,10 @@ export default function RootLayout() {
       <GluestackUIProvider mode="light">
         <ClerkProvider tokenCache={tokenCache}>
           <Stack>
+          <Stack.Screen
+              name="(auth)"
+              options={{ headerShown: false }}
+            />
             <Stack.Screen
               name="(tabs)"
               options={{ headerShown: false }}

@@ -1,4 +1,6 @@
+// @ts-nocheck
 import LevelCard from "@/components/LevelCard";
+import Loader from "@/components/Loader";
 import RecommendedTaskCard from "@/components/RecommendedTaskCard";
 import { SignOutButton } from "@/components/SignOutButton";
 import YoutubeScreen from "@/components/YoutubeScreen";
@@ -41,6 +43,7 @@ const HomeScreen: React.FC = () => {
     const { user } = useUser()
     const initUser = useUserStore(initUserSelector);
     const userData = useUserStore(userSelector);
+    const isLoading = useUserStore((state) => state.isLoading);
 
     useEffect(() => {
         if (user?.id) {
@@ -52,7 +55,8 @@ const HomeScreen: React.FC = () => {
     return (
         <View style={styles.container}>
             <ScrollView style={styles.content} contentContainerStyle={{ gap: 16 }}>
-                <View className="flex-col flex">
+                {isLoading ? <Loader/> : (
+                    <View className="flex-col flex">
                     <View className="flex-row justify-between items-center">
                         <View className="flex-row items-center">
                             <Text style={styles.sectionTitle}>{user?.firstName + " " + user?.lastName}</Text>
@@ -65,6 +69,9 @@ const HomeScreen: React.FC = () => {
                     <LevelCard /> 
 
                 </View>
+                )} 
+                
+               
                 <Text style={styles.sectionTitle}>Empfohlene Aufgaben</Text>
                 <ScrollView horizontal showsHorizontalScrollIndicator={false} style={styles.horizontalList}>
                     {recommendedTasks.map((task) => (

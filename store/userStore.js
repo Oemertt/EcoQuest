@@ -6,6 +6,7 @@ const useUserStore = create(
     immer((set, get) => ({
       //states
       user: null,
+      isLoading: true,
 
     //ACTIONS
       
@@ -20,7 +21,7 @@ const useUserStore = create(
            set((state) => {state.user.natureTasksCompleted += 1})     
         }
         try {
-          await axios.patch(`${process.env.EXPO_PUBLIC_BACKEND_URL || 'http://localhost:5001'}/increase-tasks-points`, {
+          await axios.patch(`${process.env.EXPO_PUBLIC_BACKEND_URL}/increase-tasks-points`, {
             userId: get().user.id,
             category: category,
             points: points
@@ -34,7 +35,7 @@ const useUserStore = create(
 
       activateBadge: async (category) => {
         try {
-          await axios.patch(`${process.env.EXPO_PUBLIC_BACKEND_URL || 'http://localhost:5001'}/activate-badge`, {
+          await axios.patch(`${process.env.EXPO_PUBLIC_BACKEND_URL}/activate-badge`, {
             userId: get().user.id,
             category: category,
           });
@@ -56,13 +57,16 @@ const useUserStore = create(
 
       initUser: async (userId) => {
         try {
-          const response = await axios.post(`${process.env.EXPO_PUBLIC_BACKEND_URL || 'http://localhost:5001'}/user/init`, {
+          const response = await axios.post(`${process.env.EXPO_PUBLIC_BACKEND_URL}/user/init`, {
             userId: userId,
             })
             console.log(response.data);
             set((state) => {state.user = response.data });
         } catch (error) {
           console.error('Error initializing user:', error);
+        }
+        finally {
+          set((state) => {state.isLoading = false});
         }
       }
 
