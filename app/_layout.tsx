@@ -94,7 +94,13 @@ export default function RootLayout() {
     }, []);
   
     if (!loaded) return null;  // <-- erst NACH allen Hooks
-  
+    
+    console.log('Backend URL:', process.env.EXPO_PUBLIC_BACKEND_URL);
+    console.log('Clerk Key:', process.env.EXPO_PUBLIC_CLERK_PUBLISHABLE_KEY);
+
+    if (!process.env.EXPO_PUBLIC_BACKEND_URL) {
+      throw new Error('EXPO_PUBLIC_BACKEND_URL ist nicht gesetzt!');
+    }
     return (
       <GluestackUIProvider mode="light">
         <ClerkProvider tokenCache={tokenCache}>

@@ -9,13 +9,45 @@
       "distribution": "internal",
       "ios": {
         "simulator": true
+      },
+      "env": {
+        "NODE_ENV": "development",
+        "EXPO_PUBLIC_BACKEND_URL": "https://ecoquest-production.up.railway.app",
+        "EXPO_PUBLIC_CLERK_PUBLISHABLE_KEY": "pk_test_ZGl2ZXJzZS10cm91dC0zMy5jbGVyay5hY2NvdW50cy5kZXYk"
       }
     },
     "preview": {
-      "distribution": "internal"
+      "distribution": "internal",
+      "android": {
+        "buildType": "apk"
+      },
+      "env": {
+        "NODE_ENV": "production",
+        "EXPO_PUBLIC_BACKEND_URL": "https://ecoquest-production.up.railway.app",
+        "EXPO_PUBLIC_CLERK_PUBLISHABLE_KEY": "pk_test_ZGl2ZXJzZS10cm91dC0zMy5jbGVyay5hY2NvdW50cy5kZXYk"
+      }
     },
     "production": {
-      "autoIncrement": true
+      "autoIncrement": true,
+      "android": {
+        "buildType": "apk"
+      },
+      "env": {
+        "NODE_ENV": "production",
+        "EXPO_PUBLIC_BACKEND_URL": "https://ecoquest-production.up.railway.app",
+        "EXPO_PUBLIC_CLERK_PUBLISHABLE_KEY": "pk_test_ZGl2ZXJzZS10cm91dC0zMy5jbGVyay5hY2NvdW50cy5kZXYk"
+      }
+    },
+    "debug": {
+      "android": {
+        "buildType": "apk",
+        "gradleCommand": ":app:assembleDebug"
+      },
+      "env": {
+        "NODE_ENV": "development",
+        "EXPO_PUBLIC_BACKEND_URL": "https://ecoquest-production.up.railway.app",
+        "EXPO_PUBLIC_CLERK_PUBLISHABLE_KEY": "pk_test_ZGl2ZXJzZS10cm91dC0zMy5jbGVyay5hY2NvdW50cy5kZXYk"
+      }
     }
   },
   "submit": {
