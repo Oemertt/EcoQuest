@@ -5,7 +5,7 @@ import RecommendedTaskCard from "@/components/RecommendedTaskCard";
 import { SignOutButton } from "@/components/SignOutButton";
 import YoutubeScreen from "@/components/YoutubeScreen";
 import useUserStore, { initUserSelector, userSelector } from "@/store/userStore";
-import { useUser } from '@clerk/clerk-expo';
+import { useAuth, useUser } from '@clerk/clerk-expo';
 import React, { useEffect } from "react";
 import { ScrollView, StyleSheet, Text, View } from "react-native";
 
@@ -41,15 +41,25 @@ const recommendedTasks = [
 
 const HomeScreen: React.FC = () => {
     const { user } = useUser()
+    const { isLoaded, userId } = useAuth()
     const initUser = useUserStore(initUserSelector);
     const userData = useUserStore(userSelector);
     const isLoading = useUserStore((state) => state.isLoading);
 
     useEffect(() => {
-        if (user?.id) {
-            initUser(user.id);
+        console.log('🟢 HomeScreen useEffect triggered');
+        console.log('🟢 isLoaded:', isLoaded);
+        console.log('🟢 userId:', userId);
+        console.log('🟢 user?.id:', user?.id);
+        console.log('🟢 EXPO_PUBLIC_BACKEND_URL:', process.env.EXPO_PUBLIC_BACKEND_URL);
+        
+        if (isLoaded && userId) {
+            console.log('🟢 Calling initUser with userId:', userId);
+            initUser(userId);
+        } else {
+            console.log('🔴 Not calling initUser - isLoaded:', isLoaded, 'userId:', userId);
         }
-    }, [user?.id]);
+    }, [isLoaded, userId]);
     
     
     return (

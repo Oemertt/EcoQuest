@@ -95,12 +95,11 @@ export default function RootLayout() {
   
     if (!loaded) return null;  // <-- erst NACH allen Hooks
     
-    console.log('Backend URL:', process.env.EXPO_PUBLIC_BACKEND_URL);
-    console.log('Clerk Key:', process.env.EXPO_PUBLIC_CLERK_PUBLISHABLE_KEY);
-
-    if (!process.env.EXPO_PUBLIC_BACKEND_URL) {
-      throw new Error('EXPO_PUBLIC_BACKEND_URL ist nicht gesetzt!');
-    }
+    // Debug-Logs direkt nach dem Font-Loading
+    console.log('✅ Fonts loaded');
+    console.log('📍 Backend URL:', process.env.EXPO_PUBLIC_BACKEND_URL);
+    console.log('🔑 Clerk Key exists:', !!process.env.EXPO_PUBLIC_CLERK_PUBLISHABLE_KEY);
+    
     return (
       <GluestackUIProvider mode="light">
         <ClerkProvider

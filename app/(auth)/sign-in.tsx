@@ -1,5 +1,4 @@
-import { useSSO } from '@clerk/clerk-expo'
-import * as AuthSession from 'expo-auth-session'
+import { useOAuth } from '@clerk/clerk-expo'
 import { Image } from "expo-image"
 import { useRouter } from 'expo-router'
 import * as WebBrowser from 'expo-web-browser'
@@ -21,30 +20,47 @@ WebBrowser.maybeCompleteAuthSession()
 
 export default function SignInScreen() {
   useWarmUpBrowser()
-  const { startSSOFlow } = useSSO()
+  const { startOAuthFlow } = useOAuth({ strategy: 'oauth_google' })
   const router = useRouter()
 
   const onGoogleSignIn = useCallback(async () => {
     try {
-      const { createdSessionId, setActive, signIn, signUp } = await startSSOFlow({
-        strategy: 'oauth_google',
-        redirectUrl: AuthSession.makeRedirectUri(),
-      })
+      console.log('🔵 Starting Google OAuth Flow...')
+      
+      // Für Native Apps: Clerk verwendet automatisch die richtige Redirect URL
+      const { createdSessionId, signIn, signUp, setActive } = await startOAuthFlow()
+
+      console.log('🔵 OAuth Flow completed')
+      console.log('🔵 createdSessionId:', createdSessionId)
+      console.log('🔵 signIn status:', signIn?.status)
+      console.log('🔵 signUp status:', signUp?.status)
 
       if (createdSessionId) {
-        // Erfolgreich angemeldet - Session setzen
-        setActive!({ session: createdSessionId })
+        console.log('✅ Session created, setting active...')
+        await setActive!({ session: createdSessionId })
+        console.log('✅ Session set, redirecting...')
         router.replace('/')
       } else {
-        // Falls zusätzliche Schritte erforderlich sind (z.B. MFA)
-        console.log('Additional steps required:', { signIn, signUp })
-        // Alert.alert('Authentication', 'Additional verification required')
+        // Versuche die Session aus signIn oder signUp zu holen
+        const sessionId = signIn?.createdSessionId || signUp?.createdSessionId
+        
+        if (sessionId) {
+          console.log('✅ Found session in signIn/signUp, setting active...')
+          await setActive!({ session: sessionId })
+          router.replace('/')
+        } else {
+          console.log('❌ No session created')
+          console.log('signIn details:', JSON.stringify(signIn, null, 2))
+          console.log('signUp details:', JSON.stringify(signUp, null, 2))
+          Alert.alert('Fehler', 'Anmeldung fehlgeschlagen. Bitte versuche es erneut.')
+        }
       }
     } catch (err: any) {
-      console.error('Google Sign-In Error:', JSON.stringify(err, null, 2))
-      Alert.alert('Error', 'Sign-in failed. Please try again.')
+      console.error('❌ Google Sign-In Error:', err)
+      console.error('❌ Error details:', JSON.stringify(err, null, 2))
+      Alert.alert('Fehler', 'Anmeldung fehlgeschlagen. Bitte versuche es erneut.')
     }
-  }, [startSSOFlow, router])
+  }, [startOAuthFlow, router])
 
 
 
