@@ -103,7 +103,10 @@ export default function RootLayout() {
     }
     return (
       <GluestackUIProvider mode="light">
-        <ClerkProvider tokenCache={tokenCache}>
+        <ClerkProvider
+          tokenCache={tokenCache}
+          publishableKey="pk_test_ZGl2ZXJzZS10cm91dC0zMy5jbGVyay5hY2NvdW50cy5kZXYk" // nur zum Testen!
+        >
           <Stack>
           <Stack.Screen
               name="(auth)"

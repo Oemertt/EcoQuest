@@ -56,19 +56,35 @@ const useUserStore = create(
 
 
       initUser: async (userId) => {
-        try {
-          const response = await axios.post(`${process.env.EXPO_PUBLIC_BACKEND_URL}/user/init`, {
-            userId: userId,
-            })
-            console.log(response.data);
-            set((state) => {state.user = response.data });
-        } catch (error) {
-          console.error('Error initializing user:', error);
+        console.log('🔵 initUser CALLED with userId:', userId);
+        console.log('🔵 Backend URL:', process.env.EXPO_PUBLIC_BACKEND_URL);
+        
+        if (!userId) {
+          console.error('❌ No userId provided to initUser');
+          set((state) => {state.isLoading = false});
+          return;
         }
-        finally {
+
+        try {
+          const url = `${process.env.EXPO_PUBLIC_BACKEND_URL}/user/init`;
+          console.log('🔵 Making request to:', url);
+          
+          const response = await axios.post(url, {
+            userId: userId,
+          });
+          
+          console.log('✅ User init successful:', response.data);
+          set((state) => {state.user = response.data});
+        } catch (error) {
+          console.error('❌ Error initializing user:');
+          console.error('  Error message:', error.message);
+          console.error('  Error response:', error.response?.data);
+          console.error('  Error status:', error.response?.status);
+          console.error('  Full error:', error);
+        } finally {
           set((state) => {state.isLoading = false});
         }
-      }
+      },
 
 
 

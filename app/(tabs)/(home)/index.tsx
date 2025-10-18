@@ -71,7 +71,7 @@ const HomeScreen: React.FC = () => {
                 </View>
                 )} 
                 
-               
+               <SignOutButton />
                 <Text style={styles.sectionTitle}>Empfohlene Aufgaben</Text>
                 <ScrollView horizontal showsHorizontalScrollIndicator={false} style={styles.horizontalList}>
                     {recommendedTasks.map((task) => (

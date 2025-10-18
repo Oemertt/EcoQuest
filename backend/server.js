@@ -26,30 +26,6 @@ app.get('/', (req, res) => {
     res.send('Welcome to the EcoQuest');
 });
 
-/*
-app.post('/api/clerk-webhook', async (req, res) => {
-    const event = req.body;
-
-    if (event.type === 'user.created') {
-        const clerkUserId = event.data.id;
-
-        try {
-            // in die users-Tabelle einfügen
-            await db.insert(userTable).values({
-                id: clerkUserId,
-                points: 0,
-            });
-
-            return res.status(200).json({ success: true });
-        } catch (err) {
-            console.error('Fehler beim Einfügen:', err);
-            return res.status(500).json({ error: 'DB insert failed' });
-        }
-    }
-
-    res.status(200).json({ received: true });
-});*/
-
 
 app.post('/user/init', async (req, res) => {
     const { userId } = req.body;
@@ -76,14 +52,7 @@ app.post('/user/init', async (req, res) => {
     }
 });
 
-/*app.get('/user', async (req, res) => {
-    const { userId } = req.query;
-    const user = await db.select().from(users).where(eq(users.id, userId));
-    if (user.length === 0) {
-        return res.status(404).json({ error: 'User not found' });
-    }
-    return res.json(user[0]);
-})*/
+
 
 
 app.get("/leaderboard", async (req, res) => {

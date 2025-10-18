@@ -17,7 +17,11 @@ const Loader = (props) => (
     <Rect x="173" y="8" rx="10" ry="10" width="78" height="20" /> 
     <Rect x="5" y="228" rx="4" ry="4" width="275" height="11" /> 
     <Rect x="290" y="220" rx="15" ry="15" width="56" height="27" />
+
+    
   </ContentLoader>
+
+  
 )
 
 export default Loader
