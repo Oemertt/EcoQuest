@@ -44,10 +44,10 @@ const TaskDetail = ({
     const getLevel = () => {
         const points = userData?.points ?? 0;
     
-        if (points >= 100) return 5;
-        if (points >= 80) return 4;
-        if (points >= 60) return 3;
-        if (points >= 40) return 2;
+        if (points >= 200) return 5;
+        if (points >= 160) return 4;
+        if (points >= 120) return 3;
+        if (points >= 80) return 2;
         return 1;
       };
     const level = getLevel();
@@ -97,10 +97,10 @@ const TaskDetail = ({
     
             // neuen Level direkt berechnen
             const newLevel = (() => {
-                if (newPoints >= 50) return 5;
-                if (newPoints >= 40) return 4;
-                if (newPoints >= 30) return 3;
-                if (newPoints >= 20) return 2;
+                if (newPoints >= 200) return 5;
+                if (newPoints >= 160) return 4;
+                if (newPoints >= 120) return 3;
+                if (newPoints >= 80) return 2;
                 return 1;
             })();
     

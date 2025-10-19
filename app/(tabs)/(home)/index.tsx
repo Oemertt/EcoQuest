@@ -6,6 +6,7 @@ import { SignOutButton } from "@/components/SignOutButton";
 import YoutubeScreen from "@/components/YoutubeScreen";
 import useUserStore, { initUserSelector, userSelector } from "@/store/userStore";
 import { useAuth, useUser } from '@clerk/clerk-expo';
+import { FlashList } from "@shopify/flash-list";
 import React, { useEffect } from "react";
 import { ScrollView, StyleSheet, Text, View } from "react-native";
 
@@ -83,17 +84,22 @@ const HomeScreen: React.FC = () => {
                 
                {/* <SignOutButton /> */}
                 <Text style={styles.sectionTitle}>Empfohlene Aufgaben</Text>
-                <ScrollView horizontal showsHorizontalScrollIndicator={false} style={styles.horizontalList}>
-                    {recommendedTasks.map((task) => (
+                <FlashList
+                    data={recommendedTasks}
+                    renderItem={({ item }) => (
                         <RecommendedTaskCard
-                            key={task.id}
-                            title={task.title}
-                            imageUrl={task.imageUrl}
-                            taskId={task.id}
-                            url={task.url}
+                            title={item.title}
+                            imageUrl={item.imageUrl}
+                            taskId={item.id}
+                            url={item.url}
                         />
-                    ))}
-                </ScrollView>
+                    )}
+                    keyExtractor={(item) => item.id}
+                    horizontal
+                    showsHorizontalScrollIndicator={false}
+                    estimatedItemSize={157}
+                    contentContainerStyle={styles.horizontalList}
+                />
                 <Text style={styles.sectionTitle}>Informiere dich</Text>
                 <YoutubeScreen />
             </ScrollView>

@@ -129,6 +129,7 @@ const TasksScreen = () => {
             <FlashList
                 data={tasks}
                 keyExtractor={(item) => `${item.type}-${item.id}`}
+                estimatedItemSize={291}
                 showsVerticalScrollIndicator={false}
                 renderItem={({ item }) => {
                     if (item.type === "header") {

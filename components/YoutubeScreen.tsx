@@ -34,6 +34,7 @@ export default function VideoCarousel() {
       <FlashList
         data={videos}
         renderItem={renderItem}
+        estimatedItemSize={130}
         keyExtractor={(item) => item.id}
         horizontal
         showsHorizontalScrollIndicator={false}

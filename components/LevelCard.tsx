@@ -27,10 +27,10 @@ const LevelCard = () => {
 
   const getLevel = () => {
     const points = userData?.points ?? 0;
-    if (points >= 50) return 5;
-    if (points >= 40) return 4;
-    if (points >= 30) return 3;
-    if (points >= 20) return 2;
+    if (points >= 200) return 5;
+    if (points >= 160) return 4;
+    if (points >= 120) return 3;
+    if (points >= 80) return 2;
     return 1;
   };
 
