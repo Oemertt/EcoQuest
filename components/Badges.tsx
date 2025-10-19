@@ -1,6 +1,6 @@
 // @ts-nocheck
 import useUserStore, { userSelector } from "@/store/userStore";
-import * as Haptics from 'expo-haptics';
+import { FlashList } from "@shopify/flash-list";
 import { Link } from "expo-router";
 import { useRef } from "react";
 import { Animated, Image, Pressable, StyleSheet, View } from "react-native";
@@ -9,7 +9,6 @@ const AnimatedBadge = ({ href, image, unlocked }) => {
   const scaleAnim = useRef(new Animated.Value(1)).current;
 
   const handlePressIn = () => {
-    Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Medium);
     Animated.spring(scaleAnim, {
       toValue: 0.9,
       useNativeDriver: true,
@@ -49,55 +48,76 @@ const AnimatedBadge = ({ href, image, unlocked }) => {
 const Badges = () => {
   const userData = useUserStore(userSelector);
 
+  const badges = [
+    {
+      id: "dschungelkrieger",
+      href: "/modal?badgeId=dschungelkrieger",
+      image: require("@/assets/images/dschungelkrieger.webp"),
+      unlocked: userData?.natureBadge,
+    },
+    {
+      id: "aquaman",
+      href: "/modal?badgeId=aquaman",
+      image: require("@/assets/images/aquaman.webp"),
+      unlocked: userData?.waterBadge,
+    },
+    {
+      id: "energiesparmodus",
+      href: "/modal?badgeId=energiesparmodus",
+      image: require("@/assets/images/energiesparmodus.webp"),
+      unlocked: userData?.energyBadge,
+    },
+    {
+      id: "muellheld",
+      href: "/modal?badgeId=muellheld",
+      image: require("@/assets/images/MuellBadge.webp"),
+      unlocked: userData?.recyclingBadge,
+    },
+    {
+      id: "mobilitaet",
+      href: "/modal?badgeId=mobilitaet",
+      image: require("@/assets/images/MobilitaetBadge.webp"),
+      unlocked: userData?.mobilityBadge,
+    },
+    {
+      id: "konsum",
+      href: "/modal?badgeId=konsum",
+      image: require("@/assets/images/KonsumBadge.webp"),
+      unlocked: userData?.consumptionBadge,
+    },
+  ];
+
   return (
-    <View>
-      <View style={styles.container}>
-        <AnimatedBadge
-          href="/modal?badgeId=dschungelkrieger"
-          image={require("@/assets/images/dschungelkrieger.webp")}
-          unlocked={userData?.natureBadge}
-        />
-        <AnimatedBadge
-          href="/modal?badgeId=aquaman"
-          image={require("@/assets/images/aquaman.webp")}
-          unlocked={userData?.waterBadge}
-        />
-        <AnimatedBadge
-          href="/modal?badgeId=energiesparmodus"
-          image={require("@/assets/images/energiesparmodus.webp")}
-          unlocked={userData?.energyBadge}
-        />
-      </View>
-      <View style={[styles.container, { marginTop: 16 }]}>
-        <AnimatedBadge
-          href="/modal?badgeId=muellheld"
-          image={require("@/assets/images/MuellBadge.webp")}
-          unlocked={userData?.recyclingBadge}
-        />
-        <AnimatedBadge
-          href="/modal?badgeId=mobilitaet"
-          image={require("@/assets/images/MobilitaetBadge.webp")}
-          unlocked={userData?.mobilityBadge}
-        />
-        <AnimatedBadge
-          href="/modal?badgeId=konsum"
-          image={require("@/assets/images/KonsumBadge.webp")}
-          unlocked={userData?.consumptionBadge}
-        />
-      </View>
+    <View style={styles.listContainer}>
+      <FlashList
+        data={badges}
+        renderItem={({ item }) => (
+          <AnimatedBadge
+            href={item.href}
+            image={item.image}
+            unlocked={item.unlocked}
+          />
+        )}
+        keyExtractor={(item) => item.id}
+        horizontal
+        estimatedItemSize={120}
+        showsHorizontalScrollIndicator={false}
+        contentContainerStyle={styles.flashListContent}
+      />
     </View>
   );
 };
 
 const styles = StyleSheet.create({
-  container: {
-    flexDirection: "row",
-    justifyContent: "center",
-    gap: 20,
+  listContainer: {
+    height: 120,
+  },
+  flashListContent: {
+    paddingHorizontal: 4,
   },
   badgeWrapper: {
     borderRadius: 50,
-    overflow: "hidden", // damit Ecken rund bleiben beim Skalieren
+    overflow: "hidden",
   },
   badgeImage: {
     width: 100,
