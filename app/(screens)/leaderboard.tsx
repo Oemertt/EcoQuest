@@ -135,14 +135,14 @@ const styles = StyleSheet.create({
         justifyContent: 'space-around',
         marginBottom: 30,
 
-        paddingHorizontal: 5,
+        paddingHorizontal: 0,
     },
     podiumPlace: {
         alignItems: 'center',
         backgroundColor: '#FFFFFF',
         borderRadius: 20,
         paddingVertical: 15,
-        paddingHorizontal: 5,
+        paddingHorizontal: 4,
         minWidth: 100,
         shadowColor: '#000',
         shadowOffset: {
