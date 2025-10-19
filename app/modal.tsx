@@ -17,34 +17,63 @@ const badgeData = {
     dschungelkrieger: {
         image: require("@/assets/images/dschungelkrieger.webp"),
         title: "Dschungelkrieger",
-        description: "Bezwinge den Dschungel mit 5 Natur-Aufgaben",
+        description: "Bezwinge den Dschungel mit 10 Natur-Aufgaben",
         category: "Natur",
-        requiredTasks: 5,
+        requiredTasks: 10,
         earned: userData?.natureBadge,
-        progress: userData?.natureTasksCompleted / 5,
+        progress: userData?.natureTasksCompleted / 10,
         barColor: '#a5c779',
     },
     // Weitere Badges können hier hinzugefügt werden
     aquaman: {
         image: require("@/assets/images/aquaman.webp"),
         title: "Wasserwächter", 
-        description: "Schütze unsere Gewässer durch 5 Wasser-Aufgaben",
+        description: "Schütze unsere Gewässer durch 10 Wasser-Aufgaben",
         category: "Wasser",
-        requiredTasks: 5,
+        requiredTasks: 10,
         earned: userData?.waterBadge,
-        progress: userData?.waterTasksCompleted / 5, 
+        progress: userData?.waterTasksCompleted / 10, 
         barColor: '#69b9ff',
     },
     energiesparmodus: {
         image: require("@/assets/images/energiesparmodus.webp"), 
         title: "Energiesparmodus", 
-        description: "Schalte den Energiesparmodus frei durch 5 Energie-Aufgaben",
+        description: "Schalte den Energiesparmodus frei durch 10 Energie-Aufgaben",
         category: "Energie",
-        requiredTasks: 5,
+        requiredTasks: 10,
         earned: userData?.energyBadge,
-        progress: userData?.energyTasksCompleted / 5,
+        progress: userData?.energyTasksCompleted / 10,
         barColor: '#ffae44',
-
+    },
+    muellheld: {
+        image: require("@/assets/images/MuellBadge.webp"),
+        title: "Müllheld",
+        description: "Werde zum Müllhelden durch 10 Recycling-Aufgaben",
+        category: "Recycling",
+        requiredTasks: 10,
+        earned: userData?.recyclingBadge,
+        progress: userData?.recyclingTasksCompleted / 10,
+        barColor: '#8b7355',
+    },
+    mobilitaet: {
+        image: require("@/assets/images/MobilitaetBadge.webp"),
+        title: "Nachhaltige Mobilität",
+        description: "Bewege dich nachhaltig mit 10 Mobilitäts-Aufgaben",
+        category: "Mobilität",
+        requiredTasks: 10,
+        earned: userData?.mobilityBadge,
+        progress: userData?.mobilityTasksCompleted / 10,
+        barColor: '#4a90e2',
+    },
+    konsum: {
+        image: require("@/assets/images/KonsumBadge.webp"),
+        title: "Nachhaltiger Konsum",
+        description: "Konsumiere bewusst durch 10 Konsum-Aufgaben",
+        category: "Konsum",
+        requiredTasks: 10,
+        earned: userData?.consumptionBadge,
+        progress: userData?.consumptionTasksCompleted / 10,
+        barColor: '#9b59b6',
     }
 };
 
@@ -81,7 +110,7 @@ const badgeData = {
             </View>
             <AnimatedProgressBar progress={badge.progress} progressColor={badge.barColor}/>
             <Text className="text-center text-lg font-semibold text-gray-700 mt-2 mx-4 leading-6">
-                ({badge.progress*5} / 5)
+                ({badge.progress*10} / 10)
             </Text>
         </View>
     );

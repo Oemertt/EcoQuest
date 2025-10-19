@@ -9,6 +9,9 @@ const imageMap = {
     'energiesparmodus.webp': require('@/assets/images/energiesparmodus.webp'),
     'dschungelkrieger.webp': require('@/assets/images/dschungelkrieger.webp'),    
     'aquaman.webp': require('@/assets/images/aquaman.webp'),
+    'MuellBadge.webp': require('@/assets/images/MuellBadge.webp'),
+    'MobilitaetBadge.webp': require('@/assets/images/MobilitaetBadge.webp'),
+    'KonsumBadge.webp': require('@/assets/images/KonsumBadge.webp'),
 };
 
 // @ts-ignore

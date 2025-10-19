@@ -50,22 +50,41 @@ const Badges = () => {
   const userData = useUserStore(userSelector);
 
   return (
-    <View style={styles.container}>
-      <AnimatedBadge
-        href="/modal?badgeId=dschungelkrieger"
-        image={require("@/assets/images/dschungelkrieger.webp")}
-        unlocked={userData?.natureBadge}
-      />
-      <AnimatedBadge
-        href="/modal?badgeId=aquaman"
-        image={require("@/assets/images/aquaman.webp")}
-        unlocked={userData?.waterBadge}
-      />
-      <AnimatedBadge
-        href="/modal?badgeId=energiesparmodus"
-        image={require("@/assets/images/energiesparmodus.webp")}
-        unlocked={userData?.energyBadge}
-      />
+    <View>
+      <View style={styles.container}>
+        <AnimatedBadge
+          href="/modal?badgeId=dschungelkrieger"
+          image={require("@/assets/images/dschungelkrieger.webp")}
+          unlocked={userData?.natureBadge}
+        />
+        <AnimatedBadge
+          href="/modal?badgeId=aquaman"
+          image={require("@/assets/images/aquaman.webp")}
+          unlocked={userData?.waterBadge}
+        />
+        <AnimatedBadge
+          href="/modal?badgeId=energiesparmodus"
+          image={require("@/assets/images/energiesparmodus.webp")}
+          unlocked={userData?.energyBadge}
+        />
+      </View>
+      <View style={[styles.container, { marginTop: 16 }]}>
+        <AnimatedBadge
+          href="/modal?badgeId=muellheld"
+          image={require("@/assets/images/MuellBadge.webp")}
+          unlocked={userData?.recyclingBadge}
+        />
+        <AnimatedBadge
+          href="/modal?badgeId=mobilitaet"
+          image={require("@/assets/images/MobilitaetBadge.webp")}
+          unlocked={userData?.mobilityBadge}
+        />
+        <AnimatedBadge
+          href="/modal?badgeId=konsum"
+          image={require("@/assets/images/KonsumBadge.webp")}
+          unlocked={userData?.consumptionBadge}
+        />
+      </View>
     </View>
   );
 };

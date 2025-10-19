@@ -44,10 +44,10 @@ const TaskDetail = ({
     const getLevel = () => {
         const points = userData?.points ?? 0;
     
-        if (points >= 50) return 5;
-        if (points >= 40) return 4;
-        if (points >= 30) return 3;
-        if (points >= 20) return 2;
+        if (points >= 100) return 5;
+        if (points >= 80) return 4;
+        if (points >= 60) return 3;
+        if (points >= 40) return 2;
         return 1;
       };
     const level = getLevel();
@@ -125,14 +125,23 @@ const TaskDetail = ({
     
             // --- Badge ---
             const triggerBadge = () => {
-                if (category === "Nature" && userData.natureTasksCompleted === 4 && !userData.natureBadge) {
-                    earnBadge("Nature", "Dschungelkrieger Abzeichen verdient", "Du hast 5 Natur-Aufgaben erledigt!", "dschungelkrieger.webp");
+                if (category === "Nature" && userData.natureTasksCompleted === 10 && !userData.natureBadge) {
+                    earnBadge("Nature", "Dschungelkrieger Abzeichen verdient", "Du hast 10 Natur-Aufgaben erledigt!", "dschungelkrieger.webp");
                     didEarnBadge = true;
-                } else if (category === "Energy" && userData.energyTasksCompleted === 4 && !userData.energyBadge) {
-                    earnBadge("Energy", "Energiesparmodus Abzeichen verdient", "Du hast 5 Energiespar-Aufgaben erledigt!", "energiesparmodus.webp");
+                } else if (category === "Energy" && userData.energyTasksCompleted === 10 && !userData.energyBadge) {
+                    earnBadge("Energy", "Energiesparmodus Abzeichen verdient", "Du hast 10 Energiespar-Aufgaben erledigt!", "energiesparmodus.webp");
                     didEarnBadge = true;
-                } else if (category === "Water" && userData.waterTasksCompleted === 4 && !userData.waterBadge) {
-                    earnBadge("Water", "Aquaman Abzeichen verdient", "Du hast 5 Wasserspar-Aufgaben erledigt!", "aquaman.webp");
+                } else if (category === "Water" && userData.waterTasksCompleted === 10 && !userData.waterBadge) {
+                    earnBadge("Water", "Aquaman Abzeichen verdient", "Du hast 10 Wasserspar-Aufgaben erledigt!", "aquaman.webp");
+                    didEarnBadge = true;
+                } else if (category === "Mobility" && userData.mobilityTasksCompleted === 10 && !userData.mobilityBadge) {
+                    earnBadge("Mobility", "Nachhaltige Mobilität Abzeichen verdient", "Du hast 10 Mobilitäts-Aufgaben erledigt!", "MobilitaetBadge.webp");
+                    didEarnBadge = true;
+                } else if (category === "Recycling" && userData.recyclingTasksCompleted === 10 && !userData.recyclingBadge) {
+                    earnBadge("Recycling", "Müllheld Abzeichen verdient", "Du hast 10 Recycling-Aufgaben erledigt!", "MuellBadge.webp");
+                    didEarnBadge = true;
+                } else if (category === "Consumption" && userData.consumptionTasksCompleted === 10 && !userData.consumptionBadge) {
+                    earnBadge("Consumption", "Nachhaltiger Konsum Abzeichen verdient", "Du hast 10 Konsum-Aufgaben erledigt!", "KonsumBadge.webp");
                     didEarnBadge = true;
                 }
             };
@@ -156,7 +165,7 @@ const TaskDetail = ({
                     placement: "top",
                     render: ({ id }) => {
                         const toastId = "toast-" + id;
-                        return <ToastExample id={toastId} />;
+                        return <ToastExample id={toastId} points={rewardPoints} />;
                     },
                 });
             }

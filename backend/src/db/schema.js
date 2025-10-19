@@ -8,12 +8,14 @@ export const users = pgTable('users', {
     energyBadge: boolean('energyBadge').default(false),
     waterBadge: boolean('waterBadge').default(false),
     natureBadge: boolean('natureBadge').default(false),
+    mobilityBadge: boolean('mobilityBadge').default(false),
+    recyclingBadge: boolean('recyclingBadge').default(false),
+    consumptionBadge: boolean('consumptionBadge').default(false),
     energyTasksCompleted: integer('energyTasksCompleted').default(0),
     waterTasksCompleted: integer('waterTasksCompleted').default(0),
     natureTasksCompleted: integer('natureTasksCompleted').default(0),
     tasksCompleted: integer('tasksCompleted').default(0),
+    mobilityTasksCompleted: integer('mobilityTasksCompleted').default(0),
+    recyclingTasksCompleted: integer('recyclingTasksCompleted').default(0),
+    consumptionTasksCompleted: integer('consumptionTasksCompleted').default(0),
 });
-
-//mobilityTasksCompleted: integer('mobilityTasksCompleted').default(0),
-//recyclingTasksCompleted: integer('recyclingTasksCompleted').default(0),
-//consumptionTasksCompleted: integer('consumptionTasksCompleted').default(0),

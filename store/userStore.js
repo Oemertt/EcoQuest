@@ -20,6 +20,15 @@ const useUserStore = create(
         else if(category === "Nature") {
            set((state) => {state.user.natureTasksCompleted += 1})     
         }
+        else if(category === "Mobility") {
+           set((state) => {state.user.mobilityTasksCompleted += 1})     
+        }
+        else if(category === "Recycling") {
+           set((state) => {state.user.recyclingTasksCompleted += 1})     
+        }
+        else if(category === "Consumption") {
+           set((state) => {state.user.consumptionTasksCompleted += 1})     
+        }
         try {
           await axios.patch(`${process.env.EXPO_PUBLIC_BACKEND_URL}/increase-tasks-points`, {
             userId: get().user.id,
@@ -50,6 +59,15 @@ const useUserStore = create(
         }
         else if(category === "Nature") {
            set((state) => {state.user.natureBadge = true})     
+        }
+        else if(category === "Mobility") {
+           set((state) => {state.user.mobilityBadge = true})     
+        }
+        else if(category === "Recycling") {
+           set((state) => {state.user.recyclingBadge = true})     
+        }
+        else if(category === "Consumption") {
+           set((state) => {state.user.consumptionBadge = true})     
         }
       },
 

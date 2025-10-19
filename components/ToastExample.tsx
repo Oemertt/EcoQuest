@@ -1,12 +1,11 @@
-import {Coins} from "lucide-react-native";
-import {View, Platform} from "react-native";
-import {Toast, ToastDescription, ToastTitle} from "@/components/ui/toast";
-import React from "react";
+import { Toast, ToastDescription, ToastTitle } from "@/components/ui/toast";
+import { Coins } from "lucide-react-native";
+import { Platform, View } from "react-native";
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 
 // @ts-ignore
-const ToastExample = ({id}) => {
+const ToastExample = ({id, points}) => {
     const insets = useSafeAreaInsets();
     // Berechne den top margin für Android basierend auf SafeAreaInsets
     const androidTopMargin = Platform.OS === 'android' ? insets.top + 10 : 0;
@@ -18,7 +17,7 @@ const ToastExample = ({id}) => {
             >
                 <Coins size={20} color="#F59E0B" />
                 <View className="flex-col">
-                    <ToastTitle size="lg" className="text-zinc-700">Super, 10 Punkte verdient</ToastTitle>
+                    <ToastTitle size="lg" className="text-zinc-700">{`Super, ${points} Punkte verdient`}</ToastTitle>
                     <ToastDescription className="text-zinc-500">Du bist ein Held!</ToastDescription>
                 </View>
             </Toast>
