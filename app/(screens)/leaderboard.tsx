@@ -49,6 +49,13 @@ export default function LeaderboardScreen() {
         }
     };
 
+    const truncateName = (name: string, maxLength: number = 13) => {
+        if (name.length > maxLength) {
+            return name.substring(0, maxLength) + '..';
+        }
+        return name;
+    };
+
     if (loading) {
         return (
             <View style={[styles.container, styles.centerContent]}>
@@ -90,7 +97,7 @@ export default function LeaderboardScreen() {
                             style={styles.podiumAvatar}
                         />
                         <Text style={styles.podiumName} numberOfLines={1}>
-                            {entry.name || 'Unbekannt'}
+                            {truncateName(entry.name || 'Unbekannt')}
                         </Text>
                         <Text style={styles.podiumPoints}>{entry.points.toLocaleString()}</Text>
                     </View>
@@ -128,13 +135,14 @@ const styles = StyleSheet.create({
         justifyContent: 'space-around',
         marginBottom: 30,
 
-        paddingHorizontal: 16,
+        paddingHorizontal: 5,
     },
     podiumPlace: {
         alignItems: 'center',
         backgroundColor: '#FFFFFF',
         borderRadius: 20,
-        padding: 15,
+        paddingVertical: 15,
+        paddingHorizontal: 5,
         minWidth: 100,
         shadowColor: '#000',
         shadowOffset: {
