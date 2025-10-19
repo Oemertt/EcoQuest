@@ -30,7 +30,7 @@ const styles = StyleSheet.create({
         paddingHorizontal: 16,
     },
     profileContainer: {
-        marginVertical: 16,
+        marginVertical: 10,
     },
 
 });

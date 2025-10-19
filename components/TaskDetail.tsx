@@ -125,22 +125,22 @@ const TaskDetail = ({
     
             // --- Badge ---
             const triggerBadge = () => {
-                if (category === "Nature" && userData.natureTasksCompleted === 10 && !userData.natureBadge) {
+                if (category === "Nature" && userData.natureTasksCompleted === 9 && !userData.natureBadge) {
                     earnBadge("Nature", "Dschungelkrieger Abzeichen verdient", "Du hast 10 Natur-Aufgaben erledigt!", "dschungelkrieger.webp");
                     didEarnBadge = true;
-                } else if (category === "Energy" && userData.energyTasksCompleted === 10 && !userData.energyBadge) {
+                } else if (category === "Energy" && userData.energyTasksCompleted === 9 && !userData.energyBadge) {
                     earnBadge("Energy", "Energiesparmodus Abzeichen verdient", "Du hast 10 Energiespar-Aufgaben erledigt!", "energiesparmodus.webp");
                     didEarnBadge = true;
-                } else if (category === "Water" && userData.waterTasksCompleted === 10 && !userData.waterBadge) {
+                } else if (category === "Water" && userData.waterTasksCompleted === 9 && !userData.waterBadge) {
                     earnBadge("Water", "Aquaman Abzeichen verdient", "Du hast 10 Wasserspar-Aufgaben erledigt!", "aquaman.webp");
                     didEarnBadge = true;
-                } else if (category === "Mobility" && userData.mobilityTasksCompleted === 10 && !userData.mobilityBadge) {
+                } else if (category === "Mobility" && userData.mobilityTasksCompleted === 9 && !userData.mobilityBadge) {
                     earnBadge("Mobility", "Nachhaltige Mobilität Abzeichen verdient", "Du hast 10 Mobilitäts-Aufgaben erledigt!", "MobilitaetBadge.webp");
                     didEarnBadge = true;
-                } else if (category === "Recycling" && userData.recyclingTasksCompleted === 10 && !userData.recyclingBadge) {
+                } else if (category === "Recycling" && userData.recyclingTasksCompleted === 9 && !userData.recyclingBadge) {
                     earnBadge("Recycling", "Müllheld Abzeichen verdient", "Du hast 10 Recycling-Aufgaben erledigt!", "MuellBadge.webp");
                     didEarnBadge = true;
-                } else if (category === "Consumption" && userData.consumptionTasksCompleted === 10 && !userData.consumptionBadge) {
+                } else if (category === "Consumption" && userData.consumptionTasksCompleted === 9 && !userData.consumptionBadge) {
                     earnBadge("Consumption", "Nachhaltiger Konsum Abzeichen verdient", "Du hast 10 Konsum-Aufgaben erledigt!", "KonsumBadge.webp");
                     didEarnBadge = true;
                 }

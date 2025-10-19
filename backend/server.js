@@ -133,7 +133,6 @@ app.get("/leaderboard", async (req, res) => {
 app.patch('/increase-tasks-points', async (req, res) => {
     const { userId, category, points } = req.body;
 
-    console.log('🟢 /increase-tasks-points called with:', { userId, category, points });
 
     if (!userId || category === undefined) {
         return res.status(400).json({ error: 'userId and category are required' });
@@ -148,11 +147,7 @@ app.patch('/increase-tasks-points', async (req, res) => {
         }
 
         const user = currentUser[0];
-        console.log('🟢 Current user data:', {
-            mobilityTasksCompleted: user.mobilityTasksCompleted,
-            recyclingTasksCompleted: user.recyclingTasksCompleted,
-            consumptionTasksCompleted: user.consumptionTasksCompleted
-        });
+        
         
         // Basis-Update für alle Kategorien
         const baseUpdate = {
@@ -176,7 +171,6 @@ app.patch('/increase-tasks-points', async (req, res) => {
             ...(categoryUpdates[category] || {})
         };
 
-        console.log('🟢 Update data:', updateData);
 
         const result = await db
             .update(users)
@@ -184,12 +178,7 @@ app.patch('/increase-tasks-points', async (req, res) => {
             .where(eq(users.id, userId))
             .returning();
 
-        console.log(`✅ Added ${points} points and increased ${category} tasks for user ${userId}`);
-        console.log('🟢 New user data:', {
-            mobilityTasksCompleted: result[0].mobilityTasksCompleted,
-            recyclingTasksCompleted: result[0].recyclingTasksCompleted,
-            consumptionTasksCompleted: result[0].consumptionTasksCompleted
-        });
+      
         
         res.status(200).json({
             status: 'ok',
