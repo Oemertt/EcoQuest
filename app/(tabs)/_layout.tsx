@@ -1,12 +1,36 @@
+import { useAuth } from "@clerk/clerk-expo";
 import { Ionicons } from "@expo/vector-icons";
 import * as Haptics from 'expo-haptics';
-import { Tabs } from "expo-router";
+import { Redirect, Tabs } from "expo-router";
+import { ActivityIndicator, View } from "react-native";
 
 export default function TabsLayout() {
+    const { isSignedIn, isLoaded } = useAuth();
+
+    console.log('🟣 TabsLayout - isLoaded:', isLoaded, 'isSignedIn:', isSignedIn);
+
+    // Warte, bis Clerk vollständig geladen ist
+    if (!isLoaded) {
+        console.log('🟣 Clerk noch nicht geladen, zeige Loader...');
+        return (
+            <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: '#f9fbfa' }}>
+                <ActivityIndicator size="large" color="#50a353" />
+            </View>
+        );
+    }
+
+    // Wenn nicht angemeldet, redirect zum Sign-In
+    if (!isSignedIn) {
+        console.log('🟣 User nicht angemeldet, redirect zu sign-in...');
+        return <Redirect href="/(auth)/sign-in" />;
+    }
+
+    console.log('🟣 User angemeldet, zeige Tabs');
 
     function giveHapticFeedback() {
         Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
     }
+    
     return (
         <Tabs screenOptions={
             {

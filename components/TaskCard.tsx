@@ -15,7 +15,7 @@ const TaskCard = ({ title, subtitle, imageUrl, onStart }) => (
                     </Pressable>
                 </View>
             </View>
-            <Image source={imageUrl} style={styles.image} />
+            <Image source={imageUrl} style={styles.image}  />
         </View>
     </View>
 );
